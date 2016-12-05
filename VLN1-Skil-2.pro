@@ -1,6 +1,6 @@
 QT += core
 QT -= gui
-QT += sql
+QT += core sql
 
 CONFIG += c++11
 
@@ -12,8 +12,10 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     consoleui.cpp \
-    servicelayer.cpp
+    servicelayer.cpp \
+    persons.cpp
 
 HEADERS += \
     consoleui.h \
-    servicelayer.h
+    servicelayer.h \
+    persons.h
