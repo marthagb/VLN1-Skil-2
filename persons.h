@@ -7,8 +7,6 @@ using namespace std;
 
 class Persons
 {
-private:
-    int ID;
     string name;
     int birthYear;
     int deathYear;
@@ -23,7 +21,7 @@ private:
 
 public:
     Persons();
-    Persons(int id, string n, char g, int bY, int dY); //Constructor which takes in Name, gender, birthyear and deathyear (with 0 for living persons).
+    Persons(string n, char g, int bY, int dY); //Constructor which takes in Name, gender, birthyear and deathyear (with 0 for living persons).
 
     string getName() const;
     int getBirthYear() const;

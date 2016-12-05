@@ -7,11 +7,9 @@ class ConsoleUI
 {
     ServiceLayer serve;
     void listData(); // Lists the data from the vector.
+    void addPerson();
+    void addComputer();
     /*void sortData();
-    void sortByName(char input, bool &error);
-    void sortByGender(char input, bool& error);
-    void sortByBirthYear(char input, bool &error);
-    void sortByDeathYear(char input, bool& error);
     void addData();
     void addPersonManually();
     void addPeopleFromFile();
@@ -22,11 +20,6 @@ class ConsoleUI
     void searchByYearRange();
     void deleteData();
     void saveToCustomFile();
-    bool validYear(const string& s, int& year);
-    bool birthChecks(int birthYear, int deathYear);
-    bool validName(const string& s);
-    bool check();
-    bool genderCheck(char &gender);
     void onlyTakeOneInput();*/
     void printLine();
 public:

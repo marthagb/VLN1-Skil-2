@@ -16,6 +16,7 @@ ConsoleUI::ConsoleUI()
 void ConsoleUI::run()
 {
     listData();
+    addPerson();
 
     /*bool run = true;
     if (serve.list().size() == 0)
@@ -90,9 +91,9 @@ void ConsoleUI::listData()
     cout << endl;
     printLine();
 
-    for(unsigned int i = 0; i < serve.list().size(); i++)
+    for(unsigned int i = 0; i < serve.readScientists(1, 1).size(); i++)
     {
-        cout << serve.list()[i];
+        cout << serve.readScientists(1, 1)[i];
     }
     cout << "_____________________________________________________" << endl;
 
@@ -161,147 +162,48 @@ void ConsoleUI::listData()
     {
         listData();
     }
+}*/
+
+void ConsoleUI::addPerson()
+{
+    string n = " ";
+    char g = ' ';
+    int bY = 0, dY = 0;
+    cout << "Enter name: ";
+    cin >> ws;
+    getline(cin, n);
+    cout << "Enter gender: ";
+    cin >> g;
+    cout << "Enter birth year: ";
+    cin >> bY;
+    cout << "Enter death year: ";
+    cin >> dY;
+    Persons p(n, g, bY, dY);
+    serve.addScientist(p);
 }
 
-//We sort by name, and want to know whether you want to sort reversed or not.
-void ConsoleUI::sortByName(char input, bool& error)
+void ConsoleUI::addComputer()
 {
-    int order = 0;
-    do
-    {
-        cout << "Regular or Reversed sorting?"      << endl;
-        cout << " ================================" << endl;
-        cout << "Press 1 for regular sorting"       << endl;
-        cout << "Press 2 for reversed sorting"      << endl;
-        cout << "Press 3 to cancel"                 << endl;
-        cout << " ================================" << endl;
-
-        cin >> input;
-        onlyTakeOneInput();
-        if (input != '1' && input != '2' && input != '3')
-        {
-            cout << "Error! Invalid input" << endl;
-        }
-    }
-    while (input != '1' && input != '2' && input != '3');
-    order = input - '0';
-
-    if (order == 1 || order == 2)
-    {
-        serve.sortByName(order);
-        error = false;
-    }
-    else
-    {
-        error = true;
-    }
-}
-
-//Do you want to see all the ladies first? Or maybe the men?
-//Then this function is for you!!
-void ConsoleUI::sortByGender(char input, bool& error)
-{
-    int order = 0;
-    do
-    {
-        cout << "Sort by Males or Females?"         << endl;
-        cout << " ================================" << endl;
-        cout << "Press 1 to sort by females first"  << endl;
-        cout << "Press 2 to sort by males first"    << endl;
-        cout << "Press 3 to cancel"                 << endl;
-        cout << " ================================" << endl;
-
-        cin >> input;
-        onlyTakeOneInput();
-        if (input != '1' && input != '2' && input != '3')
-        {
-            cout << "Error! Invalid input" << endl;
-        }
-    }
-    while (input != '1' && input != '2' && input != '3');
-    order = input - '0';
-
-    if (order == 1 || order == 2)
-    {
-        serve.sortByGender(order);
-        error = false;
-    }
-    else
-    {
-        error = true;
-    }
-}
-
-//We sort by birthyear, and want to know whether we want to sort reversed or not.
-void ConsoleUI::sortByBirthYear(char input, bool& error)
-{
-    int order = 0;
-    do
-    {
-        if (input != '1' && input != '2' && input != '3')
-        {
-            cout << "Error! Invalid input" << endl;
-        }
-        cout << "Ascending or Descending sorting?"    << endl;
-        cout << " ================================"   << endl;
-        cout << "Press 1 to sort by ascending order"  << endl;
-        cout << "Press 2 to sort by descending order" << endl;
-        cout << "Press 3 to cancel"                   << endl;
-        cout << " ================================"   << endl;
-        cin >> input;
-        onlyTakeOneInput();
-    }
-    while (input != '1' && input != '2' && input != '3');
-    order = input - '0';
-
-    if (order == 1 || order == 2)
-    {
-        serve.sortByBirthYear(order);
-        error = false;
-    }
-    else
-    {
-        error = true;
-    }
-}
-
-//We sort by death year, and want to know whether we want to sort reversed or not.
-//Alive people will be listed last (or first for reversed).
-void ConsoleUI::sortByDeathYear(char input, bool& error)
-{
-    int order = 0;
-    do
-    {
-        if (input != '1' && input != '2' && input != '3')
-        {
-            cout << "Error! Invalid input" << endl;
-        }
-        cout << "Ascending or Descending sorting?"    << endl;
-        cout << " ================================"   << endl;
-        cout << "Press 1 to sort by ascending order"  << endl;
-        cout << "Press 2 to sort by descending order" << endl;
-        cout << "Press 3 to cancel"                   << endl;
-        cout << " ================================"   << endl;
-
-        cin >> input;
-        onlyTakeOneInput();
-    }
-    while (input != '1' && input != '2' && input != '3');
-    order = input - '0';
-
-    if (order == 1 || order == 2)
-    {
-        serve.sortByDeathYear(order);
-        error = false;
-    }
-    else
-    {
-        error = true;
-    }
+    string n = " ", t = " ", built = " ";
+    int bY = 0;
+    bool b;
+    cout << "Enter name: ";
+    cin >> ws;
+    getline(cin, n);
+    cout << "Enter build year: ";
+    cin >> bY;
+    cout << "Enter type: ";
+    cin >> t;
+    cout << "Enter B if the computer was built and any other character if it wasn't";
+    cin >> built;
+    if (built == "B" || built == "b") b = true;
+    else b = false;
+    Computer c(n, bY, t, b);
+    serve.addComputer(c);
 }
 
 // Asks you to enter whether you want to add data manually or from a file.
-void ConsoleUI::addData()
+/*void ConsoleUI::addData()
 {
     bool error = false;
     do
