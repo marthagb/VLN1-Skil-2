@@ -1,5 +1,4 @@
 #include "consoleui.h"
-#include <QtSql>
 
 using namespace std;
 

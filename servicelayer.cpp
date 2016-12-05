@@ -17,7 +17,8 @@ ServiceLayer::ServiceLayer()
     {
         int id = query.value("ID").toUInt();
         string name = query.value("name").toString().toStdString();
-        string g = query.value("gender").toString().toStdString();
+        string gdr = query.value("gender").toString().toStdString();
+        char g = gdr.at(0);
         int bY = query.value("birthYear").toUInt();
         int dY = query.value("deathYear").toUInt();
 

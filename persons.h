@@ -2,7 +2,6 @@
 #define PERSONS_H
 
 #include <iostream>
-#include <QtSql>
 
 using namespace std;
 
@@ -13,7 +12,7 @@ private:
     string name;
     int birthYear;
     int deathYear;
-    string gender;
+    char gender;
     bool alive;
 
     //These are for making sure that we get valid information when using the >> operator.
@@ -24,17 +23,17 @@ private:
 
 public:
     Persons();
-    Persons(int id, string n, string g, int bY, int dY); //Constructor which takes in Name, gender, birthyear and deathyear (with 0 for living persons).
+    Persons(int id, string n, char g, int bY, int dY); //Constructor which takes in Name, gender, birthyear and deathyear (with 0 for living persons).
 
     string getName() const;
     int getBirthYear() const;
     int getDeathYear() const;
-    string getGender() const;
+    char getGender() const;
     bool getAlive() const;
 
     void operator = (const Persons& p);
     bool operator == (const Persons& p);
-    bool operator != (const Persons& p);*/
+    bool operator != (const Persons& p);
     friend ostream& operator << (ostream& out, const Persons& p);
     //friend istream& operator >> (istream& in, Persons& p);
 };

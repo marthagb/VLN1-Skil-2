@@ -17,21 +17,20 @@ Persons::Persons()
 
 //Constructor.
 //if deathyear == 0, the person will be alive.
-Persons::Persons(int id, string n, string g, int bY, int dY)
+Persons::Persons(int id, string n, char g, int bY, int dY)
 {
     ID = id;
     name = n;
-    birthYear = bY;
     gender = g;
-    if (!dY)
+    birthYear = bY;
+    deathYear = dY;
+    if (dY == 0)
     {
         alive = true;
-        deathYear = 0;
     }
     else
     {
         alive = false;
-        deathYear = dY;
     }
 }
 
@@ -118,7 +117,7 @@ int Persons::getDeathYear() const
     return deathYear;
 }
 
-string Persons::getGender() const
+char Persons::getGender() const
 {
     return gender;
 }

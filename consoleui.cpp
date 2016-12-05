@@ -1,5 +1,4 @@
 #include "consoleui.h"
-#include <QtSql>
 #include <ctime>
 #include "consoleui.h"
 

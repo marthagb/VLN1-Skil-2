@@ -3,7 +3,6 @@
 
 #include "persons.h"
 #include <vector>
-#include <QtSql>
 
 using namespace std;
 

@@ -13,9 +13,11 @@ TEMPLATE = app
 SOURCES += main.cpp \
     consoleui.cpp \
     servicelayer.cpp \
-    persons.cpp
+    persons.cpp \
+    computer.cpp
 
 HEADERS += \
     consoleui.h \
     servicelayer.h \
-    persons.h
+    persons.h \
+    computer.h
