@@ -13,12 +13,12 @@ Computer::Computer(string n, int bY, string t, bool b)
     built = b;
 }
 
-string Computer::getName() const
+string Computer::getComputerName() const
 {
     return name;
 }
 
-int Computer::getBuildYear() const
+int Computer::getYearMade() const
 {
     return buildYear;
 }
@@ -28,7 +28,7 @@ string Computer::getType() const
     return type;
 }
 
-bool Computer::getBuilt() const
+bool Computer::getBuiltOrNot() const
 {
     return built;
 }

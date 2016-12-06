@@ -167,12 +167,12 @@ void ServiceLayer::addComputer(const Computer& c)
 
     QSqlQuery query(db);
 
-    query.prepare("INSERT INTO Computers(name, buildYear, type, built)"
-                          "VALUES (:name, :buildYear, :type, :built)");
-    query.bindValue(0, QString::fromStdString(c.getName()));
-    query.bindValue(1, QVariant(c.getBuildYear()));
+    query.prepare("INSERT INTO Computers(ComputerName, YearMade, Type, BuiltOrNot)"
+                          "VALUES (:ComputerName, :YearMade, :Type, :BuiltOrNot)");
+    query.bindValue(0, QString::fromStdString(c.getComputerName()));
+    query.bindValue(1, QVariant(c.getYearMade()));
     query.bindValue(2, QString::fromStdString(c.getType()));
-    query.bindValue(3, QVariant(c.getBuilt()).toBool());
+    query.bindValue(3, QVariant(c.getBuiltOrNot()).toBool());
     query.exec();
 
     db.close();
@@ -195,7 +195,7 @@ void ServiceLayer::deleteComputer(int n)
 
     QSqlQuery query(db);
 
-    query.exec("DELETE FROM Computers WHERE ID = " + QString::number(n));
+    query.exec("DELETE FROM Computers WHERE ComputerID = " + QString::number(n));
 
     db.close();
 }

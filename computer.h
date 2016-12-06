@@ -13,10 +13,10 @@ class Computer
 public:
     Computer();
     Computer(string n, int bY, string t, bool b);
-    string getName() const;
-    int getBuildYear() const;
+    string getComputerName() const;
+    int getYearMade() const;
     string getType() const;
-    bool getBuilt() const;
+    bool getBuiltOrNot() const;
 };
 
 #endif // COMPUTER_H
