@@ -18,6 +18,8 @@ public:
     int getYearMade() const;
     string getType() const;
     bool getBuiltOrNot() const;
+
+    friend ostream& operator << (ostream& out, const Computer& p);
 };
 
 #endif // COMPUTER_H
