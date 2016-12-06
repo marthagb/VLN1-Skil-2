@@ -1,6 +1,7 @@
 #include "consoleui.h"
 #include <ctime>
 #include "consoleui.h"
+#include <cstdlib>
 
 using namespace std;
 
@@ -40,6 +41,7 @@ void ConsoleUI::run()
 
        char input = '0';
        cin >> input;
+        clearScreen();
 
        onlyTakeOneInput();  // Takes only one letter and flushes the rest.
        int choice = input - '0';
@@ -103,6 +105,17 @@ void ConsoleUI::run()
     }
 }
 
+void ConsoleUI:: clearScreen()
+{
+#ifdef __cplusplus__
+  #include <cstdlib>
+#else
+  #include <stdlib.h>
+#endif
+
+if (system("CLS")) system("clear");
+}
+
 // lists all the data from the vector.
 //uses the printLine() function, which gives us a nice header.
 void ConsoleUI::listScientistData()
@@ -158,21 +171,25 @@ void ConsoleUI::sortData()
             case 1:
             {
                 ascOrDesc(choice);
+                error = false;
                 break;
             }
              case 2:
             {
                 ascOrDesc(choice);
+                error = false;
                 break;
             }
              case 3:
              {
                 ascOrDesc(choice);
+                error = false;
                 break;
             }
              case 4:
             {
                 ascOrDesc(choice);
+                error = false;
                 break;
             }
              case 5:
@@ -189,10 +206,6 @@ void ConsoleUI::sortData()
     }
     while (error);
 
-    /*if (choice != 5) //if you press cancel, you don't want to see the list, do you?
-    {
-        listData();
-    }*/
 }
 
 void ConsoleUI::ascOrDesc(int orderBy)
@@ -218,11 +231,18 @@ void ConsoleUI::ascOrDesc(int orderBy)
     while (input != '1' && input != '2' && input != '3');
     order = input - '0';
 
+    printScientistLine();
+
+    if (order == 1 || order == 2)
+    {
+
     for(unsigned int i = 0; i < serve.readScientists(orderBy, order).size(); i++)
     {
         cout << serve.readScientists(orderBy, order)[i];
     }
-    cout << "_____________________________________________________" << endl;}
+    cout << "_____________________________________________________" << endl;
+    }
+}
 
 void ConsoleUI::addPerson()
 {
