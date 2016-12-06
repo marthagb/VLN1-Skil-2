@@ -1,6 +1,7 @@
 #ifndef COMPUTER_H
 #define COMPUTER_H
 #include <string>
+#include <iostream>
 
 using namespace std;
 

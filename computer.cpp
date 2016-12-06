@@ -1,4 +1,7 @@
 #include "computer.h"
+#include <iomanip>
+
+using namespace std;
 
 Computer::Computer()
 {
