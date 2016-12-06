@@ -87,44 +87,44 @@ vector<Computer> ServiceLayer::readComputers(int orderBy, int ascOrDesc)
     {
         if (ascOrDesc == 1)
         {
-            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY name");
+            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY ComputerName");
         }
         else if (ascOrDesc == 2)
         {
-            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY name DESC");
+            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY ComputerName DESC");
         }
     }
     else if (orderBy == 2)
     {
         if (ascOrDesc == 1)
         {
-            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY buildYear");
+            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY YearMade");
         }
         else if (ascOrDesc == 2)
         {
-            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY buildYear DESC");
+            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY YearMade DESC");
         }
     }
     else if (orderBy == 3)
     {
         if (ascOrDesc == 1)
         {
-            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY type");
+            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY Type");
         }
         else if (ascOrDesc == 2)
         {
-            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY type DESC");
+            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY Type DESC");
         }
     }
     else if (orderBy == 4)
     {
         if (ascOrDesc == 1)
         {
-            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY built");
+            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY BuiltOrNot");
         }
         else if (ascOrDesc == 2)
         {
-            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY built DESC");
+            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY BuiltOrNot DESC");
         }
     }
 

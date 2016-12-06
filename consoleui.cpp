@@ -114,6 +114,7 @@ void ConsoleUI::listScientistData()
 
 void ConsoleUI::listComputerData()
 {
+    cout << serve.readComputers(1, 1).size() << endl;
     for(unsigned int i = 0; i < serve.readComputers(1, 1).size(); i++)
     {
         cout << serve.readComputers(1, 1)[i];
