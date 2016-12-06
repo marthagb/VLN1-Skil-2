@@ -915,8 +915,47 @@ void ConsoleUI::searchComputerByType()
     }
 }
 
+void ConsoleUI::deleteData()
+{
+    bool error = false;
+    do
+    {
+        cout << " Would you like to delete a scientist or a computer?" << endl;
+        cout << " ====================================="  << endl;
+        cout << " Press 1 for scientist" << endl;
+        cout << " Press 2 for computer" << endl;
+        cout << " ====================================="  << endl;
+        char input = '0';
+        cin >> input;
+        onlyTakeOneInput();
+        int choice = input - '0';
+
+        switch (choice)
+        {
+            case 1:
+            {
+                deleteScientist();
+                error = false;
+                break;
+            }
+            case 2:
+            {
+                deleteComputer();
+                error = false;
+                break;
+            }
+            default:
+            {
+                cout << "Error! Invalid input" << endl;
+                error = true;
+            }
+        }
+    }
+    while (error);
+}
+
 //This deletes a scientist. RIP. He/she probably didn't belong on the list anyway.
-/*void ConsoleUI::deleteData()
+void ConsoleUI::deleteScientist()
 {
     cout << "Enter name of scientist(s) you would like to delete: ";
     string n = " ";
@@ -926,7 +965,7 @@ void ConsoleUI::searchComputerByType()
     {
         n[0] = toupper(n[0]);
     }
-    vector<int> v = serve.searchByName(n);
+    vector<int> v = serve.searchScientistByName(n);
     int s = v.size();
     if (s > 0)
     {
@@ -935,11 +974,11 @@ void ConsoleUI::searchComputerByType()
         {
             cout << endl;
             cout << "Are you sure you would like to delete the following scientist(s)? (y/n)\n" << endl;
-            printLine();
+            printScientistLine();
             for (int i = 0; i < s; i++)
             {
 
-                cout << serve.list()[v[i]];
+                cout << serve.readScientists(0,1)[v[i]];
             }
             char a = ' ';
             cin >> a;
@@ -947,7 +986,7 @@ void ConsoleUI::searchComputerByType()
             {
                 for (int i = s-1; i >= 0; i--)
                 {
-                    serve.deletePerson(v[i]);
+                    serve.deleteScientist(v[i]);
                 }
                 cout << "Scientist(s) deleted\n";
                 d = true;
@@ -969,8 +1008,56 @@ void ConsoleUI::searchComputerByType()
     }
 }
 
+void ConsoleUI::deleteComputer()
+{
+    cout << "Enter name of computer(s) you would like to delete: ";
+    string n = " ";
+    cin >> ws;
+    getline(cin, n);
+    vector<int> v = serve.searchComputerByName(n);
+    int s = v.size();
+    if (s > 0)
+    {
+        bool d = false;
+        while (!d)
+        {
+            cout << endl;
+            cout << "Are you sure you would like to delete the following computer(s)? (y/n)\n" << endl;
+            printComputerLine();
+            for (int i = 0; i < s; i++)
+            {
+                cout << serve.readComputers(0,1)[v[i]];
+            }
+            char a = ' ';
+            cin >> a;
+            if (a == 'y' || a == 'Y')
+            {
+                for (int i = s-1; i >= 0; i--)
+                {
+                    serve.deleteComputer(v[i]);
+                }
+                cout << "Computer(s) deleted\n";
+                d = true;
+            }
+            else if (a == 'n' || a == 'N')
+            {
+                cout << "Delete cancelled\n";
+                d = true;
+            }
+            else
+            {
+                cout << "Invalid input!\n";
+            }
+        }
+    }
+    else
+    {
+        cout << "No match for " << n << endl;
+    }
+}
+
 //Here, the user puts in a string, where it will be attempted to save the list to.
-void ConsoleUI::saveToCustomFile()
+/*void ConsoleUI::saveToCustomFile()
 {
     bool fileOpen = false;
     string fileName;

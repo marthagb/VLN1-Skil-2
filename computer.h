@@ -11,6 +11,7 @@ class Computer
     int yearMade;
     string type;
     bool builtOrNot;
+    bool validYear(const string& s, int& year);
 public:
     Computer();
     Computer(string n, int yM, string t, bool b);
@@ -18,8 +19,12 @@ public:
     int getYearMade() const;
     string getType() const;
     bool getBuiltOrNot() const;
+    void operator = (const Computer& c);
+    bool operator == (const Computer& c);
+    bool operator != (const Computer& C);
 
-    friend ostream& operator << (ostream& out, const Computer& p);
+    friend ostream& operator << (ostream& out, const Computer& c);
+    friend istream& operator >> (istream& in, Computer& c);
 };
 
 #endif // COMPUTER_H

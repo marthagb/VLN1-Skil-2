@@ -13,11 +13,10 @@ class Persons
     char gender;
     bool alive;
 
-    //These are for making sure that we get valid information when using the >> operator.
-    /*bool validName(const string& s);
+    bool validName(const string& s);
     bool genderCheck(char& gender);
     bool validYear(const string& s, int& year);
-    bool birthChecks(int birthYear, int deathYear);*/
+    bool birthChecks(int birthYear, int deathYear);
 
 public:
     Persons();
@@ -33,7 +32,7 @@ public:
     bool operator == (const Persons& p);
     bool operator != (const Persons& p);
     friend ostream& operator << (ostream& out, const Persons& p);
-    //friend istream& operator >> (istream& in, Persons& p);
+    friend istream& operator >> (istream& in, Persons& p);
 };
 
 #endif // PERSONS_H
