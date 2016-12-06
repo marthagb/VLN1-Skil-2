@@ -283,7 +283,7 @@ vector<int> ServiceLayer::searchComputerByName(const string name)
 
     QSqlQuery query(db);
 
-    query.exec("SELECT ComputerID FROM Computers WHERE name LIKE '%" + QString::fromStdString(name) + "%'");
+    query.exec("SELECT ComputerID FROM Computers WHERE ComputerName LIKE '%" + QString::fromStdString(name) + "%'");
 
     while (query.next())
     {
@@ -302,7 +302,7 @@ vector<int> ServiceLayer::searchComputerByYearMade(const int year)
 
     QSqlQuery query(db);
 
-    query.exec("SELECT ComputerID FROM Computers WHERE buildYear = " + QVariant(year).toString());
+    query.exec("SELECT ComputerID FROM Computers WHERE YearMade = " + QVariant(year).toString());
 
     while (query.next())
     {
@@ -321,7 +321,7 @@ vector<int> ServiceLayer::searchComputerByType(const string type)
 
     QSqlQuery query(db);
 
-    query.exec("SELECT ComputerID FROM Computers WHERE type LIKE '%" + QString::fromStdString(type) + "%'");
+    query.exec("SELECT ComputerID FROM Computers WHERE Type LIKE '%" + QString::fromStdString(type) + "%'");
 
     while (query.next())
     {

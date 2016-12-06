@@ -23,6 +23,7 @@ class ConsoleUI
     void searchScientistByGender();
     void searchScientistByBirthYear();
     void searchScientistByYearRange();
+    void searchComputer();
     void searchComputerByName();
     void searchComputerByYearMade();
     void searchComputerByType();
@@ -30,6 +31,7 @@ class ConsoleUI
     void saveToCustomFile();
     void onlyTakeOneInput();
     void printScientistLine();
+    void printComputerLine();
 public:
     ConsoleUI();
     void run();

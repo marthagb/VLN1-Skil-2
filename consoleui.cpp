@@ -31,10 +31,11 @@ void ConsoleUI::run()
        cout << " Press 3 to list the computers"    << endl;
        cout << " Press 4 to sort the computers"    << endl;
        cout << " Press 5 to add a scientist"       << endl;
-       cout << " Press 6 to search the list"       << endl;
-       cout << " Press 7 to remove a scientist"    << endl;
-       //cout << " Press 8 to save to a custom file" << endl;
-       cout << " Press 8 to exit"                  << endl;
+       cout << " Press 6 to search the list of scientists"  << endl;
+       cout << " Press 7 to search the list of computers" << endl;
+       cout << " Press 8 to remove a scientist"    << endl;
+       //cout << " Press 9 to save to a custom file" << endl;
+       cout << " Press 0 to exit"                  << endl;
        cout << " ================================" << endl;
 
        char input = '0';
@@ -78,13 +79,18 @@ void ConsoleUI::run()
             }
             case 7:
             {
+                searchComputer();
+                break;
+            }
+            case 8:
+            {
                 //deleteData();
                 break;
             }
-            /*case 8:
+            /*case 9:
                 //saveToCustomFile();
                 break;*/
-            case 8:
+            case 0:
             {
                 run = false;
                 break;
@@ -650,6 +656,127 @@ void ConsoleUI::searchScientistByYearRange()
 
 }
 
+void ConsoleUI::searchComputer()
+{
+    bool error = false;
+    do
+    {
+        cout << "How would you like to search the data?"  << endl;
+        cout << " ====================================="  << endl;
+        cout << " Press 1 to search by name"              << endl;
+        cout << " Press 2 to search by year made"            << endl;
+        cout << " Press 3 to search by type"        << endl;
+        cout << " Press 4 to cancel"                      << endl;
+        cout << " ======================================" << endl;
+
+        char input = '0';
+        cin >> input;
+        onlyTakeOneInput();
+        int choice = input - '0';
+
+        switch(choice)
+        {
+            case 1:
+            {
+                searchComputerByName();
+                error = false;
+                break;
+            }
+            case 2:
+            {
+                searchComputerByYearMade();
+                error = false;
+                break;
+            }
+            case 3:
+            {
+                searchComputerByType();
+                break;
+            }
+            case 4:
+            {
+                error = false;
+                break;
+            }
+            default:
+            {
+                cout << "Error! Invalid input" << endl;
+                error = true;
+            }
+        }
+    }
+    while (error);
+}
+
+void ConsoleUI::searchComputerByName()
+{
+    string n = " ";
+    cout << "Enter name: ";
+    cin >> ws;
+    getline(cin, n);
+    vector<int> vCN = serve.searchComputerByName(n);
+    if (vCN.size() == 0)
+    {
+        cout << "No results found\n";
+    }
+    else
+    {
+        printComputerLine();
+        for (unsigned int i = 0; i < vCN.size(); i++)
+        {
+            cout << serve.readComputers(0,1)[vCN[i]];
+        }
+    }
+}
+
+void ConsoleUI::searchComputerByYearMade()
+{
+    int y = 0;
+    string s = " ";
+    while (!validYear(s, y) || y == 0)
+    {
+        cout << "Enter year: ";
+        cin >> s;
+        if(!validYear(s, y) || y == 0) {
+            cout << "Invalid input!\n";
+        }
+    }
+    vector<int> vY = serve.searchComputerByYearMade(y);
+    if (vY.size() == 0)
+    {
+        cout << "No results found\n";
+    }
+    else
+    {
+        printComputerLine();
+        for (unsigned int i = 0; i < vY.size(); i++)
+        {
+            cout << serve.readComputers(0,1)[vY[i]];
+        }
+    }
+}
+
+void ConsoleUI::searchComputerByType()
+{
+    string t = " ";
+    cout << "Enter type: ";
+    cin >> ws;
+    getline(cin, t);
+    vector<int> vCT = serve.searchComputerByType(t);
+    if (vCT.size() == 0)
+    {
+        cout << "No results found\n";
+    }
+    else
+    {
+        printComputerLine();
+        for (unsigned int i = 0; i < vCT.size(); i++)
+        {
+            cout << serve.readComputers(0,1)[vCT[i]];
+        }
+    }
+}
+
 //This deletes a scientist. RIP. He/she probably didn't belong on the list anyway.
 /*void ConsoleUI::deleteData()
 {
@@ -866,5 +993,14 @@ void ConsoleUI::printScientistLine()
     cout.width(26);
     cout << left << "Name";
     cout <<  "\tGender\tBorn\tDied" << endl;
+    cout << "_____________________________________________________" << endl;
+}
+
+//The header used when we list computers.
+void ConsoleUI::printComputerLine()
+{
+    cout.width(26);
+    cout << left << "Name";
+    cout <<  "\tYear Made\tType" << endl;
     cout << "_____________________________________________________" << endl;
 }
