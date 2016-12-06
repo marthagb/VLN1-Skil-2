@@ -1,6 +1,6 @@
 #include "servicelayer.h"
 #include <QtSql>
-
+#include <fstream>
 
 ServiceLayer::ServiceLayer()
 {
@@ -372,4 +372,56 @@ void ServiceLayer::deleteComputer(int n)
     query.exec("DELETE FROM Computers WHERE ComputerID = " + QString::number(n));
 
     db.close();
+}
+bool ServiceLayer::saveToOtherFile(string input)
+{
+    vector<Persons> people;
+    db.open();
+
+    QSqlQuery query(db);
+
+
+        query.exec("SELECT name, gender, birthYear, deathYear FROM Scientists ORDER BY ID");
+
+
+    while(query.next())
+    {
+        string name = query.value("name").toString().toStdString();
+        string gdr = query.value("gender").toString().toStdString();
+        char g = gdr.at(0);
+        int bY = query.value("birthYear").toUInt();
+        int dY = query.value("deathYear").toUInt();
+
+        Persons p(name, g, bY, dY);
+        people.push_back(p);
+    }
+    db.close();
+
+
+   ofstream out;
+   out.open(input);
+
+   if(out.fail())
+   {
+               return false;
+   }
+    else
+   {
+       out.width(26);
+       out << left << "Name";
+       out << "\tGender\tBorn\tDied" << endl;
+       out << "_____________________________________________________" << endl;
+
+       out.seekp(100);
+       for(size_t i = 0; i < people.size(); i++)
+       {
+
+       out << people[i];
+
+       }
+
+    }
+           out.close();
+           return true;
+
 }

@@ -28,6 +28,7 @@ public:
     vector<int> searchComputerByType(const string type);
     void deleteScientist(int n);
     void deleteComputer(int n);
+    bool saveToOtherFile(string input);
     //bool saveToOtherFile(string input);
 };
 

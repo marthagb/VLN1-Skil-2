@@ -1142,3 +1142,48 @@ void ConsoleUI::printComputerLine()
     cout <<  "\tYear Made\tType" << endl;
     cout << "_____________________________________________________" << endl;
 }
+void ConsoleUI::saveToFile()
+{
+    bool fileOpen = false;
+    string fileName;
+    do
+    {
+        cout << "WARNING: This will overwrite everything in the file selected!" << endl;
+        cout << "If the File Doesn't exist, it will create a new file." << endl << endl;
+        cout << "Enter the full path of the file, or the name of the file, if the file is in the same directory: " << endl;
+        cin >> fileName;
+        if(serve.saveToOtherFile(fileName))
+        {
+            cout << "Success!" << endl;
+            fileOpen = false;
+        }
+        else
+        {
+            cout << "Error! Failed to open file" << endl;
+            char continuel;
+            bool cont = true;
+            while (cont)
+            {
+                cout << "Do you want to try again? (Y for yes and N for no) " ;
+                cin  >> continuel;
+                if(continuel == 'Y' && continuel == 'y')
+                {
+                    fileOpen = true;
+                    cont = false;
+                }
+                else if (continuel == 'N' && continuel == 'n')
+                {
+                    fileOpen = false;
+                    cont = false;
+                }
+                else
+                {
+                    cout << "Error! Invalid input" << endl;
+                    cont = true;
+                }
+            }
+        }
+
+    }
+    while (fileOpen);
+}

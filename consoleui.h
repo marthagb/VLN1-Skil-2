@@ -38,6 +38,7 @@ class ConsoleUI
     void onlyTakeOneInput();
     void printScientistLine();
     void printComputerLine();
+    void saveToFile();
 public:
     ConsoleUI();
     void run();
