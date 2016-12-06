@@ -685,8 +685,9 @@ void ConsoleUI::searchComputer()
         cout << " ====================================="  << endl;
         cout << " Press 1 to search by name"              << endl;
         cout << " Press 2 to search by year made"            << endl;
-        cout << " Press 3 to search by type"        << endl;
-        cout << " Press 4 to cancel"                      << endl;
+        cout << " Press 3 to search by year range" << endl;
+        cout << " Press 4 to search by type"        << endl;
+        cout << " Press 5 to cancel"                      << endl;
         cout << " ======================================" << endl;
 
         char input = '0';
@@ -710,10 +711,16 @@ void ConsoleUI::searchComputer()
             }
             case 3:
             {
-                searchComputerByType();
+                searchComputerByYearRange();
+                error = false;
                 break;
             }
             case 4:
+            {
+                searchComputerByType();
+                break;
+            }
+            case 5:
             {
                 error = false;
                 break;
@@ -772,6 +779,43 @@ void ConsoleUI::searchComputerByYearMade()
         for (unsigned int i = 0; i < vY.size(); i++)
         {
             cout << serve.readComputers(0,1)[vY[i]];
+        }
+    }
+}
+
+void ConsoleUI::searchComputerByYearRange()
+{
+    int f = 0, l = 0;
+    string s = " ";
+    while(!validYear(s, f))
+    {
+        cout << "Enter first year in range: ";
+        cin >> s;
+        if (!validYear(s, f)) {
+            cout << "Invalid input!\n";
+        }
+    }
+    s = " ";
+    while(!validYear(s, l) || l < f)
+    {
+        cout << "Enter last year in range: ";
+        cin >> s;
+        if(!validYear(s, l) || l < f)
+        {
+            cout << "Invalid input!\n";
+        }
+    }
+    vector<int> vR = serve.searchComputerByYearRange(f,l);
+    if (vR.size() == 0)
+    {
+        cout << "No results found" << endl;
+    }
+    else
+    {
+        printComputerLine();
+        for (unsigned int i = 0; i < vR.size(); i++)
+        {
+            cout << serve.readComputers(0,1)[vR[i]];
         }
     }
 }

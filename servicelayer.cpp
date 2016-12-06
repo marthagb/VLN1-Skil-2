@@ -314,6 +314,25 @@ vector<int> ServiceLayer::searchComputerByYearMade(const int year)
     return vCYM;
 }
 
+vector<int> ServiceLayer::searchComputerByYearRange(const int f, const int l)
+{
+    vector<int> vCYR;
+    db.open();
+
+    QSqlQuery query(db);
+
+    query.exec("SELECT ComputerID FROM Computers WHERE YearMade >= " + QVariant(f).toString() + " AND YearMade <= " + QVariant(l).toString());
+
+    while (query.next())
+    {
+        int id = query.value("ComputerID").toUInt();
+        vCYR.push_back(id-1);
+    }
+
+    db.close();
+    return vCYR;
+}
+
 vector<int> ServiceLayer::searchComputerByType(const string type)
 {
     vector<int> vCBT;

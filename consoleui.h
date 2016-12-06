@@ -27,6 +27,7 @@ class ConsoleUI
     void searchComputer();
     void searchComputerByName();
     void searchComputerByYearMade();
+    void searchComputerByYearRange();
     void searchComputerByType();
     void deleteData();
     void saveToCustomFile();
