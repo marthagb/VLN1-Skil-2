@@ -5,7 +5,10 @@ using namespace std;
 
 Computer::Computer()
 {
-
+    computerName = "Computer X";
+    yearMade = 1980;
+    type = "type Y";
+    builtOrNot = false;
 }
 
 Computer::Computer(string n, int yM, string t, bool b)
