@@ -52,12 +52,12 @@ void ConsoleUI::run()
             }
             case 2:
             {
-                //sortData();
+                sortData();
                 break;
             }
             case 3:
             {
-                //listComputerData();
+                listComputerData();
                 break;
             }
             case 4:
@@ -114,7 +114,8 @@ void ConsoleUI::listScientistData()
 
 void ConsoleUI::listComputerData()
 {
-    for(unsigned int i = 0; i < serve.readScientists(1, 1).size(); i++)
+    cout << serve.readComputers(1, 1).size() << endl;
+    for(unsigned int i = 0; i < serve.readComputers(1, 1).size(); i++)
     {
         cout << serve.readComputers(1, 1)[i];
     }
@@ -122,7 +123,7 @@ void ConsoleUI::listComputerData()
 }
 
 //Here we get to pick the parameter by which we want to sort our data.
-/*void ConsoleUI::sortData()
+void ConsoleUI::sortData()
 {
     char input = '0';
     int choice = 0;
@@ -144,26 +145,28 @@ void ConsoleUI::listComputerData()
         choice = input - '0';
         input = '1';
 
+
+
             switch (choice)
             {
             case 1:
             {
-                sortByName(input, error);
+                ascOrDesc(choice);
                 break;
             }
              case 2:
             {
-                sortByGender(input, error);
+                ascOrDesc(choice);
                 break;
             }
              case 3:
              {
-                sortByBirthYear(input, error);
+                ascOrDesc(choice);
                 break;
             }
              case 4:
             {
-                sortByDeathYear(input, error);
+                ascOrDesc(choice);
                 break;
             }
              case 5:
@@ -180,11 +183,40 @@ void ConsoleUI::listComputerData()
     }
     while (error);
 
-    if (choice != 5) //if you press cancel, you don't want to see the list, do you?
+    /*if (choice != 5) //if you press cancel, you don't want to see the list, do you?
     {
         listData();
+    }*/
+}
+
+void ConsoleUI::ascOrDesc(int orderBy)
+{
+    char input = '0';
+    int order = 1;
+    do
+    {
+        cout << "Regular or Reversed sorting?"      << endl;
+        cout << " ================================" << endl;
+        cout << "Press 1 for regular sorting"       << endl;
+        cout << "Press 2 for reversed sorting"      << endl;
+        cout << "Press 3 to cancel"                 << endl;
+        cout << " ================================" << endl;
+
+        cin >> input;
+        onlyTakeOneInput();
+        if (input != '1' && input != '2' && input != '3')
+        {
+            cout << "Error! Invalid input" << endl;
+        }
     }
-}*/
+    while (input != '1' && input != '2' && input != '3');
+    order = input - '0';
+
+    for(unsigned int i = 0; i < serve.readScientists(orderBy, order).size(); i++)
+    {
+        cout << serve.readScientists(orderBy, order)[i];
+    }
+    cout << "_____________________________________________________" << endl;}
 
 void ConsoleUI::addPerson()
 {

@@ -10,13 +10,14 @@ class ConsoleUI
     void listComputerData();
     void addPerson();
     void addComputer();
+    void ascOrDesc(int orderBy);
     bool validName(const string& s);
     bool validYear(const string& s, int& year);
     bool genderCheck(char& gender);
-    /*void sortData();
+    void sortData();
     void addData();
     void addPersonManually();
-    void addPeopleFromFile();*/
+    //void addPeopleFromFile();
     void searchData();
     void searchScientistByName();
     void searchScientistByGender();
@@ -25,8 +26,8 @@ class ConsoleUI
     void searchComputerByName();
     void searchComputerByYearMade();
     void searchComputerByType();
-    /*void deleteData();
-    void saveToCustomFile();*/
+    void deleteData();
+    void saveToCustomFile();
     void onlyTakeOneInput();
     void printScientistLine();
 public:
