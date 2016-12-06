@@ -17,7 +17,8 @@ public:
     vector<Computer> readComputers(int orderBy, int ascOrDesc);
     void addScientist(const Persons& p);
     void addComputer(const Computer& c);
-    //bool addFromFile(string input);
+    bool addScientistsFromFile(string input);
+    bool addComputersFromFile(string input);
     vector<int> searchScientistByName(const string name);
     vector<int> searchScientistByGender(const char gender);
     vector<int> searchScientistByBirthYear(const int year);

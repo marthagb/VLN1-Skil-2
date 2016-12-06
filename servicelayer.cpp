@@ -1,5 +1,6 @@
 #include "servicelayer.h"
 #include <QtSql>
+#include <fstream>
 
 
 ServiceLayer::ServiceLayer()
@@ -198,6 +199,70 @@ void ServiceLayer::addComputer(const Computer& c)
     query.exec();
 
     db.close();
+}
+
+bool ServiceLayer::addScientistsFromFile(string input)
+{
+    Persons p;
+    ifstream in;
+
+    in.open(input);
+
+    if (in.fail())
+    {
+        in.close();
+        return false;
+    }
+    else
+    {
+        in.seekg(100);
+
+        while(in >> p)
+        {
+            //Checks if person is valid, i.e. has a valid name, gender, birthyear and deathyear.
+            //An invalid person will not be added.
+            Persons compare;
+            if (p != compare)
+            {
+                addScientist(p);
+            }
+        }
+        in.close();
+
+        return true;
+    }
+}
+
+bool ServiceLayer::addComputersFromFile(string input)
+{
+    Computer c;
+    ifstream in;
+
+    in.open(input);
+
+    if (in.fail())
+    {
+        in.close();
+        return false;
+    }
+    else
+    {
+        in.seekg(100);
+
+        while(in >> c)
+        {
+            //Checks if person is valid, i.e. has a valid name, gender, birthyear and deathyear.
+            //An invalid person will not be added.
+            Computer compare;
+            if (c != compare)
+            {
+                addComputer(c);
+            }
+        }
+        in.close();
+
+        return true;
+    }
 }
 
 vector<int> ServiceLayer::searchScientistByName(const string name)

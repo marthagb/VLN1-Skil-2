@@ -507,7 +507,7 @@ void ConsoleUI::addPerson()
     }
 }
 
-/*
+
 // Asks user to enter path to file. This WILL overwrite the default file.
 void ConsoleUI::addPeopleFromFile()
 {
@@ -518,7 +518,7 @@ void ConsoleUI::addPeopleFromFile()
     {
         cout << "Enter the full path of the file, or the name of the file, if the file is in the same directory: " << endl;
         cin >> fileName;
-        if(serve.addFromFile(fileName))
+        if(serve.addScientistsFromFile(fileName))
         {
             cout << "Success!" << endl;
             fileOpen = false;
@@ -552,7 +552,52 @@ void ConsoleUI::addPeopleFromFile()
     }
     while (fileOpen);
 }
-*/
+
+// Asks user to enter path to file. This WILL overwrite the default file.
+void ConsoleUI::addComputersFromFile()
+{
+    string fileName = "";
+    bool fileOpen = false;
+
+    do
+    {
+        cout << "Enter the full path of the file, or the name of the file, if the file is in the same directory: " << endl;
+        cin >> fileName;
+        if(serve.addComputersFromFile(fileName))
+        {
+            cout << "Success!" << endl;
+            fileOpen = false;
+        }
+        else
+        {
+            cout << "Error! Failed to open file" << endl;
+            char continuel;
+            bool cont = true;
+            while (cont)
+            {
+                cout << "Do you want to try again? (Y for yes and N for no) " ;
+                cin  >> continuel;
+                if(continuel == 'Y' || continuel == 'y')
+                {
+                    fileOpen = true;
+                    cont = false;
+                }
+                else if (continuel == 'N' || continuel == 'n')
+                {
+                    fileOpen = false;
+                    cont = false;
+                }
+                else
+                {
+                    cout << "Error! Invalid input" << endl;
+                    cont = true;
+                }
+            }
+        }
+    }
+    while (fileOpen);
+}
+
 
 // Shows the table for search options.
 void ConsoleUI::searchData()
@@ -1226,6 +1271,6 @@ void ConsoleUI::printComputerLine()
 {
     cout.width(26);
     cout << left << "Name";
-    cout <<  "\tYear Made\tType" << endl;
+    cout <<  "\tYear Made\tType " << endl;
     cout << "_____________________________________________________" << endl;
 }
