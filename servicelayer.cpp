@@ -178,6 +178,139 @@ void ServiceLayer::addComputer(const Computer& c)
     db.close();
 }
 
+vector<int> ServiceLayer::searchScientistByName(const string name)
+{
+    vector<int> vSN;
+    db.open();
+
+    QSqlQuery query(db);
+
+    query.exec("SELECT ID FROM Scientists WHERE name LIKE '%" + QString::fromStdString(name) + "%'");
+
+    while (query.next())
+    {
+        int id = query.value("ID").toUInt();
+        vSN.push_back(id-1);
+    }
+
+    db.close();
+    return vSN;
+}
+
+vector<int> ServiceLayer::searchScientistByGender(const char gender)
+{
+    vector<int> vSG;
+    db.open();
+
+    QSqlQuery query(db);
+
+    query.exec("SELECT ID FROM Scientists WHERE gender =" + QVariant(gender).toString());
+
+    while (query.next())
+    {
+        int id = query.value("ID").toUInt();
+        vSG.push_back(id-1);
+    }
+
+    db.close();
+    return vSG;
+}
+
+vector<int> ServiceLayer::searchScientistByBirthYear(const int year)
+{
+    vector<int> vSBY;
+    db.open();
+
+    QSqlQuery query(db);
+
+    query.exec("SELECT ID FROM Scientists WHERE birthYear = " + QVariant(year).toString());
+
+    while (query.next())
+    {
+        int id = query.value("ID").toUInt();
+        vSBY.push_back(id-1);
+    }
+
+    db.close();
+    return vSBY;
+}
+
+vector<int> ServiceLayer::searchScientistByRange(const int f, const int l)
+{
+    vector<int> vSBR;
+    db.open();
+
+    QSqlQuery query(db);
+
+    query.exec("SELECT ID FROM Scientists WHERE birthYear >= " + QVariant(f).toString() + " AND birthYear <= " + QVariant(l).toString());
+
+    while (query.next())
+    {
+        int id = query.value("ID").toUInt();
+        vSBR.push_back(id-1);
+    }
+
+    db.close();
+    return vSBR;
+}
+
+vector<int> ServiceLayer::searchComputerByName(const string name)
+{
+    vector<int> vCBN;
+    db.open();
+
+    QSqlQuery query(db);
+
+    query.exec("SELECT ID FROM Computers WHERE name LIKE '%" + QString::fromStdString(name) + "%'");
+
+    while (query.next())
+    {
+        int id = query.value("ID").toUInt();
+        vCBN.push_back(id-1);
+    }
+
+    db.close();
+    return vCBN;
+}
+
+vector<int> ServiceLayer::searchComputerByYearMade(const int year)
+{
+    vector<int> vCYM;
+    db.open();
+
+    QSqlQuery query(db);
+
+    query.exec("SELECT ID FROM Computers WHERE buildYear = " + QVariant(year).toString());
+
+    while (query.next())
+    {
+        int id = query.value("ID").toUInt();
+        vCYM.push_back(id-1);
+    }
+
+    db.close();
+    return vCYM;
+}
+
+vector<int> ServiceLayer::searchComputerByType(const string type)
+{
+    vector<int> vCBT;
+    db.open();
+
+    QSqlQuery query(db);
+
+    query.exec("SELECT ID FROM Computers WHERE type LIKE '%" + QString::fromStdString(type) + "%'");
+
+    while (query.next())
+    {
+        int id = query.value("ID").toUInt();
+        vCBT.push_back(id-1);
+    }
+
+    db.close();
+    return vCBT;
+}
+
 void ServiceLayer::deleteScientist(int n)
 {
     db.open();
