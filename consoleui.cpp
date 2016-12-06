@@ -15,7 +15,7 @@ ConsoleUI::ConsoleUI()
 // respective function depending on the choice.
 void ConsoleUI::run()
 {
-    listData();
+    listScientistData();
     //addPerson();
 
     bool run = true;
@@ -33,7 +33,7 @@ void ConsoleUI::run()
        cout << " Press 5 to add a scientist"       << endl;
        cout << " Press 6 to search the list"       << endl;
        cout << " Press 7 to remove a scientist"    << endl;
-       //cout << " Press 6 to save to a custom file" << endl;
+       //cout << " Press 8 to save to a custom file" << endl;
        cout << " Press 8 to exit"                  << endl;
        cout << " ================================" << endl;
 
@@ -47,7 +47,7 @@ void ConsoleUI::run()
             {
             case 1:
             {
-                listData();
+                listScientistData();
                 break;
             }
             case 2:
@@ -57,7 +57,7 @@ void ConsoleUI::run()
             }
             case 3:
             {
-
+                //listComputerData();
                 break;
             }
             case 4:
@@ -80,7 +80,7 @@ void ConsoleUI::run()
                 //deleteData();
                 break;
             }
-            /*case 6:
+            /*case 8:
                 //saveToCustomFile();
                 break;*/
             case 8:
@@ -98,10 +98,10 @@ void ConsoleUI::run()
 
 // lists all the data from the vector.
 //uses the printLine() function, which gives us a nice header.
-void ConsoleUI::listData()
+void ConsoleUI::listScientistData()
 {
     cout << endl;
-    printLine();
+    printScientistLine();
 
     for(unsigned int i = 0; i < serve.readScientists(1, 1).size(); i++)
     {
@@ -109,6 +109,15 @@ void ConsoleUI::listData()
     }
     cout << "_____________________________________________________" << endl;
 
+}
+
+void ConsoleUI::listComputerData()
+{
+    for(unsigned int i = 0; i < serve.readScientists(1, 1).size(); i++)
+    {
+        cout << serve.readComputers(1, 1)[i];
+    }
+    cout << "_____________________________________________________" << endl;
 }
 
 //Here we get to pick the parameter by which we want to sort our data.
@@ -795,7 +804,7 @@ void ConsoleUI::onlyTakeOneInput()
 }
 
 //The header used when we list scientists.
-void ConsoleUI::printLine()
+void ConsoleUI::printScientistLine()
 {
     cout.width(26);
     cout << left << "Name";

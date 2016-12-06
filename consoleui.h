@@ -6,7 +6,8 @@
 class ConsoleUI
 {
     ServiceLayer serve;
-    void listData(); // Lists the data from the vector.
+    void listScientistData(); // Lists the Scientists from the Database.
+    void listComputerData();
     void addPerson();
     void addComputer();
     /*void sortData();
@@ -21,7 +22,7 @@ class ConsoleUI
     void deleteData();
     void saveToCustomFile();*/
     void onlyTakeOneInput();
-    void printLine();
+    void printScientistLine();
 public:
     ConsoleUI();
     void run();

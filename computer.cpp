@@ -32,3 +32,18 @@ bool Computer::getBuiltOrNot() const
 {
     return builtOrNot;
 }
+
+ostream& operator << (ostream& out, const Computer& c)
+{
+    out.width(26);
+    out << left << c.getComputerName() << "\t" << c.getYearMade() << "\t" << c.getType()  << "\t";
+    if (!c.getBuiltOrNot())
+    {
+        out << "Not Built" << endl;
+    }
+    else
+    {
+        out << "Built" << endl;
+    }
+    return out;
+}
