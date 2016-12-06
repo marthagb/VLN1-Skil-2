@@ -10,9 +10,10 @@ class ConsoleUI
     void listComputerData();
     void addPerson();
     void addComputer();
+    void ascOrDesc(int orderBy);
     bool validName(const string& s);
     bool genderCheck(char& gender);
-    /*void sortData();
+    void sortData();
     void addData();
     void addPersonManually();
     void addPeopleFromFile();
@@ -22,7 +23,7 @@ class ConsoleUI
     void searchByBirthYear();
     void searchByYearRange();
     void deleteData();
-    void saveToCustomFile();*/
+    void saveToCustomFile();
     void onlyTakeOneInput();
     void printScientistLine();
 public:
