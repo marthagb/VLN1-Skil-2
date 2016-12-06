@@ -16,23 +16,25 @@ ConsoleUI::ConsoleUI()
 void ConsoleUI::run()
 {
     listData();
-    addPerson();
+    //addPerson();
 
-    /*bool run = true;
-    if (serve.list().size() == 0)
+    bool run = true;
+    /*if (serve.list().size() == 0)
     {
         cout << "\nCould not load from file or file was empty\n" << endl;
-    }
+    }*/
     while (run)
     {
        cout << " ================================" << endl;
        cout << " Press 1 to list the scientists"   << endl;
        cout << " Press 2 to sort the scientists"   << endl;
-       cout << " Press 3 to add a scientist"       << endl;
-       cout << " Press 4 to search the list"       << endl;
-       cout << " Press 5 to remove a scientist"    << endl;
-       cout << " Press 6 to save to a custom file" << endl;
-       cout << " Press 7 to exit"                  << endl;
+       cout << " Press 3 to list the computers"    << endl;
+       cout << " Press 4 to sort the computers"    << endl;
+       cout << " Press 5 to add a scientist"       << endl;
+       cout << " Press 6 to search the list"       << endl;
+       cout << " Press 7 to remove a scientist"    << endl;
+       //cout << " Press 6 to save to a custom file" << endl;
+       cout << " Press 8 to exit"                  << endl;
        cout << " ================================" << endl;
 
        char input = '0';
@@ -50,28 +52,38 @@ void ConsoleUI::run()
             }
             case 2:
             {
-                sortData();
+                //sortData();
                 break;
             }
             case 3:
             {
-                addData();
+
                 break;
             }
             case 4:
             {
-                searchData();
+
                 break;
             }
             case 5:
             {
-                deleteData();
+                //addData();
                 break;
             }
             case 6:
-                saveToCustomFile();
+            {
+                //searchData();
                 break;
+            }
             case 7:
+            {
+                //deleteData();
+                break;
+            }
+            /*case 6:
+                //saveToCustomFile();
+                break;*/
+            case 8:
             {
                 run = false;
                 break;
@@ -81,7 +93,7 @@ void ConsoleUI::run()
                 cout << "Error! Invalid input" << endl;
             }
         }
-    }*/
+    }
 }
 
 // lists all the data from the vector.
@@ -773,14 +785,14 @@ bool ConsoleUI::genderCheck(char& gender)
     {
         return false;
     }
-}
+}*/
 
 //If the user entered too many commands, the rest will just be flushed. Fun stuff.
 void ConsoleUI::onlyTakeOneInput()
 {
     cin.clear();
     fflush(stdin);
-}*/
+}
 
 //The header used when we list scientists.
 void ConsoleUI::printLine()
