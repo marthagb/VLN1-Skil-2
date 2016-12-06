@@ -57,7 +57,7 @@ void ConsoleUI::run()
             }
             case 3:
             {
-                //listComputerData();
+                listComputerData();
                 break;
             }
             case 4:
@@ -114,7 +114,7 @@ void ConsoleUI::listScientistData()
 
 void ConsoleUI::listComputerData()
 {
-    for(unsigned int i = 0; i < serve.readScientists(1, 1).size(); i++)
+    for(unsigned int i = 0; i < serve.readComputers(1, 1).size(); i++)
     {
         cout << serve.readComputers(1, 1)[i];
     }
