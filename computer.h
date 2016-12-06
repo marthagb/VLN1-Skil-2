@@ -7,17 +7,17 @@ using namespace std;
 
 class Computer
 {
-    string name;
-    int buildYear;
+    string computerName;
+    int yearMade;
     string type;
-    bool built;
+    bool builtOrNot;
 public:
     Computer();
-    Computer(string n, int bY, string t, bool b);
-    string getName() const;
-    int getBuildYear() const;
+    Computer(string n, int yM, string t, bool b);
+    string getComputerName() const;
+    int getYearMade() const;
     string getType() const;
-    bool getBuilt() const;
+    bool getBuiltOrNot() const;
 };
 
 #endif // COMPUTER_H

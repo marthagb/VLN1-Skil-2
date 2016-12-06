@@ -19,8 +19,8 @@ class ConsoleUI
     void searchByBirthYear();
     void searchByYearRange();
     void deleteData();
-    void saveToCustomFile();
-    void onlyTakeOneInput();*/
+    void saveToCustomFile();*/
+    void onlyTakeOneInput();
     void printLine();
 public:
     ConsoleUI();

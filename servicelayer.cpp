@@ -87,55 +87,55 @@ vector<Computer> ServiceLayer::readComputers(int orderBy, int ascOrDesc)
     {
         if (ascOrDesc == 1)
         {
-            query.exec("SELECT name, buildYear, type, built FROM Computers ORDER BY name");
+            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY name");
         }
         else if (ascOrDesc == 2)
         {
-            query.exec("SELECT name, buildYear, type, built FROM Computers ORDER BY name DESC");
+            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY name DESC");
         }
     }
     else if (orderBy == 2)
     {
         if (ascOrDesc == 1)
         {
-            query.exec("SELECT name, buildYear, type, built FROM Computers ORDER BY buildYear");
+            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY buildYear");
         }
         else if (ascOrDesc == 2)
         {
-            query.exec("SELECT name, buildYear, type, built FROM Computers ORDER BY buildYear DESC");
+            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY buildYear DESC");
         }
     }
     else if (orderBy == 3)
     {
         if (ascOrDesc == 1)
         {
-            query.exec("SELECT name, buildYear, type, built FROM Computers ORDER BY type");
+            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY type");
         }
         else if (ascOrDesc == 2)
         {
-            query.exec("SELECT name, buildYear, type, built FROM Computers ORDER BY type DESC");
+            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY type DESC");
         }
     }
     else if (orderBy == 4)
     {
         if (ascOrDesc == 1)
         {
-            query.exec("SELECT name, buildYear, type, built FROM Computers ORDER BY built");
+            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY built");
         }
         else if (ascOrDesc == 2)
         {
-            query.exec("SELECT name, buildYear, type, built FROM Computers ORDER BY built DESC");
+            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY built DESC");
         }
     }
 
     while(query.next())
     {
-        string n = query.value("name").toString().toStdString();
-        int bY = query.value("buildYear").toUInt();
-        string t = query.value("type").toString().toStdString();
-        bool b = query.value("built").toBool();
+        string n = query.value("ComputerName").toString().toStdString();
+        int yM = query.value("YearMade").toUInt();
+        string t = query.value("Type").toString().toStdString();
+        bool b = query.value("BuiltOrNot").toBool();
 
-        Computer c(n, bY, t, b);
+        Computer c(n, yM, t, b);
         computers.push_back(c);
     }
     db.close();
@@ -167,12 +167,12 @@ void ServiceLayer::addComputer(const Computer& c)
 
     QSqlQuery query(db);
 
-    query.prepare("INSERT INTO Computers(name, buildYear, type, built)"
-                          "VALUES (:name, :buildYear, :type, :built)");
-    query.bindValue(0, QString::fromStdString(c.getName()));
-    query.bindValue(1, QVariant(c.getBuildYear()));
+    query.prepare("INSERT INTO Computers(ComputerName, YearMade, Type, BuiltOrNot)"
+                          "VALUES (:ComputerName, :YearMade, :Type, :BuiltOrNot)");
+    query.bindValue(0, QString::fromStdString(c.getComputerName()));
+    query.bindValue(1, QVariant(c.getYearMade()));
     query.bindValue(2, QString::fromStdString(c.getType()));
-    query.bindValue(3, QVariant(c.getBuilt()).toBool());
+    query.bindValue(3, QVariant(c.getBuiltOrNot()).toBool());
     query.exec();
 
     db.close();
@@ -195,7 +195,7 @@ void ServiceLayer::deleteComputer(int n)
 
     QSqlQuery query(db);
 
-    query.exec("DELETE FROM Computers WHERE ID = " + QString::number(n));
+    query.exec("DELETE FROM Computers WHERE ComputerID = " + QString::number(n));
 
     db.close();
 }
