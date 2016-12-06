@@ -11,17 +11,21 @@ class ConsoleUI
     void addPerson();
     void addComputer();
     bool validName(const string& s);
+    bool validYear(const string& s, int& year);
     bool genderCheck(char& gender);
     /*void sortData();
     void addData();
     void addPersonManually();
-    void addPeopleFromFile();
+    void addPeopleFromFile();*/
     void searchData();
-    void searchByName();
-    void searchByGender();
-    void searchByBirthYear();
-    void searchByYearRange();
-    void deleteData();
+    void searchScientistByName();
+    void searchScientistByGender();
+    void searchScientistByBirthYear();
+    void searchScientistByYearRange();
+    void searchComputerByName();
+    void searchComputerByYearMade();
+    void searchComputerByType();
+    /*void deleteData();
     void saveToCustomFile();*/
     void onlyTakeOneInput();
     void printScientistLine();

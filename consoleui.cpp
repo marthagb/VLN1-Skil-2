@@ -73,7 +73,7 @@ void ConsoleUI::run()
             }
             case 6:
             {
-                //searchData();
+                searchData();
                 break;
             }
             case 7:
@@ -420,7 +420,7 @@ void ConsoleUI::addPeopleFromFile()
         }
     }
     while (fileOpen);
-}
+}*/
 
 // Shows the table for search options.
 void ConsoleUI::searchData()
@@ -446,24 +446,24 @@ void ConsoleUI::searchData()
         {
             case 1:
             {
-                searchByName();
+                searchScientistByName();
                 error = false;
                 break;
             }
             case 2:
             {
-                searchByGender();
+                searchScientistByGender();
                 error = false;
                 break;
             }
             case 3:
             {
-                searchByBirthYear();
+                searchScientistByBirthYear();
                 break;
             }
             case 4:
             {
-                searchByYearRange();
+                searchScientistByYearRange();
                 break;
             }
 
@@ -484,7 +484,7 @@ void ConsoleUI::searchData()
 
 //searches the vector for the string which the user enters
 //and displays every result.
-void ConsoleUI::searchByName()
+void ConsoleUI::searchScientistByName()
 {
     string n = " ";
     cout << "Enter name: ";
@@ -494,24 +494,24 @@ void ConsoleUI::searchByName()
     {
         n[0] = toupper(n[0]);
     }
-    vector<int> vN = serve.searchByName(n);
-    if (vN.size() == 0)
+    vector<int> vSN = serve.searchScientistByName(n);
+    if (vSN.size() == 0)
     {
         cout << "No results found\n";
     }
     else
     {
-        printLine();
-        for (unsigned int i = 0; i < vN.size(); i++)
+        printScientistLine();
+        for (unsigned int i = 0; i < vSN.size(); i++)
         {
-            cout << serve.list()[vN[i]];
+            cout << serve.readScientists(0,1)[vSN[i]];
         }
     }
 
 }
 
 //We can search by gender. Yay.
-void ConsoleUI::searchByGender()
+void ConsoleUI::searchScientistByGender()
 {
     string gender = " ";
     cout << "Enter gender (M/F): ";
@@ -523,21 +523,21 @@ void ConsoleUI::searchByGender()
         if (!genderCheck(g))
         {
             cout << "Invalid gender input!" << endl;
-            searchByGender();
+            searchScientistByGender();
         }
         else
         {
-            vector<int> vG = serve.searchByGender(g);
+            vector<int> vG = serve.searchScientistByGender(g);
             if (vG.size() == 0)
             {
                 cout << "No results found" << endl;
             }
             else
             {
-                printLine();
+                printScientistLine();
                 for (unsigned int i = 0; i < vG.size(); i++)
                 {
-                    cout << serve.list()[vG[i]];
+                    cout << serve.readScientists(0,1)[vG[i]];
                 }
             }
         }
@@ -545,12 +545,12 @@ void ConsoleUI::searchByGender()
     else
     {
         cout << "Invalid input" << endl;
-        searchByGender();
+        searchScientistByGender();
     }
 }
 
 //We search for people born in a certain year.
-void ConsoleUI::searchByBirthYear()
+void ConsoleUI::searchScientistByBirthYear()
 {
     int y = 0;
     string s = " ";
@@ -562,17 +562,17 @@ void ConsoleUI::searchByBirthYear()
             cout << "Invalid input!\n";
         }
     }
-    vector<int> vY = serve.searchByYear(y);
+    vector<int> vY = serve.searchScientistByBirthYear(y);
     if (vY.size() == 0)
     {
         cout << "No results found\n";
     }
     else
     {
-        printLine();
+        printScientistLine();
         for (unsigned int i = 0; i < vY.size(); i++)
         {
-            cout << serve.list()[vY[i]];
+            cout << serve.readScientists(0,1)[vY[i]];
         }
     }
 
@@ -580,7 +580,7 @@ void ConsoleUI::searchByBirthYear()
 
 //We get a whole range of years, both included.
 //Note that this is only for birthyear.
-void ConsoleUI::searchByYearRange()
+void ConsoleUI::searchScientistByYearRange()
 {
     int f = 0, l = 0;
     string s = " ";
@@ -602,24 +602,24 @@ void ConsoleUI::searchByYearRange()
             cout << "Invalid input!\n";
         }
     }
-    vector<int> vR = serve.searchByRange(f,l);
+    vector<int> vR = serve.searchScientistByRange(f,l);
     if (vR.size() == 0)
     {
         cout << "No results found" << endl;
     }
     else
     {
-        printLine();
+        printScientistLine();
         for (unsigned int i = 0; i < vR.size(); i++)
         {
-            cout << serve.list()[vR[i]];
+            cout << serve.readScientists(0,1)[vR[i]];
         }
     }
 
 }
 
 //This deletes a scientist. RIP. He/she probably didn't belong on the list anyway.
-void ConsoleUI::deleteData()
+/*void ConsoleUI::deleteData()
 {
     cout << "Enter name of scientist(s) you would like to delete: ";
     string n = " ";
@@ -716,7 +716,7 @@ void ConsoleUI::saveToCustomFile()
         }
     }
     while (fileOpen);
-}
+}*/
 
 //a function which checks whether a certain entered string is a year.
 //And whether it's a valid year (AKA not in the future).
@@ -740,7 +740,7 @@ bool ConsoleUI::validYear(const string& s, int& year)
 
     return year >= 0 && year <= currentYear;
 }
-*/
+
 //we check whether a name entered by the user is valid
 // i.e. that it's not empty, no numbers.
 bool ConsoleUI::validName(const string& s)
@@ -754,6 +754,7 @@ bool ConsoleUI::validName(const string& s)
 
     return !s.empty() && it == s.end();
 }
+
 /*
 //Errorchecks for whether certain years entered by the user are valid.
 //sadly, it can't be a 300 year old dude. No vampires.

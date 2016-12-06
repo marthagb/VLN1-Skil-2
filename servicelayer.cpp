@@ -16,7 +16,18 @@ vector<Persons> ServiceLayer::readScientists(int orderBy, int ascOrDesc)
 
     QSqlQuery query(db);
 
-    if (orderBy == 1)
+    if (orderBy == 0)
+    {
+        if(ascOrDesc == 1)
+        {
+            query.exec("SELECT name, gender, birthYear, deathYear FROM Scientists ORDER BY ID");
+        }
+        else if (ascOrDesc == 2)
+        {
+            query.exec("SELECT name, gender, birthYear, deathYear FROM Scientists ORDER BY ID DESC");
+        }
+    }
+    else if (orderBy == 1)
     {
         if (ascOrDesc == 1)
         {
@@ -83,7 +94,18 @@ vector<Computer> ServiceLayer::readComputers(int orderBy, int ascOrDesc)
 
     QSqlQuery query(db);
 
-    if (orderBy == 1)
+    if (orderBy == 0)
+    {
+        if (ascOrDesc == 1)
+        {
+            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY ComputerID");
+        }
+        else if (ascOrDesc == 2)
+        {
+            query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY ComputerID DESC");
+        }
+    }
+    else if (orderBy == 1)
     {
         if (ascOrDesc == 1)
         {
@@ -204,7 +226,7 @@ vector<int> ServiceLayer::searchScientistByGender(const char gender)
 
     QSqlQuery query(db);
 
-    query.exec("SELECT ID FROM Scientists WHERE gender =" + QVariant(gender).toString());
+    query.exec("SELECT ID FROM Scientists WHERE Gender = '" + QString(QVariant(gender).toChar()) + "'");
 
     while (query.next())
     {
@@ -261,11 +283,11 @@ vector<int> ServiceLayer::searchComputerByName(const string name)
 
     QSqlQuery query(db);
 
-    query.exec("SELECT ID FROM Computers WHERE name LIKE '%" + QString::fromStdString(name) + "%'");
+    query.exec("SELECT ComputerID FROM Computers WHERE name LIKE '%" + QString::fromStdString(name) + "%'");
 
     while (query.next())
     {
-        int id = query.value("ID").toUInt();
+        int id = query.value("ComputerID").toUInt();
         vCBN.push_back(id-1);
     }
 
@@ -280,11 +302,11 @@ vector<int> ServiceLayer::searchComputerByYearMade(const int year)
 
     QSqlQuery query(db);
 
-    query.exec("SELECT ID FROM Computers WHERE buildYear = " + QVariant(year).toString());
+    query.exec("SELECT ComputerID FROM Computers WHERE buildYear = " + QVariant(year).toString());
 
     while (query.next())
     {
-        int id = query.value("ID").toUInt();
+        int id = query.value("ComputerID").toUInt();
         vCYM.push_back(id-1);
     }
 
@@ -299,11 +321,11 @@ vector<int> ServiceLayer::searchComputerByType(const string type)
 
     QSqlQuery query(db);
 
-    query.exec("SELECT ID FROM Computers WHERE type LIKE '%" + QString::fromStdString(type) + "%'");
+    query.exec("SELECT ComputerID FROM Computers WHERE type LIKE '%" + QString::fromStdString(type) + "%'");
 
     while (query.next())
     {
-        int id = query.value("ID").toUInt();
+        int id = query.value("ComputerID").toUInt();
         vCBT.push_back(id-1);
     }
 
