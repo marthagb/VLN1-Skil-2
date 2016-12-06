@@ -10,6 +10,8 @@ class ConsoleUI
     void listComputerData();
     void addPerson();
     void addComputer();
+    bool validName(const string& s);
+    bool genderCheck(char& gender);
     /*void sortData();
     void addData();
     void addPersonManually();

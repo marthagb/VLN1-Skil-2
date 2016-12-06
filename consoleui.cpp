@@ -67,6 +67,7 @@ void ConsoleUI::run()
             }
             case 5:
             {
+                addPerson();
                 //addData();
                 break;
             }
@@ -192,9 +193,31 @@ void ConsoleUI::addPerson()
     int bY = 0, dY = 0;
     cout << "Enter name: ";
     cin >> ws;
-    getline(cin, n);
+    getline(cin,n);
+    while(!validName(n))
+    {
+        cout << "Wrong input for name!" << endl;
+        cout << "Enter name: ";
+        cin  >> ws;
+        getline(cin,n);
+    }
+    if(!isupper(n[0]))
+    {
+        n[0] = toupper(n[0]);
+    }
+
+
     cout << "Enter gender: ";
     cin >> g;
+    onlyTakeOneInput();
+    while(!genderCheck(g))
+    {
+        cout << "Wrong input for gender!" << endl;
+        cout << "Enter gender (M/F): ";
+        cin  >> g;
+        onlyTakeOneInput();
+    }
+
     cout << "Enter birth year: ";
     cin >> bY;
     cout << "Enter death year: ";
@@ -210,6 +233,7 @@ void ConsoleUI::addComputer()
     bool b;
     cout << "Enter name: ";
     cin >> ws;
+
     getline(cin, n);
     cout << "Enter build year: ";
     cin >> yM;
@@ -716,7 +740,7 @@ bool ConsoleUI::validYear(const string& s, int& year)
 
     return year >= 0 && year <= currentYear;
 }
-
+*/
 //we check whether a name entered by the user is valid
 // i.e. that it's not empty, no numbers.
 bool ConsoleUI::validName(const string& s)
@@ -730,7 +754,7 @@ bool ConsoleUI::validName(const string& s)
 
     return !s.empty() && it == s.end();
 }
-
+/*
 //Errorchecks for whether certain years entered by the user are valid.
 //sadly, it can't be a 300 year old dude. No vampires.
 bool ConsoleUI::birthChecks(int birthYear, int deathYear)
@@ -774,7 +798,7 @@ bool ConsoleUI::check()
        return false;
     }
 }
-
+*/
 //Errorcheck for whether the entered char is a recognised gender.
 bool ConsoleUI::genderCheck(char& gender)
 {
@@ -794,7 +818,7 @@ bool ConsoleUI::genderCheck(char& gender)
     {
         return false;
     }
-}*/
+}
 
 //If the user entered too many commands, the rest will just be flushed. Fun stuff.
 void ConsoleUI::onlyTakeOneInput()
