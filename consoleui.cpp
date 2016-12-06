@@ -70,8 +70,7 @@ void ConsoleUI::run()
             }
             case 5:
             {
-                addPerson();
-                //addData();
+                addData();
                 break;
             }
             case 6:
@@ -244,6 +243,11 @@ void ConsoleUI::ascOrDesc(int orderBy)
     }
 }
 
+//We add a person through the console.
+//If user does not enter a string with names he gets an error message.
+//The first letter becomes uppercase.
+//there are error checks for birth Year and death Year.
+//If no invalid information is entered, the person is added to the file.
 void ConsoleUI::addPerson()
 {
     string n = " ", year;
@@ -346,7 +350,7 @@ void ConsoleUI::addComputer()
 }
 
 // Asks you to enter whether you want to add data manually or from a file.
-/*void ConsoleUI::addData()
+void ConsoleUI::addData()
 {
     bool error = false;
     do
@@ -366,13 +370,13 @@ void ConsoleUI::addComputer()
         {
         case 1:
         {
-            addPersonManually();
+            addPerson();
             error = false;
             break;
         }
         case 2:
         {
-            addPeopleFromFile();
+            //addPeopleFromFile();
             error = false;
             break;
         }
@@ -392,89 +396,7 @@ void ConsoleUI::addComputer()
     while (error);
 }
 
-//We add a person through the console.
-//If user does not enter a string with names he gets an error message.
-//The first letter becomes uppercase.
-//there are error checks for birth Year and death Year.
-//If no invalid information is entered, the person is added to the file.
-void ConsoleUI::addPersonManually()
-{
-    string name, year;
-    char gender;
-    int birthYear;
-    int deathYear;
-
-    cout << "Enter name: ";
-    cin >> ws;
-    getline(cin,name);
-    while(!validName(name))
-    {
-        cout << "Wrong input for name!" << endl;
-        cout << "Enter name: ";
-        cin  >> ws;
-        getline(cin,name);
-    }
-    if(!isupper(name[0]))
-    {
-        name[0] = toupper(name[0]);
-    }
-    cout << "Enter gender (M/F): ";
-    cin >> gender;
-    onlyTakeOneInput();
-    while(!genderCheck(gender))
-    {
-        cout << "Wrong input for gender!" << endl;
-        cout << "Enter gender (M/F): ";
-        cin  >> gender;
-        onlyTakeOneInput();
-    }
-    while(!validYear(year, birthYear) || birthYear == 0)
-    {
-        cout << "Enter birth year: ";
-        cin >> year;
-        onlyTakeOneInput();
-        if (!validYear(year, birthYear) || birthYear == 0)
-        {
-            cout << "Invalid input!\n";
-        }
-    }
-    year = " ";
-    while(!validYear(year, deathYear))
-    {
-        cout << "Enter death year (0 for living person): ";
-        cin >> year;
-        onlyTakeOneInput();
-        if(!validYear(year, deathYear))
-        {
-            cout << "Invalid input!\n";
-        }
-    }
-    if(!birthChecks(birthYear, deathYear))
-    {
-        check();    // Checks if you want to try to input again.
-    }
-    else
-    {
-        Persons newPerson(name, gender, birthYear, deathYear);
-        int a = 0;
-        for (unsigned int i = 0; i < serve.list().size(); i++)
-        {
-            if (newPerson == serve.list()[i])
-            {
-                cout << "Scientist already on list!\n";
-                a++;
-                break;
-            }
-        }
-        if (a == 0)
-        {
-            serve.add(newPerson);
-            cout << "Scientist added\n";
-        }
-    }
-
-}
-
+/*
 // Asks user to enter path to file. This WILL overwrite the default file.
 void ConsoleUI::addPeopleFromFile()
 {
@@ -518,7 +440,8 @@ void ConsoleUI::addPeopleFromFile()
         }
     }
     while (fileOpen);
-}*/
+}
+*/
 
 // Shows the table for search options.
 void ConsoleUI::searchData()
