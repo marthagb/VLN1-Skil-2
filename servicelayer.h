@@ -30,6 +30,7 @@ public:
     void deleteScientist(int n);
     void deleteComputer(int n);
     bool saveToOtherFile(string input);
+    bool saveToOtherFile2(string input);
     //bool saveToOtherFile(string input);
 };
 

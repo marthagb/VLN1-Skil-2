@@ -41,6 +41,7 @@ class ConsoleUI
     void printScientistLine();
     void printComputerLine();
     void saveToFile();
+    void saveToFile2();
 public:
     ConsoleUI();
     void run();

@@ -490,3 +490,54 @@ bool ServiceLayer::saveToOtherFile(string input)
            return true;
 
 }
+
+bool ServiceLayer::saveToOtherFile2(string input)
+{
+    vector<Computer> computers;
+    db.open();
+
+    QSqlQuery query(db);
+
+        query.exec("SELECT ComputerName, YearMade, Type, BuiltOrNot FROM Computers ORDER BY ComputerID");
+
+    while(query.next())
+    {
+        string n = query.value("ComputerName").toString().toStdString();
+        int yM = query.value("YearMade").toUInt();
+        string t = query.value("Type").toString().toStdString();
+        bool b = query.value("BuiltOrNot").toBool();
+
+        Computer c(n, yM, t, b);
+        computers.push_back(c);
+    }
+    db.close();
+
+
+   ofstream out;
+   out.open(input);
+
+   if(out.fail())
+   {
+               return false;
+   }
+    else
+   {
+       out.width(30);
+       out << left << "Name";
+       out << "\tBuilding Year\tComputer type\tBuilt?" << endl;
+       out << "_____________________________________________________" << endl;
+
+       out.seekp(100);
+       out << endl;
+       for(size_t i = 0; i < computers.size(); i++)
+       {
+
+       out << computers[i];
+
+       }
+
+    }
+           out.close();
+           return true;
+
+}

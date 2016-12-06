@@ -76,14 +76,14 @@ void ConsoleUI::scientists()
        cout << " Press 3 to add a scientist"       << endl;
        cout << " Press 4 to search scientists"     << endl;
        cout << " Press 5 to remove a scientist"    << endl;
-       //cout << " Press 6 to save to a custom file" << endl;
+       cout << " Press 6 to save to a custom file" << endl;
        cout << " Press 7 to go back to main menu"  << endl;
        cout << " Press 8 to quit"                  << endl;
        cout << " ================================" << endl;
 
        char input = '0';
        cin >> input;
-       //clearScreen();
+       clearScreen();
 
        onlyTakeOneInput();                                                  // Takes only one letter and flushes the rest.
        int choice = input - '0';
@@ -112,12 +112,12 @@ void ConsoleUI::scientists()
             }
             case 5:
             {
-                //deleteData();
+                deleteScientist();
                 break;
             }
             case 6:
             {
-                //saveToCustomFile();
+                saveToFile();
                 break;
             }
             case 7:
@@ -151,14 +151,14 @@ void ConsoleUI::computers()
         cout << " Press 3 to add a computer"        << endl;
         cout << " Press 4 to search computer"       << endl;
         cout << " Press 5 to remove a computers"    << endl;
-        //cout << " Press 6 to save to a custom file" << endl;
+        cout << " Press 6 to save to a custom file" << endl;
         cout << " Press 7 to go back to main menu"  << endl;
         cout << " Press 8 to quit"                  << endl;
         cout << " ================================" << endl;
 
         char input = '0';
         cin >> input;
-        //clearScreen();
+        clearScreen();
 
         onlyTakeOneInput();                                                  // Takes only one letter and flushes the rest.
         int choice = input - '0';
@@ -187,12 +187,13 @@ void ConsoleUI::computers()
            }
            case 5:
            {
+            deleteComputer();
                //deleteComputer();
                break;
            }
            case 6:
            {
-               //saveToCustomFile();
+               saveToFile2();
                break;
            }
            case 7:
@@ -242,6 +243,7 @@ void ConsoleUI::listScientistData()
 
 void ConsoleUI::listComputerData()
 {
+    printComputerLine();
     cout << serve.readComputers(1, 1).size() << endl;
     for(unsigned int i = 0; i < serve.readComputers(1, 1).size(); i++)
     {
@@ -270,6 +272,7 @@ void ConsoleUI::sortData()
 
         cin >> input;
         onlyTakeOneInput();
+        clearScreen();
         choice = input - '0';
         input = '1';
 
@@ -959,7 +962,7 @@ void ConsoleUI::searchComputerByType()
         }
     }
 }
-
+/*
 void ConsoleUI::deleteData()
 {
     bool error = false;
@@ -998,6 +1001,7 @@ void ConsoleUI::deleteData()
     }
     while (error);
 }
+*/
 
 //This deletes a scientist. RIP. He/she probably didn't belong on the list anyway.
 void ConsoleUI::deleteScientist()
@@ -1269,9 +1273,9 @@ void ConsoleUI::printScientistLine()
 //The header used when we list computers.
 void ConsoleUI::printComputerLine()
 {
-    cout.width(26);
+    cout.width(30);
     cout << left << "Name";
-    cout <<  "\tYear Made\tType " << endl;
+    cout << "\tBuilding Year\tComputer type\tBuilt?" << endl;
     cout << "_____________________________________________________" << endl;
 }
 void ConsoleUI::saveToFile()
@@ -1285,6 +1289,52 @@ void ConsoleUI::saveToFile()
         cout << "Enter the full path of the file, or the name of the file, if the file is in the same directory: " << endl;
         cin >> fileName;
         if(serve.saveToOtherFile(fileName))
+        {
+            cout << "Success!" << endl;
+            fileOpen = false;
+        }
+        else
+        {
+            cout << "Error! Failed to open file" << endl;
+            char continuel;
+            bool cont = true;
+            while (cont)
+            {
+                cout << "Do you want to try again? (Y for yes and N for no) " ;
+                cin  >> continuel;
+                if(continuel == 'Y' && continuel == 'y')
+                {
+                    fileOpen = true;
+                    cont = false;
+                }
+                else if (continuel == 'N' && continuel == 'n')
+                {
+                    fileOpen = false;
+                    cont = false;
+                }
+                else
+                {
+                    cout << "Error! Invalid input" << endl;
+                    cont = true;
+                }
+            }
+        }
+
+    }
+    while (fileOpen);
+}
+
+void ConsoleUI::saveToFile2()
+{
+    bool fileOpen = false;
+    string fileName;
+    do
+    {
+        cout << "WARNING: This will overwrite everything in the file selected!" << endl;
+        cout << "If the File Doesn't exist, it will create a new file." << endl << endl;
+        cout << "Enter the full path of the file, or the name of the file, if the file is in the same directory: " << endl;
+        cin >> fileName;
+        if(serve.saveToOtherFile2(fileName))
         {
             cout << "Success!" << endl;
             fileOpen = false;
