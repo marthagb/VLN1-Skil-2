@@ -14,36 +14,78 @@ ConsoleUI::ConsoleUI()
 // The Function used in the main() function.
 // Displays the main menu, and takes you to the
 // respective function depending on the choice.
+
 void ConsoleUI::run()
 {
-    listScientistData();
-    //addPerson();
-
     bool run = true;
-    /*if (serve.list().size() == 0)
+
+    while (run)
     {
-        cout << "\nCould not load from file or file was empty\n" << endl;
-    }*/
+        cout << " ================================" << endl;
+        cout << " Press 1 for scientists"           << endl;
+        cout << " Press 2 for computers"            << endl;
+        cout << " Press 3 for both"                 << endl;
+        cout << " Press 4 for exit"                 << endl;
+        cout << " ================================" << endl;
+
+        char input = '0';
+        cin >> input;
+        onlyTakeOneInput();
+        int choice = input - '0';
+
+            switch (choice)
+            {
+                case 1:
+                {
+                    scientists();
+                    break;
+                }
+                case 2:
+                {
+                    computers();
+                    break;
+                }
+                case 3:
+                {
+                    //TODO
+                    break;
+                }
+                case 4:
+                {
+                    run = false;
+                    break;
+                }
+                default:
+                {
+                    cout << "Error! Invalid input" << endl;
+                }
+            }
+
+    }
+}
+
+void ConsoleUI::scientists()
+{
+    bool run = true;
+
     while (run)
     {
        cout << " ================================" << endl;
        cout << " Press 1 to list the scientists"   << endl;
        cout << " Press 2 to sort the scientists"   << endl;
-       cout << " Press 3 to list the computers"    << endl;
-       cout << " Press 4 to sort the computers"    << endl;
-       cout << " Press 5 to add a scientist"       << endl;
-       cout << " Press 6 to search the list of scientists"  << endl;
-       cout << " Press 7 to search the list of computers" << endl;
-       cout << " Press 8 to remove a scientist or computer"    << endl;
-       //cout << " Press 9 to save to a custom file" << endl;
-       cout << " Press 0 to exit"                  << endl;
+       cout << " Press 3 to add a scientist"       << endl;
+       cout << " Press 4 to search scientists"     << endl;
+       cout << " Press 5 to remove a scientist"    << endl;
+       //cout << " Press 6 to save to a custom file" << endl;
+       cout << " Press 7 to go back to main menu"  << endl;
+       cout << " Press 8 to quit"                  << endl;
        cout << " ================================" << endl;
 
        char input = '0';
        cin >> input;
-        clearScreen();
+       //clearScreen();
 
-       onlyTakeOneInput();  // Takes only one letter and flushes the rest.
+       onlyTakeOneInput();                                                  // Takes only one letter and flushes the rest.
        int choice = input - '0';
 
             switch (choice)
@@ -60,47 +102,115 @@ void ConsoleUI::run()
             }
             case 3:
             {
-                listComputerData();
+                addData();
                 break;
             }
             case 4:
             {
-
+                searchData();
                 break;
             }
             case 5:
             {
-                addData();
+                //deleteData();
                 break;
             }
             case 6:
             {
-                searchData();
+                //saveToCustomFile();
                 break;
             }
             case 7:
             {
-                searchComputer();
+                run = false;
                 break;
             }
             case 8:
             {
-                deleteData();
+                exit(0);
                 break;
             }
-            /*case 9:
-                //saveToCustomFile();
-                break;*/
-            case 0:
-            {
-                run = false;
-                break;
-            }
+
             default:
             {
                 cout << "Error! Invalid input" << endl;
             }
-        }
+            }
+    }
+}
+
+void ConsoleUI::computers()
+{
+    bool run = true;
+
+    while (run)
+    {
+        cout << " ================================" << endl;
+        cout << " Press 1 to list the computers"    << endl;
+        cout << " Press 2 to sort the computers"    << endl;
+        cout << " Press 3 to add a computer"        << endl;
+        cout << " Press 4 to search computer"       << endl;
+        cout << " Press 5 to remove a computers"    << endl;
+        //cout << " Press 6 to save to a custom file" << endl;
+        cout << " Press 7 to go back to main menu"  << endl;
+        cout << " Press 8 to quit"                  << endl;
+        cout << " ================================" << endl;
+
+        char input = '0';
+        cin >> input;
+        //clearScreen();
+
+        onlyTakeOneInput();                                                  // Takes only one letter and flushes the rest.
+        int choice = input - '0';
+
+        switch (choice)
+           {
+           case 1:
+           {
+               listComputerData();
+               break;
+           }
+           case 2:
+           {
+               //sortComputers();
+               break;
+           }
+           case 3:
+           {
+               //addComputer();
+               break;
+           }
+           case 4:
+           {
+               searchComputer();
+               break;
+           }
+           case 5:
+           {
+               //deleteComputer();
+               break;
+           }
+           case 6:
+           {
+               //saveToCustomFile();
+               break;
+           }
+           case 7:
+           {
+                run = false;
+                break;
+           }
+           case 8:
+           {
+                exit (0);
+                break;
+           }
+
+           default:
+           {
+               cout << "Error! Invalid input" << endl;
+           }
+           }
     }
 }
 
@@ -243,6 +353,75 @@ void ConsoleUI::ascOrDesc(int orderBy)
     }
 }
 
+
+void ConsoleUI::addComputer()
+{
+    string n = " ", t = " ", built = " ";
+    int yM = 0;
+    bool b;
+    cout << "Enter name: ";
+    cin >> ws;
+
+    getline(cin, n);
+    cout << "Enter build year: ";
+    cin >> yM;
+    cout << "Enter type: ";
+    cin >> t;
+    cout << "Enter B if the computer was built and any other character if it wasn't";
+    cin >> built;
+    if (built == "B" || built == "b") b = true;
+    else b = false;
+    Computer c(n, yM, t, b);
+    serve.addComputer(c);
+}
+
+// Asks you to enter whether you want to add data manually or from a file.
+void ConsoleUI::addData()
+{
+    bool error = false;
+    do
+    {
+        cout << " ================================" << endl;
+        cout << " Press 1 to add manually"          << endl;
+        cout << " Press 2 to add from file"         << endl;
+        cout << " Press 3 to cancel"                << endl;
+        cout << " ================================" << endl;
+
+        char input = '0';
+        cin >> input;
+        onlyTakeOneInput();
+        int choice = input - '0';
+
+        switch (choice)
+        {
+        case 1:
+        {
+            addPerson();
+            error = false;
+            break;
+        }
+        case 2:
+        {
+            //addPeopleFromFile();
+            error = false;
+            break;
+        }
+        case 3:
+        {
+            error = false;
+            break;
+        }
+        default:
+        {
+            cout << "Error! Invalid input" << endl;
+            error = true;
+            break;
+        }
+        }
+    }
+    while (error);
+}
+
 //We add a person through the console.
 //If user does not enter a string with names he gets an error message.
 //The first letter becomes uppercase.
@@ -326,74 +505,6 @@ void ConsoleUI::addPerson()
             cout << "Scientist added\n";
         }
     }
-}
-
-void ConsoleUI::addComputer()
-{
-    string n = " ", t = " ", built = " ";
-    int yM = 0;
-    bool b;
-    cout << "Enter name: ";
-    cin >> ws;
-
-    getline(cin, n);
-    cout << "Enter build year: ";
-    cin >> yM;
-    cout << "Enter type: ";
-    cin >> t;
-    cout << "Enter B if the computer was built and any other character if it wasn't";
-    cin >> built;
-    if (built == "B" || built == "b") b = true;
-    else b = false;
-    Computer c(n, yM, t, b);
-    serve.addComputer(c);
-}
-
-// Asks you to enter whether you want to add data manually or from a file.
-void ConsoleUI::addData()
-{
-    bool error = false;
-    do
-    {
-        cout << " ================================" << endl;
-        cout << " Press 1 to add manually"          << endl;
-        cout << " Press 2 to add from file"         << endl;
-        cout << " Press 3 to cancel"                << endl;
-        cout << " ================================" << endl;
-
-        char input = '0';
-        cin >> input;
-        onlyTakeOneInput();
-        int choice = input - '0';
-
-        switch (choice)
-        {
-        case 1:
-        {
-            addPerson();
-            error = false;
-            break;
-        }
-        case 2:
-        {
-            //addPeopleFromFile();
-            error = false;
-            break;
-        }
-        case 3:
-        {
-            error = false;
-            break;
-        }
-        default:
-        {
-            cout << "Error! Invalid input" << endl;
-            error = true;
-            break;
-        }
-        }
-    }
-    while (error);
 }
 
 /*

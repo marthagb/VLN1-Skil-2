@@ -6,6 +6,8 @@
 class ConsoleUI
 {
     ServiceLayer serve;
+    void scientists();
+    void computers();
     void clearScreen();
     void listScientistData(); // Lists the Scientists from the Database.
     void listComputerData();
