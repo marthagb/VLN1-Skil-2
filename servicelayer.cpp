@@ -358,7 +358,7 @@ void ServiceLayer::deleteScientist(int n)
 
     QSqlQuery query(db);
 
-    query.exec("DELETE FROM Scientists WHERE ID = " + QString::number(n));
+    query.exec("DELETE FROM Scientists WHERE ID = " + QString::number(n+1));
 
     db.close();
 }
@@ -369,7 +369,7 @@ void ServiceLayer::deleteComputer(int n)
 
     QSqlQuery query(db);
 
-    query.exec("DELETE FROM Computers WHERE ComputerID = " + QString::number(n));
+    query.exec("DELETE FROM Computers WHERE ComputerID = " + QString::number(n+1));
 
     db.close();
 }

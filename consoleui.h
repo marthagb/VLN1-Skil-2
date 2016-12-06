@@ -30,6 +30,8 @@ class ConsoleUI
     void searchComputerByYearRange();
     void searchComputerByType();
     void deleteData();
+    void deleteScientist();
+    void deleteComputer();
     void saveToCustomFile();
     void onlyTakeOneInput();
     void printScientistLine();
