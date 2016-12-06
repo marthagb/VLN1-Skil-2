@@ -1,6 +1,7 @@
 #include "consoleui.h"
 #include <ctime>
 #include "consoleui.h"
+#include <cstdlib>
 
 using namespace std;
 
@@ -39,6 +40,7 @@ void ConsoleUI::run()
 
        char input = '0';
        cin >> input;
+        clearScreen();
 
        onlyTakeOneInput();  // Takes only one letter and flushes the rest.
        int choice = input - '0';
@@ -95,6 +97,17 @@ void ConsoleUI::run()
             }
         }
     }
+}
+
+void ConsoleUI:: clearScreen()
+{
+#ifdef __cplusplus__
+  #include <cstdlib>
+#else
+  #include <stdlib.h>
+#endif
+
+if (system("CLS")) system("clear");
 }
 
 // lists all the data from the vector.
