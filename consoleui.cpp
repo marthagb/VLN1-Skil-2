@@ -165,21 +165,25 @@ void ConsoleUI::sortData()
             case 1:
             {
                 ascOrDesc(choice);
+                error = false;
                 break;
             }
              case 2:
             {
                 ascOrDesc(choice);
+                error = false;
                 break;
             }
              case 3:
              {
                 ascOrDesc(choice);
+                error = false;
                 break;
             }
              case 4:
             {
                 ascOrDesc(choice);
+                error = false;
                 break;
             }
              case 5:
@@ -221,11 +225,18 @@ void ConsoleUI::ascOrDesc(int orderBy)
     while (input != '1' && input != '2' && input != '3');
     order = input - '0';
 
+    printScientistLine();
+
+    if (order == 1 || order == 2)
+    {
+
     for(unsigned int i = 0; i < serve.readScientists(orderBy, order).size(); i++)
     {
         cout << serve.readScientists(orderBy, order)[i];
     }
-    cout << "_____________________________________________________" << endl;}
+    cout << "_____________________________________________________" << endl;
+    }
+}
 
 void ConsoleUI::addPerson()
 {
