@@ -246,10 +246,11 @@ void ConsoleUI::ascOrDesc(int orderBy)
 
 void ConsoleUI::addPerson()
 {
-    string n = " ";
+    string n = " ", year;
     char g = ' ';
     int bY = 0, dY = 0;
-    cout << "Enter name: ";
+
+    cout << "Enter name: ";                                 //Adds the name of a person
     cin >> ws;
     getline(cin,n);
     while(!validName(n))
@@ -259,16 +260,15 @@ void ConsoleUI::addPerson()
         cin  >> ws;
         getline(cin,n);
     }
-    if(!isupper(n[0]))
+    if(!isupper(n[0]))                                      //Converts lower case letter to upper case if first is lower case
     {
         n[0] = toupper(n[0]);
     }
 
-
-    cout << "Enter gender: ";
+    cout << "Enter gender: ";                               //Adds the gender of the person
     cin >> g;
     onlyTakeOneInput();
-    while(!genderCheck(g))
+    while(!genderCheck(g))                                  //Error check for gender
     {
         cout << "Wrong input for gender!" << endl;
         cout << "Enter gender (M/F): ";
@@ -276,12 +276,52 @@ void ConsoleUI::addPerson()
         onlyTakeOneInput();
     }
 
-    cout << "Enter birth year: ";
-    cin >> bY;
-    cout << "Enter death year: ";
-    cin >> dY;
-    Persons p(n, g, bY, dY);
-    serve.addScientist(p);
+    while(!validYear(year, bY) || bY == 0)                  //Adds the birth year and error checks
+    {
+        cout << "Enter birth year: ";
+        cin >> year;
+        onlyTakeOneInput();
+        if (!validYear(year, bY) || bY == 0)
+        {
+            cout << "Invalid input!\n";
+        }
+    }
+    year = " ";
+
+    while(!validYear(year, dY))                             //Adds the death year and error checks
+    {
+        cout << "Enter death year (0 for living person): ";
+        cin >> year;
+        onlyTakeOneInput();
+        if(!validYear(year, dY))
+        {
+            cout << "Invalid input!\n";
+        }
+    }
+
+    if(!birthChecks(bY, dY))
+    {
+        //check();                                            // Checks if you want to try to input again.
+    }
+    else
+    {
+        Persons p(n, g, bY, dY);
+        int a = 0;
+        for (unsigned int i = 0; i < serve.readScientists(0,1).size(); i++)
+        {
+            if (p == serve.readScientists(0,1)[i])
+            {
+                cout << "Scientist already on list!\n";
+                a++;
+                break;
+            }
+        }
+        if (a == 0)
+        {
+            serve.addScientist(p);
+            cout << "Scientist added\n";
+        }
+    }
 }
 
 void ConsoleUI::addComputer()
@@ -978,7 +1018,7 @@ bool ConsoleUI::validName(const string& s)
     return !s.empty() && it == s.end();
 }
 
-/*
+
 //Errorchecks for whether certain years entered by the user are valid.
 //sadly, it can't be a 300 year old dude. No vampires.
 bool ConsoleUI::birthChecks(int birthYear, int deathYear)
@@ -1004,7 +1044,7 @@ bool ConsoleUI::birthChecks(int birthYear, int deathYear)
     }
     return true;
 }
-
+/*
 //in the addData() function, errors will call upon this function.
 //it then loops back into said function if you want.
 bool ConsoleUI::check()
