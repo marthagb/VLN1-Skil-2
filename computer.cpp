@@ -5,22 +5,22 @@ Computer::Computer()
 
 }
 
-Computer::Computer(string n, int bY, string t, bool b)
+Computer::Computer(string n, int yM, string t, bool b)
 {
-    name = n;
-    buildYear = bY;
+    computerName = n;
+    yearMade = yM;
     type = t;
-    built = b;
+    builtOrNot = b;
 }
 
 string Computer::getComputerName() const
 {
-    return name;
+    return computerName;
 }
 
 int Computer::getYearMade() const
 {
-    return buildYear;
+    return yearMade;
 }
 
 string Computer::getType() const
@@ -30,5 +30,5 @@ string Computer::getType() const
 
 bool Computer::getBuiltOrNot() const
 {
-    return built;
+    return builtOrNot;
 }

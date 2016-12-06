@@ -185,20 +185,20 @@ void ConsoleUI::addPerson()
 void ConsoleUI::addComputer()
 {
     string n = " ", t = " ", built = " ";
-    int bY = 0;
+    int yM = 0;
     bool b;
     cout << "Enter name: ";
     cin >> ws;
     getline(cin, n);
     cout << "Enter build year: ";
-    cin >> bY;
+    cin >> yM;
     cout << "Enter type: ";
     cin >> t;
     cout << "Enter B if the computer was built and any other character if it wasn't";
     cin >> built;
     if (built == "B" || built == "b") b = true;
     else b = false;
-    Computer c(n, bY, t, b);
+    Computer c(n, yM, t, b);
     serve.addComputer(c);
 }
 

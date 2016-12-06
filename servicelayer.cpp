@@ -131,11 +131,11 @@ vector<Computer> ServiceLayer::readComputers(int orderBy, int ascOrDesc)
     while(query.next())
     {
         string n = query.value("ComputerName").toString().toStdString();
-        int bY = query.value("YearMade").toUInt();
+        int yM = query.value("YearMade").toUInt();
         string t = query.value("Type").toString().toStdString();
         bool b = query.value("BuiltOrNot").toBool();
 
-        Computer c(n, bY, t, b);
+        Computer c(n, yM, t, b);
         computers.push_back(c);
     }
     db.close();
