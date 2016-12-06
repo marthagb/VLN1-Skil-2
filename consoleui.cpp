@@ -305,7 +305,7 @@ void ConsoleUI::addPerson()
 
     if(!birthChecks(bY, dY))
     {
-        //check();                                            // Checks if you want to try to input again.
+        check();                                            // Checks if you want to try to input again.
     }
     else
     {
@@ -1054,7 +1054,7 @@ bool ConsoleUI::birthChecks(int birthYear, int deathYear)
     }
     return true;
 }
-/*
+
 //in the addData() function, errors will call upon this function.
 //it then loops back into said function if you want.
 bool ConsoleUI::check()
@@ -1064,7 +1064,7 @@ bool ConsoleUI::check()
     cin  >> continuel;
     if(continuel == 'Y' || continuel == 'y')
     {
-        addData();
+        addPerson();
         return true;
     }
     else
@@ -1072,7 +1072,7 @@ bool ConsoleUI::check()
        return false;
     }
 }
-*/
+
 //Errorcheck for whether the entered char is a recognised gender.
 bool ConsoleUI::genderCheck(char& gender)
 {

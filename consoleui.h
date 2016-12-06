@@ -16,7 +16,7 @@ class ConsoleUI
     bool validYear(const string& s, int& year);
     bool genderCheck(char& gender);
     bool birthChecks(int birthYear, int deathYear);
-   //bool check();
+    bool check();
     void sortData();
     void addData();
     void addPersonManually();
