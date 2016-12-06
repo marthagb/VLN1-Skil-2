@@ -19,8 +19,8 @@ class ConsoleUI
     bool check();
     void sortData();
     void addData();
-    void addPersonManually();
-    //void addPeopleFromFile();
+    void addPeopleFromFile();
+    void addComputersFromFile();
     void searchData();
     void searchScientistByName();
     void searchScientistByGender();

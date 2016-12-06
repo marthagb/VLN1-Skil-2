@@ -35,7 +35,7 @@ Persons::Persons(string n, char g, int bY, int dY)
 
 //Checks for a valid name by whether the string 's' is empty
 //or contains characters other than letters and spaces
-/*bool Persons::validName(const string& s)
+bool Persons::validName(const string& s)
 {
     string::const_iterator it = s.begin();
     while (it != s.end() && (isalpha(*it) || *it == ' '))
@@ -97,8 +97,7 @@ bool Persons::birthChecks(int birthYear, int deathYear)
     tm* TimePtr = localtime(&t);
     int currentYear = TimePtr->tm_year + 1900;
     return ((deathYear - birthYear) >= 0 && (deathYear -birthYear) < 123) ||(deathYear == 0 && (currentYear - birthYear) < 123);
-}*/
-
+}
 
 
 string Persons::getName() const
@@ -171,7 +170,7 @@ ostream& operator << (ostream& out, const Persons& p)
 //Reads the name which we know ends at a ;
 //Then reads the gender and birthyear.
 //Reads either "Alive" or the deathyear.
-/*istream& operator >> (istream& in, Persons& p)
+istream& operator >> (istream& in, Persons& p)
 {
     string n = " ", gdr = " ", b = " ", d = " ";
     char g = ' ';
@@ -218,4 +217,4 @@ ostream& operator << (ostream& out, const Persons& p)
     else p = def;
 
     return in;
-}*/
+}
