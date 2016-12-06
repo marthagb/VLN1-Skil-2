@@ -183,10 +183,6 @@ void ConsoleUI::sortData()
     }
     while (error);
 
-    /*if (choice != 5) //if you press cancel, you don't want to see the list, do you?
-    {
-        listData();
-    }*/
 }
 
 void ConsoleUI::ascOrDesc(int orderBy)
