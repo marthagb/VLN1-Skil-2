@@ -13,6 +13,7 @@ class ConsoleUI
     void listComputerData();
     void addPerson();
     void addComputer();
+    void addComputerManually();
     void ascOrDescScientists(int orderBy);
     void ascOrDescComputers(int orderBy);
     bool validName(const string& s);
