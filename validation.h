@@ -1,15 +1,16 @@
 #ifndef VALIDATION_H
 #define VALIDATION_H
-#include "servicelayer.h"
 
+#include "servicelayer.h"
+#include "validation.h"
 #include "consoleui.h"
 
 class validation
 {
 
     ServiceLayer serve;
-    ConsoleUI console;
-    void ValidateString(string& n);
+    //ConsoleUI console;
+
     bool validNames(const string& s);
     bool birthChecks(int birthYear, int deathYear);
     bool genderCheck(char& gender);
@@ -20,8 +21,10 @@ class validation
     void onlyTakeOneInput();
     void yearBornCheck(string year, int bY);
     void deathYearCheck(string year, int dY);
+
 public:
     validation();
+    void ValidateString(string& n);
 };
 
 

@@ -2,9 +2,12 @@
 #define CONSOLEUI_H
 
 #include "servicelayer.h"
+#include "validation.h"
+
 
 class ConsoleUI
 {
+    //validation valid;
     ServiceLayer serve;
     void scientists();
     void listScientistData();

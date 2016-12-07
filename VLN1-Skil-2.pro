@@ -15,7 +15,8 @@ SOURCES += main.cpp \
     servicelayer.cpp \
     persons.cpp \
     computer.cpp \
-    datalayer.cpp
+    datalayer.cpp \
+    validation.cpp
     validation.cpp
 
 HEADERS += \
@@ -23,5 +24,6 @@ HEADERS += \
     servicelayer.h \
     persons.h \
     computer.h \
-    datalayer.h
+    datalayer.h \
+    validation.h
     validation.h

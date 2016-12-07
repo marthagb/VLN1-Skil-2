@@ -3,7 +3,7 @@
 
 #include "consoleui.h"
 #include <ctime>
-#include "consoleui.h"
+
 #include <cstdlib>
 
 validation::validation()

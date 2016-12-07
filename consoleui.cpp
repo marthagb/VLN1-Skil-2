@@ -3,6 +3,9 @@
 #include "consoleui.h"
 #include <cstdlib>
 
+#include "servicelayer.h"
+#include "validation.h"
+
 using namespace std;
 
 //Default Constructor
@@ -499,6 +502,9 @@ void ConsoleUI::addScientistManually()
     cout << "Enter name: ";                                 //Adds the name of a person
     cin >> ws;
     getline(cin,n);
+    //ValidateString(n);
+    //valid.ValidateString(n);
+    /*
     while(!validName(n))
     {
         cout << "Wrong input for name!" << endl;
@@ -509,7 +515,7 @@ void ConsoleUI::addScientistManually()
     if(!isupper(n[0]))                                      //Converts lower case letter to upper case if first is lower case
     {
         n[0] = toupper(n[0]);
-    }
+    }*/
 
     cout << "Enter gender: ";                               //Adds the gender of the person
     cin >> g;
