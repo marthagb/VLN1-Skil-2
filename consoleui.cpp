@@ -177,8 +177,6 @@ void ConsoleUI::computers()
            }
            case 3:
            {
-                addData();
-               //addComputer();
                addComputer();
                break;
            }
@@ -189,8 +187,7 @@ void ConsoleUI::computers()
            }
            case 5:
            {
-            deleteComputer();
-               //deleteComputer();
+               deleteComputer();
                break;
            }
            case 6:
