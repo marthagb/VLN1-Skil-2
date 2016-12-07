@@ -97,7 +97,7 @@ void ConsoleUI::scientists()
             }
             case 2:
             {
-                sortData();
+                sortScientists();
                 break;
             }
             case 3:
@@ -172,7 +172,7 @@ void ConsoleUI::computers()
            }
            case 2:
            {
-               //sortComputers();
+               sortComputers();
                break;
            }
            case 3:
@@ -254,7 +254,7 @@ void ConsoleUI::listComputerData()
 }
 
 //Here we get to pick the parameter by which we want to sort our data.
-void ConsoleUI::sortData()
+void ConsoleUI::sortScientists()
 {
     char input = '0';
     int choice = 0;
@@ -283,25 +283,25 @@ void ConsoleUI::sortData()
             {
             case 1:
             {
-                ascOrDesc(choice);
+                ascOrDescScientists(choice);
                 error = false;
                 break;
             }
              case 2:
             {
-                ascOrDesc(choice);
+                ascOrDescScientists(choice);
                 error = false;
                 break;
             }
              case 3:
              {
-                ascOrDesc(choice);
+                ascOrDescScientists(choice);
                 error = false;
                 break;
             }
              case 4:
             {
-                ascOrDesc(choice);
+                ascOrDescScientists(choice);
                 error = false;
                 break;
             }
@@ -321,7 +321,74 @@ void ConsoleUI::sortData()
 
 }
 
-void ConsoleUI::ascOrDesc(int orderBy)
+void ConsoleUI::sortComputers()
+{
+    char input = '0';
+    int choice = 0;
+    bool error = false;
+
+    do
+    {
+        cout << "How would you like to sort the list?"   << endl;
+        cout << " =================================="    << endl;
+        cout << " Press 1 to sort by name"               << endl;
+        cout << " Press 2 to sort by year built"         << endl;
+        cout << " Press 3 to sort by type"               << endl;
+        cout << " Press 4 to sort by whether it was built" << endl;
+        cout << " Press 5 to Cancel"                     << endl;
+        cout << " =================================="    << endl;
+
+        cin >> input;
+        onlyTakeOneInput();
+        clearScreen();
+        choice = input - '0';
+        input = '1';
+
+
+
+            switch (choice)
+            {
+            case 1:
+            {
+                ascOrDescComputers(choice);
+                error = false;
+                break;
+            }
+             case 2:
+            {
+                ascOrDescComputers(choice);
+                error = false;
+                break;
+            }
+             case 3:
+             {
+                ascOrDescComputers(choice);
+                error = false;
+                break;
+            }
+             case 4:
+            {
+                ascOrDescComputers(choice);
+                error = false;
+                break;
+            }
+             case 5:
+            {
+                error = false;
+                break;
+            }
+             default:
+            {
+                 cout << "Error! Invalid input!" << endl;
+                 error = true;
+            }
+        }
+    }
+    while (error);
+
+}
+
+void ConsoleUI::ascOrDescScientists(int orderBy)
 {
     char input = '0';
     int order = 1;
@@ -344,19 +411,53 @@ void ConsoleUI::ascOrDesc(int orderBy)
     while (input != '1' && input != '2' && input != '3');
     order = input - '0';
 
-    printScientistLine();
 
     if (order == 1 || order == 2)
     {
+        printScientistLine();
 
-    for(unsigned int i = 0; i < serve.readScientists(orderBy, order).size(); i++)
-    {
-        cout << serve.readScientists(orderBy, order)[i];
-    }
-    cout << "_____________________________________________________" << endl;
+        for(unsigned int i = 0; i < serve.readScientists(orderBy, order).size(); i++)
+        {
+            cout << serve.readScientists(orderBy, order)[i];
+        }
+        cout << "_____________________________________________________" << endl;
     }
 }
 
+void ConsoleUI::ascOrDescComputers(int orderBy)
+{
+    char input = '0';
+    int order = 1;
+    do
+    {
+        cout << "Regular or Reversed sorting?"      << endl;
+        cout << " ================================" << endl;
+        cout << "Press 1 for regular sorting"       << endl;
+        cout << "Press 2 for reversed sorting"      << endl;
+        cout << "Press 3 to cancel"                 << endl;
+        cout << " ================================" << endl;
+
+        cin >> input;
+        onlyTakeOneInput();
+        if (input != '1' && input != '2' && input != '3')
+        {
+            cout << "Error! Invalid input" << endl;
+        }
+    }
+    while (input != '1' && input != '2' && input != '3');
+    order = input - '0';
+
+    if (order == 1 || order == 2)
+    {
+        printComputerLine();
+
+        for(unsigned int i = 0; i < serve.readComputers(orderBy, order).size(); i++)
+        {
+            cout << serve.readComputers(orderBy, order)[i];
+        }
+        cout << "_____________________________________________________" << endl;
+    }
+}
 
 void ConsoleUI::addComputer()
 {
