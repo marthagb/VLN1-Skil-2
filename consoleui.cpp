@@ -23,7 +23,6 @@ void ConsoleUI::run()
     {
         cout << " ================================" << endl;
         cout << " Press 1 for scientists"           << endl;
-
         cout << " Press 2 for computers"            << endl;
         cout << " Press 3 for both"                 << endl;
         cout << " Press 4 for exit"                 << endl;
@@ -231,9 +230,10 @@ void ConsoleUI::ascOrDescScientists(int orderBy)
     {
         printScientistLine();
 
-        for(unsigned int i = 0; i < serve.listScientists(orderBy, order).size(); i++)
+        serve.sortScientists(orderBy, order);
+        for(unsigned int i = 0; i < serve.listScientists().size(); i++)
         {
-            cout << serve.listScientists(orderBy, order)[i];
+            cout << serve.listScientists()[i];
         }
         cout << "_____________________________________________________" << endl;
     }
@@ -276,11 +276,13 @@ void ConsoleUI::searchScientist()
             case 3:
             {
                 searchScientistByBirthYear();
+                error = false;
                 break;
             }
             case 4:
             {
                 searchScientistByYearRange();
+                error = false;
                 break;
             }
 
@@ -307,6 +309,7 @@ void ConsoleUI::searchScientistByName()
     cout << "Enter name: ";
     cin >> ws;
     getline(cin, n);
+    serve.sortScientists(1, 1);
     vector<int> vSN = serve.searchScientistByName(n);
     if (vSN.size() == 0)
     {
@@ -317,7 +320,7 @@ void ConsoleUI::searchScientistByName()
         printScientistLine();
         for (unsigned int i = 0; i < vSN.size(); i++)
         {
-            cout << serve.listScientists(1,1)[vSN[i]];
+            cout << serve.listScientists()[vSN[i]];
         }
     }
 
@@ -340,6 +343,7 @@ void ConsoleUI::searchScientistByGender()
         }
         else
         {
+            serve.sortScientists(1,1);
             vector<int> vG = serve.searchScientistByGender(g);
             if (vG.size() == 0)
             {
@@ -350,7 +354,7 @@ void ConsoleUI::searchScientistByGender()
                 printScientistLine();
                 for (unsigned int i = 0; i < vG.size(); i++)
                 {
-                    cout << serve.listScientists(1,1)[vG[i]];
+                    cout << serve.listScientists()[vG[i]];
                 }
             }
         }
@@ -375,6 +379,7 @@ void ConsoleUI::searchScientistByBirthYear()
             cout << "Invalid input!\n";
         }
     }
+    serve.sortScientists(1,1);
     vector<int> vY = serve.searchScientistByBirthYear(y);
     if (vY.size() == 0)
     {
@@ -385,7 +390,7 @@ void ConsoleUI::searchScientistByBirthYear()
         printScientistLine();
         for (unsigned int i = 0; i < vY.size(); i++)
         {
-            cout << serve.listScientists(1,1)[vY[i]];
+            cout << serve.listScientists()[vY[i]];
         }
         cout << "________________________________________________________________________" << endl;
     }
@@ -416,6 +421,7 @@ void ConsoleUI::searchScientistByYearRange()
             cout << "Invalid input!\n";
         }
     }
+    serve.sortScientists(1,1);
     vector<int> vR = serve.searchScientistByYearRange(f,l);
     if (vR.size() == 0)
     {
@@ -426,7 +432,7 @@ void ConsoleUI::searchScientistByYearRange()
         printScientistLine();
         for (unsigned int i = 0; i < vR.size(); i++)
         {
-            cout << serve.listScientists(1,1)[vR[i]];
+            cout << serve.listScientists()[vR[i]];
         }
     }
 
@@ -547,9 +553,9 @@ void ConsoleUI::addScientistManually()
     {
         Persons p(n, g, bY, dY);
         int a = 0;
-        for (unsigned int i = 0; i < serve.listScientists(0,1).size(); i++)
+        for (unsigned int i = 0; i < serve.listScientists().size(); i++)
         {
-            if (p == serve.listScientists(0,1)[i])
+            if (p == serve.listScientists()[i])
             {
                 cout << "Scientist already on list!\n";
                 a++;
@@ -617,6 +623,7 @@ void ConsoleUI::deleteScientist()
     string n = " ";
     cin >> ws;
     getline(cin, n);
+    serve.sortScientists(1,1);
     vector<int> v = serve.searchScientistByName(n);
     int s = v.size();
     if (s > 0)
@@ -629,7 +636,7 @@ void ConsoleUI::deleteScientist()
             printScientistLine();
             for (int i = 0; i < s; i++)
             {
-                cout << serve.listScientists(1,1)[v[i]];
+                cout << serve.listScientists()[v[i]];
             }
             char a = ' ';
             cin >> a;
@@ -879,9 +886,10 @@ void ConsoleUI::ascOrDescComputers(int orderBy)
     {
         printComputerLine();
 
-        for(unsigned int i = 0; i < serve.listComputers(orderBy, order).size(); i++)
+        serve.sortComputers(orderBy, order);
+        for(unsigned int i = 0; i < serve.listComputers().size(); i++)
         {
-            cout << serve.listComputers(orderBy, order)[i];
+            cout << serve.listComputers()[i];
         }
         cout << "_____________________________________________________" << endl;
     }
@@ -953,6 +961,7 @@ void ConsoleUI::searchComputerByName()
     cout << "Enter name: ";
     cin >> ws;
     getline(cin, n);
+    serve.sortComputers(1,1);
     vector<int> vCN = serve.searchComputerByName(n);
     if (vCN.size() == 0)
     {
@@ -963,7 +972,7 @@ void ConsoleUI::searchComputerByName()
         printComputerLine();
         for (unsigned int i = 0; i < vCN.size(); i++)
         {
-            cout << serve.listComputers(1,1)[vCN[i]];
+            cout << serve.listComputers()[vCN[i]];
         }
     }
 }
@@ -980,6 +989,7 @@ void ConsoleUI::searchComputerByYearMade()
             cout << "Invalid input!\n";
         }
     }
+    serve.sortComputers(1,1);
     vector<int> vY = serve.searchComputerByYearMade(y);
     if (vY.size() == 0)
     {
@@ -990,7 +1000,7 @@ void ConsoleUI::searchComputerByYearMade()
         printComputerLine();
         for (unsigned int i = 0; i < vY.size(); i++)
         {
-            cout << serve.listComputers(1,1)[vY[i]];
+            cout << serve.listComputers()[vY[i]];
         }
     }
 }
@@ -1017,6 +1027,7 @@ void ConsoleUI::searchComputerByYearRange()
             cout << "Invalid input!\n";
         }
     }
+    serve.sortComputers(1,1);
     vector<int> vR = serve.searchComputerByYearRange(f,l);
     if (vR.size() == 0)
     {
@@ -1027,7 +1038,7 @@ void ConsoleUI::searchComputerByYearRange()
         printComputerLine();
         for (unsigned int i = 0; i < vR.size(); i++)
         {
-            cout << serve.listComputers(1,1)[vR[i]];
+            cout << serve.listComputers()[vR[i]];
         }
     }
 }
@@ -1038,6 +1049,7 @@ void ConsoleUI::searchComputerByType()
     cout << "Enter type: ";
     cin >> ws;
     getline(cin, t);
+    serve.sortComputers(1,1);
     vector<int> vCT = serve.searchComputerByType(t);
     if (vCT.size() == 0)
     {
@@ -1048,7 +1060,7 @@ void ConsoleUI::searchComputerByType()
         printComputerLine();
         for (unsigned int i = 0; i < vCT.size(); i++)
         {
-            cout << serve.listComputers(1,1)[vCT[i]];
+            cout << serve.listComputers()[vCT[i]];
         }
     }
 }
@@ -1125,6 +1137,7 @@ void ConsoleUI::deleteComputer()
     string n = " ";
     cin >> ws;
     getline(cin, n);
+    serve.sortComputers(1,1);
     vector<int> v = serve.searchComputerByName(n);
     int s = v.size();
     if (s > 0)
@@ -1137,7 +1150,7 @@ void ConsoleUI::deleteComputer()
             printComputerLine();
             for (int i = 0; i < s; i++)
             {
-                cout << serve.listComputers(1,1)[v[i]];
+                cout << serve.listComputers()[v[i]];
             }
             char a = ' ';
             cin >> a;

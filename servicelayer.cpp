@@ -8,16 +8,24 @@ ServiceLayer::ServiceLayer()
 
 }
 
-vector<Persons> ServiceLayer::listScientists(int orderBy, int ascOrDesc)
+vector<Persons> ServiceLayer::listScientists()
 {
-    dl.readScientists(orderBy, ascOrDesc);
     return dl.getScientistVector();
 }
 
-vector<Computer> ServiceLayer::listComputers(int orderBy, int ascOrDesc)
+vector<Computer> ServiceLayer::listComputers()
+{
+    return dl.getComputerVector();
+}
+
+void ServiceLayer::sortScientists(int orderBy, int ascOrDesc)
+{
+    dl.readScientists(orderBy, ascOrDesc);
+}
+
+void ServiceLayer::sortComputers(int orderBy, int ascOrDesc)
 {
     dl.readComputers(orderBy, ascOrDesc);
-    return dl.getComputerVector();
 }
 
 vector<int> ServiceLayer::searchScientistByName(const string name)

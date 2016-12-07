@@ -70,6 +70,7 @@ void DataLayer::readScientists(int orderBy, int ascOrDesc)
         }
     }
 
+    vector<Persons> S;
     while(query.next())
     {
         string name = query.value("Name").toString().toStdString();
@@ -79,9 +80,10 @@ void DataLayer::readScientists(int orderBy, int ascOrDesc)
         int dY = query.value("Deathyear").toUInt();
 
         Persons p(name, g, bY, dY);
-        scientists.push_back(p);
+        S.push_back(p);
     }
     db.close();
+    scientists = S;
 }
 
 void DataLayer::readComputers(int orderBy, int ascOrDesc)
@@ -146,6 +148,7 @@ void DataLayer::readComputers(int orderBy, int ascOrDesc)
         }
     }
 
+    vector<Computer> C;
     while(query.next())
     {
         string n = query.value("ComputerName").toString().toStdString();
@@ -154,9 +157,10 @@ void DataLayer::readComputers(int orderBy, int ascOrDesc)
         bool b = query.value("BuiltOrNot").toBool();
 
         Computer c(n, yM, t, b);
-        computers.push_back(c);
+        C.push_back(c);
     }
     db.close();
+    computers = C;
 }
 
 void DataLayer::addScientist(const Persons& p)
@@ -284,7 +288,7 @@ vector<int> DataLayer::getScientistIDs()
 
     QSqlQuery query(db);
 
-    query.exec("SELECT ID FROM Scientists");
+    query.exec("SELECT ID FROM Scientists ORDER BY Name");
 
     while (query.next())
     {
@@ -303,7 +307,7 @@ vector<int> DataLayer::getComputerIDs()
 
     QSqlQuery query(db);
 
-    query.exec("SELECT ComputerID FROM Computers");
+    query.exec("SELECT ComputerID FROM Computers ORDER BY ComputerName");
 
     while (query.next())
     {
@@ -322,7 +326,7 @@ vector<int> DataLayer::searchScientistByName(const string name)
 
     QSqlQuery query(db);
 
-    query.exec("SELECT ID FROM Scientists WHERE Name LIKE '%" + QString::fromStdString(name) + "%'");
+    query.exec("SELECT ID FROM Scientists WHERE Name LIKE '%" + QString::fromStdString(name) + "%' ORDER BY Name");
 
     while (query.next())
     {
@@ -331,11 +335,10 @@ vector<int> DataLayer::searchScientistByName(const string name)
         {
             if (id == getScientistIDs()[i])
             {
-                id = i;
+                vSN.push_back(i);
                 break;
             }
         }
-        vSN.push_back(id);
     }
 
     db.close();
@@ -349,7 +352,7 @@ vector<int> DataLayer::searchScientistByGender(const char gender)
 
     QSqlQuery query(db);
 
-    query.exec("SELECT ID FROM Scientists WHERE Gender = '" + QString(QVariant(gender).toChar()) + "'");
+    query.exec("SELECT ID FROM Scientists WHERE Gender = '" + QString(QVariant(gender).toChar()) + "' ORDER BY Name");
 
     while (query.next())
     {
@@ -358,11 +361,10 @@ vector<int> DataLayer::searchScientistByGender(const char gender)
         {
             if (id == getScientistIDs()[i])
             {
-                id = i;
+                vSG.push_back(i);
                 break;
             }
         }
-        vSG.push_back(id);
     }
 
     db.close();
@@ -376,7 +378,7 @@ vector<int> DataLayer::searchScientistByBirthYear(const int year)
 
     QSqlQuery query(db);
 
-    query.exec("SELECT ID FROM Scientists WHERE birthYear = " + QVariant(year).toString());
+    query.exec("SELECT ID FROM Scientists WHERE birthYear = " + QVariant(year).toString() + " ORDER BY Name");
 
     while (query.next())
     {
@@ -385,11 +387,10 @@ vector<int> DataLayer::searchScientistByBirthYear(const int year)
         {
             if (id == getScientistIDs()[i])
             {
-                id = i;
+                vSBY.push_back(i);
                 break;
             }
         }
-        vSBY.push_back(id);
     }
 
     db.close();
@@ -403,7 +404,7 @@ vector<int> DataLayer::searchScientistByYearRange(const int f, const int l)
 
     QSqlQuery query(db);
 
-    query.exec("SELECT ID FROM Scientists WHERE birthYear >= " + QVariant(f).toString() + " AND birthYear <= " + QVariant(l).toString());
+    query.exec("SELECT ID FROM Scientists WHERE birthYear >= " + QVariant(f).toString() + " AND birthYear <= " + QVariant(l).toString() + " ORDER BY Name");
 
     while (query.next())
     {
@@ -412,11 +413,10 @@ vector<int> DataLayer::searchScientistByYearRange(const int f, const int l)
         {
             if (id == getScientistIDs()[i])
             {
-                id = i;
+                vSBR.push_back(i);
                 break;
             }
         }
-        vSBR.push_back(id);
     }
 
     db.close();
@@ -430,7 +430,7 @@ vector<int> DataLayer::searchComputerByName(const string name)
 
     QSqlQuery query(db);
 
-    query.exec("SELECT ComputerID FROM Computers WHERE ComputerName LIKE '%" + QString::fromStdString(name) + "%'");
+    query.exec("SELECT ComputerID FROM Computers WHERE ComputerName LIKE '%" + QString::fromStdString(name) + "%' ORDER BY ComputerName");
 
     while (query.next())
     {
@@ -439,11 +439,10 @@ vector<int> DataLayer::searchComputerByName(const string name)
         {
             if (id == getComputerIDs()[i])
             {
-                id = i;
+                vCBN.push_back(i);
                 break;
             }
         }
-        vCBN.push_back(id);
     }
 
     db.close();
@@ -457,7 +456,7 @@ vector<int> DataLayer::searchComputerByYearMade(const int year)
 
     QSqlQuery query(db);
 
-    query.exec("SELECT ComputerID FROM Computers WHERE YearMade = " + QVariant(year).toString());
+    query.exec("SELECT ComputerID FROM Computers WHERE YearMade = " + QVariant(year).toString() + " ORDER BY ComputerName");
 
     while (query.next())
     {
@@ -466,11 +465,10 @@ vector<int> DataLayer::searchComputerByYearMade(const int year)
         {
             if (id == getComputerIDs()[i])
             {
-                id = i;
+                vCYM.push_back(i);
                 break;
             }
         }
-        vCYM.push_back(id);
     }
 
     db.close();
@@ -484,7 +482,7 @@ vector<int> DataLayer::searchComputerByYearRange(const int f, const int l)
 
     QSqlQuery query(db);
 
-    query.exec("SELECT ComputerID FROM Computers WHERE YearMade >= " + QVariant(f).toString() + " AND YearMade <= " + QVariant(l).toString());
+    query.exec("SELECT ComputerID FROM Computers WHERE YearMade >= " + QVariant(f).toString() + " AND YearMade <= " + QVariant(l).toString() + " ORDER BY ComputerName");
 
     while (query.next())
     {
@@ -493,11 +491,10 @@ vector<int> DataLayer::searchComputerByYearRange(const int f, const int l)
         {
             if (id == getComputerIDs()[i])
             {
-                id = i;
+                vCYR.push_back(i);
                 break;
             }
         }
-        vCYR.push_back(id);
     }
 
     db.close();
@@ -511,7 +508,7 @@ vector<int> DataLayer::searchComputerByType(const string type)
 
     QSqlQuery query(db);
 
-    query.exec("SELECT ComputerID FROM Computers WHERE Type LIKE '%" + QString::fromStdString(type) + "%'");
+    query.exec("SELECT ComputerID FROM Computers WHERE Type LIKE '%" + QString::fromStdString(type) + "%' ORDER BY ComputerName");
 
     while (query.next())
     {
@@ -520,11 +517,10 @@ vector<int> DataLayer::searchComputerByType(const string type)
         {
             if (id == getComputerIDs()[i])
             {
-                id = i;
+                vCBT.push_back(i);
                 break;
             }
         }
-        vCBT.push_back(id);
     }
 
     db.close();

@@ -10,8 +10,10 @@ class ServiceLayer
     DataLayer dl;
 public:
     ServiceLayer();
-    vector<Persons> listScientists(int orderBy, int ascOrDesc);
-    vector<Computer> listComputers(int orderBy, int ascOrDesc);
+    vector<Persons> listScientists();
+    vector<Computer> listComputers();
+    void sortScientists(int orderBy, int ascOrDesc);
+    void sortComputers(int orderBy, int ascOrDesc);
     vector<int> searchScientistByName(const string name);
     vector<int> searchScientistByGender(const char gender);
     vector<int> searchScientistByBirthYear(const int year);
