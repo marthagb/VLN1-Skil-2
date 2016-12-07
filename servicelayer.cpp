@@ -3,6 +3,7 @@
 #include <fstream>
 
 
+
 ServiceLayer::ServiceLayer()
 {
     db = QSqlDatabase::addDatabase("QSQLITE");

@@ -14,10 +14,12 @@ SOURCES += main.cpp \
     consoleui.cpp \
     servicelayer.cpp \
     persons.cpp \
-    computer.cpp
+    computer.cpp \
+    validation.cpp
 
 HEADERS += \
     consoleui.h \
     servicelayer.h \
     persons.h \
-    computer.h
+    computer.h \
+    validation.h

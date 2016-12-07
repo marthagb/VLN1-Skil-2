@@ -23,6 +23,7 @@ void ConsoleUI::run()
     {
         cout << " ================================" << endl;
         cout << " Press 1 for scientists"           << endl;
+
         cout << " Press 2 for computers"            << endl;
         cout << " Press 3 for both"                 << endl;
         cout << " Press 4 for exit"                 << endl;
