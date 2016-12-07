@@ -10,6 +10,7 @@ using namespace std;
 
 class ServiceLayer
 {
+    //vector<Persons> people;
     QSqlDatabase db;
 public:
     ServiceLayer();
@@ -31,7 +32,8 @@ public:
     void deleteComputer(int n);
     bool saveToOtherFile(string input);
     bool saveToOtherFile2(string input);
-    //bool saveToOtherFile(string input);
+
+
 };
 
 #endif // SERVICELAYER_H
