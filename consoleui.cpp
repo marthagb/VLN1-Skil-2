@@ -251,7 +251,7 @@ void ConsoleUI::listComputerData()
     {
         cout << serve.readComputers(1, 1)[i];
     }
-    cout << "_____________________________________________________" << endl;
+    cout << "________________________________________________________________________" << endl;
 }
 
 //Here we get to pick the parameter by which we want to sort our data.
@@ -456,7 +456,7 @@ void ConsoleUI::ascOrDescComputers(int orderBy)
         {
             cout << serve.readComputers(orderBy, order)[i];
         }
-        cout << "_____________________________________________________" << endl;
+        cout << "________________________________________________________________________" << endl;
     }
 }
 
@@ -1380,9 +1380,6 @@ void ConsoleUI::printComputerLine()
 {
     cout.width(20);
     cout << left << "Name";
-    cout.width(30);
-    cout << "\tBuilding Year\tComputer type\tBuilt?" << endl;
-    cout << "_____________________________________________________" << endl;
     cout << "\tYear\t";
     cout.width(25);
     cout << left << "Computer type";
