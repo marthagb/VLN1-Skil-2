@@ -23,6 +23,7 @@ void ConsoleUI::run()
     {
         cout << " ================================" << endl;
         cout << " Press 1 for scientists"           << endl;
+
         cout << " Press 2 for computers"            << endl;
         cout << " Press 3 for both"                 << endl;
         cout << " Press 4 for exit"                 << endl;
@@ -386,6 +387,7 @@ void ConsoleUI::searchScientistByBirthYear()
         {
             cout << serve.listScientists(1,1)[vY[i]];
         }
+        cout << "________________________________________________________________________" << endl;
     }
 
 }
@@ -1164,7 +1166,6 @@ void ConsoleUI::deleteComputer()
         cout << "No match for " << n << endl;
     }
 }
-
 
 void ConsoleUI::saveComputersToFile()
 {

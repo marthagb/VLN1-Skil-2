@@ -2,6 +2,7 @@
 #include <fstream>
 
 
+
 ServiceLayer::ServiceLayer()
 {
 
@@ -130,10 +131,10 @@ bool ServiceLayer::saveComputersToFile(string input)
    }
     else
    {
-       out.width(30);
+       out.width(20);
        out << left << "Name";
-       out << "\tBuilding Year\tComputer type\tBuilt?" << endl;
-       out << "_____________________________________________________" << endl;
+       out << "\tYear\tComputer type\t\tBuilt?" << endl;
+       out << "______________________________________________________________________" << endl;
 
        out.seekp(100);
        out << endl;
@@ -145,5 +146,11 @@ bool ServiceLayer::saveComputersToFile(string input)
     }
            out.close();
            return true;
-
 }
+
+
+
+
+
+
+
