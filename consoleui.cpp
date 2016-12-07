@@ -64,6 +64,7 @@ void ConsoleUI::run()
     }
 }
 
+
 void ConsoleUI::scientists()
 {
     bool run = true;
@@ -72,13 +73,12 @@ void ConsoleUI::scientists()
     {
        cout << " ================================" << endl;
        cout << " Press 1 to list the scientists"   << endl;
-       cout << " Press 2 to sort the scientists"   << endl;
-       cout << " Press 3 to add a scientist"       << endl;
-       cout << " Press 4 to search scientists"     << endl;
-       cout << " Press 5 to remove a scientist"    << endl;
-       cout << " Press 6 to save to a custom file" << endl;
-       cout << " Press 7 to go back to main menu"  << endl;
-       cout << " Press 8 to quit"                  << endl;
+       cout << " Press 2 to search scientists"       << endl;
+       cout << " Press 3 to add a scientist"     << endl;
+       cout << " Press 4 to remove a scientist"    << endl;
+       cout << " Press 5 to save to a custom file" << endl;
+       cout << " Press 6 to go back to main menu"  << endl;
+       cout << " Press 7 to quit"                  << endl;
        cout << " ================================" << endl;
 
        char input = '0';
@@ -97,35 +97,30 @@ void ConsoleUI::scientists()
             }
             case 2:
             {
-                sortScientists();
+                searchScientist();
                 break;
             }
             case 3:
             {
-                addData();
+                addScientist();
                 break;
             }
             case 4:
             {
-                searchData();
+                deleteScientist();
                 break;
             }
             case 5:
             {
-                deleteScientist();
+                saveScientistsToFile();
                 break;
             }
             case 6:
             {
-                saveToFile();
-                break;
-            }
-            case 7:
-            {
                 run = false;
                 break;
             }
-            case 8:
+            case 7:
             {
                 exit(0);
                 break;
@@ -139,121 +134,9 @@ void ConsoleUI::scientists()
     }
 }
 
-void ConsoleUI::computers()
-{
-    bool run = true;
-
-    while (run)
-    {
-        cout << " ================================" << endl;
-        cout << " Press 1 to list the computers"    << endl;
-        cout << " Press 2 to sort the computers"    << endl;
-        cout << " Press 3 to add a computer"        << endl;
-        cout << " Press 4 to search computer"       << endl;
-        cout << " Press 5 to remove a computers"    << endl;
-        cout << " Press 6 to save to a custom file" << endl;
-        cout << " Press 7 to go back to main menu"  << endl;
-        cout << " Press 8 to quit"                  << endl;
-        cout << " ================================" << endl;
-
-        char input = '0';
-        cin >> input;
-        clearScreen();
-
-        onlyTakeOneInput();                                                  // Takes only one letter and flushes the rest.
-        int choice = input - '0';
-
-        switch (choice)
-           {
-           case 1:
-           {
-               listComputerData();
-               break;
-           }
-           case 2:
-           {
-               sortComputers();
-               break;
-           }
-           case 3:
-           {
-               //addComputer();
-               break;
-           }
-           case 4:
-           {
-               searchComputer();
-               break;
-           }
-           case 5:
-           {
-            deleteComputer();
-               //deleteComputer();
-               break;
-           }
-           case 6:
-           {
-               saveToFile2();
-               break;
-           }
-           case 7:
-           {
-                run = false;
-                break;
-           }
-           case 8:
-           {
-                exit (0);
-                break;
-           }
-
-           default:
-           {
-               cout << "Error! Invalid input" << endl;
-           }
-           }
-    }
-}
-
-void ConsoleUI:: clearScreen()
-{
-#ifdef __cplusplus__
-  #include <cstdlib>
-#else
-  #include <stdlib.h>
-#endif
-
-if (system("CLS")) system("clear");
-}
-
 // lists all the data from the vector.
 //uses the printLine() function, which gives us a nice header.
 void ConsoleUI::listScientistData()
-{
-    cout << endl;
-    printScientistLine();
-
-    for(unsigned int i = 0; i < serve.readScientists(1, 1).size(); i++)
-    {
-        cout << serve.readScientists(1, 1)[i];
-    }
-    cout << "_____________________________________________________" << endl;
-
-}
-
-void ConsoleUI::listComputerData()
-{
-    printComputerLine();
-    cout << serve.readComputers(1, 1).size() << endl;
-    for(unsigned int i = 0; i < serve.readComputers(1, 1).size(); i++)
-    {
-        cout << serve.readComputers(1, 1)[i];
-    }
-    cout << "_____________________________________________________" << endl;
-}
-
-//Here we get to pick the parameter by which we want to sort our data.
-void ConsoleUI::sortScientists()
 {
     char input = '0';
     int choice = 0;
@@ -317,74 +200,6 @@ void ConsoleUI::sortScientists()
         }
     }
     while (error);
-
-}
-
-void ConsoleUI::sortComputers()
-{
-    char input = '0';
-    int choice = 0;
-    bool error = false;
-
-    do
-    {
-        cout << "How would you like to sort the list?"   << endl;
-        cout << " =================================="    << endl;
-        cout << " Press 1 to sort by name"               << endl;
-        cout << " Press 2 to sort by year built"         << endl;
-        cout << " Press 3 to sort by type"               << endl;
-        cout << " Press 4 to sort by whether it was built" << endl;
-        cout << " Press 5 to Cancel"                     << endl;
-        cout << " =================================="    << endl;
-
-        cin >> input;
-        onlyTakeOneInput();
-        clearScreen();
-        choice = input - '0';
-        input = '1';
-
-
-
-            switch (choice)
-            {
-            case 1:
-            {
-                ascOrDescComputers(choice);
-                error = false;
-                break;
-            }
-             case 2:
-            {
-                ascOrDescComputers(choice);
-                error = false;
-                break;
-            }
-             case 3:
-             {
-                ascOrDescComputers(choice);
-                error = false;
-                break;
-            }
-             case 4:
-            {
-                ascOrDescComputers(choice);
-                error = false;
-                break;
-            }
-             case 5:
-            {
-                error = false;
-                break;
-            }
-             default:
-            {
-                 cout << "Error! Invalid input!" << endl;
-                 error = true;
-            }
-        }
-    }
-    while (error);
-
 }
 
 void ConsoleUI::ascOrDescScientists(int orderBy)
@@ -415,296 +230,16 @@ void ConsoleUI::ascOrDescScientists(int orderBy)
     {
         printScientistLine();
 
-        for(unsigned int i = 0; i < serve.readScientists(orderBy, order).size(); i++)
+        for(unsigned int i = 0; i < serve.listScientists(orderBy, order).size(); i++)
         {
-            cout << serve.readScientists(orderBy, order)[i];
+            cout << serve.listScientists(orderBy, order)[i];
         }
         cout << "_____________________________________________________" << endl;
     }
 }
-
-void ConsoleUI::ascOrDescComputers(int orderBy)
-{
-    char input = '0';
-    int order = 1;
-    do
-    {
-        cout << "Regular or Reversed sorting?"      << endl;
-        cout << " ================================" << endl;
-        cout << "Press 1 for regular sorting"       << endl;
-        cout << "Press 2 for reversed sorting"      << endl;
-        cout << "Press 3 to cancel"                 << endl;
-        cout << " ================================" << endl;
-
-        cin >> input;
-        onlyTakeOneInput();
-        if (input != '1' && input != '2' && input != '3')
-        {
-            cout << "Error! Invalid input" << endl;
-        }
-    }
-    while (input != '1' && input != '2' && input != '3');
-    order = input - '0';
-
-    if (order == 1 || order == 2)
-    {
-        printComputerLine();
-
-        for(unsigned int i = 0; i < serve.readComputers(orderBy, order).size(); i++)
-        {
-            cout << serve.readComputers(orderBy, order)[i];
-        }
-        cout << "_____________________________________________________" << endl;
-    }
-}
-
-void ConsoleUI::addComputer()
-{
-    string n = " ", t = " ", built = " ";
-    int yM = 0;
-    bool b;
-    cout << "Enter name: ";
-    cin >> ws;
-
-    getline(cin, n);
-    cout << "Enter build year: ";
-    cin >> yM;
-    cout << "Enter type: ";
-    cin >> t;
-    cout << "Enter B if the computer was built and any other character if it wasn't";
-    cin >> built;
-    if (built == "B" || built == "b") b = true;
-    else b = false;
-    Computer c(n, yM, t, b);
-    serve.addComputer(c);
-}
-
-// Asks you to enter whether you want to add data manually or from a file.
-void ConsoleUI::addData()
-{
-    bool error = false;
-    do
-    {
-        cout << " ================================" << endl;
-        cout << " Press 1 to add manually"          << endl;
-        cout << " Press 2 to add from file"         << endl;
-        cout << " Press 3 to cancel"                << endl;
-        cout << " ================================" << endl;
-
-        char input = '0';
-        cin >> input;
-        onlyTakeOneInput();
-        int choice = input - '0';
-
-        switch (choice)
-        {
-        case 1:
-        {
-            addPerson();
-            error = false;
-            break;
-        }
-        case 2:
-        {
-            //addPeopleFromFile();
-            error = false;
-            break;
-        }
-        case 3:
-        {
-            error = false;
-            break;
-        }
-        default:
-        {
-            cout << "Error! Invalid input" << endl;
-            error = true;
-            break;
-        }
-        }
-    }
-    while (error);
-}
-
-//We add a person through the console.
-//If user does not enter a string with names he gets an error message.
-//The first letter becomes uppercase.
-//there are error checks for birth Year and death Year.
-//If no invalid information is entered, the person is added to the file.
-void ConsoleUI::addPerson()
-{
-    string n = " ", year;
-    char g = ' ';
-    int bY = 0, dY = 0;
-
-    cout << "Enter name: ";                                 //Adds the name of a person
-    cin >> ws;
-    getline(cin,n);
-    while(!validName(n))
-    {
-        cout << "Wrong input for name!" << endl;
-        cout << "Enter name: ";
-        cin  >> ws;
-        getline(cin,n);
-    }
-    if(!isupper(n[0]))                                      //Converts lower case letter to upper case if first is lower case
-    {
-        n[0] = toupper(n[0]);
-    }
-
-    cout << "Enter gender: ";                               //Adds the gender of the person
-    cin >> g;
-    onlyTakeOneInput();
-    while(!genderCheck(g))                                  //Error check for gender
-    {
-        cout << "Wrong input for gender!" << endl;
-        cout << "Enter gender (M/F): ";
-        cin  >> g;
-        onlyTakeOneInput();
-    }
-
-    while(!validYear(year, bY) || bY == 0)                  //Adds the birth year and error checks
-    {
-        cout << "Enter birth year: ";
-        cin >> year;
-        onlyTakeOneInput();
-        if (!validYear(year, bY) || bY == 0)
-        {
-            cout << "Invalid input!\n";
-        }
-    }
-    year = " ";
-
-    while(!validYear(year, dY))                             //Adds the death year and error checks
-    {
-        cout << "Enter death year (0 for living person): ";
-        cin >> year;
-        onlyTakeOneInput();
-        if(!validYear(year, dY))
-        {
-            cout << "Invalid input!\n";
-        }
-    }
-
-    if(!birthChecks(bY, dY))
-    {
-        check();                                            // Checks if you want to try to input again.
-    }
-    else
-    {
-        Persons p(n, g, bY, dY);
-        int a = 0;
-        for (unsigned int i = 0; i < serve.readScientists(0,1).size(); i++)
-        {
-            if (p == serve.readScientists(0,1)[i])
-            {
-                cout << "Scientist already on list!\n";
-                a++;
-                break;
-            }
-        }
-        if (a == 0)
-        {
-            serve.addScientist(p);
-            cout << "Scientist added\n";
-        }
-    }
-}
-
-
-// Asks user to enter path to file. This WILL overwrite the default file.
-void ConsoleUI::addPeopleFromFile()
-{
-    string fileName = "";
-    bool fileOpen = false;
-
-    do
-    {
-        cout << "Enter the full path of the file, or the name of the file, if the file is in the same directory: " << endl;
-        cin >> fileName;
-        if(serve.addScientistsFromFile(fileName))
-        {
-            cout << "Success!" << endl;
-            fileOpen = false;
-        }
-        else
-        {
-            cout << "Error! Failed to open file" << endl;
-            char continuel;
-            bool cont = true;
-            while (cont)
-            {
-                cout << "Do you want to try again? (Y for yes and N for no) " ;
-                cin  >> continuel;
-                if(continuel == 'Y' || continuel == 'y')
-                {
-                    fileOpen = true;
-                    cont = false;
-                }
-                else if (continuel == 'N' || continuel == 'n')
-                {
-                    fileOpen = false;
-                    cont = false;
-                }
-                else
-                {
-                    cout << "Error! Invalid input" << endl;
-                    cont = true;
-                }
-            }
-        }
-    }
-    while (fileOpen);
-}
-
-// Asks user to enter path to file. This WILL overwrite the default file.
-void ConsoleUI::addComputersFromFile()
-{
-    string fileName = "";
-    bool fileOpen = false;
-
-    do
-    {
-        cout << "Enter the full path of the file, or the name of the file, if the file is in the same directory: " << endl;
-        cin >> fileName;
-        if(serve.addComputersFromFile(fileName))
-        {
-            cout << "Success!" << endl;
-            fileOpen = false;
-        }
-        else
-        {
-            cout << "Error! Failed to open file" << endl;
-            char continuel;
-            bool cont = true;
-            while (cont)
-            {
-                cout << "Do you want to try again? (Y for yes and N for no) " ;
-                cin  >> continuel;
-                if(continuel == 'Y' || continuel == 'y')
-                {
-                    fileOpen = true;
-                    cont = false;
-                }
-                else if (continuel == 'N' || continuel == 'n')
-                {
-                    fileOpen = false;
-                    cont = false;
-                }
-                else
-                {
-                    cout << "Error! Invalid input" << endl;
-                    cont = true;
-                }
-            }
-        }
-    }
-    while (fileOpen);
-}
-
 
 // Shows the table for search options.
-void ConsoleUI::searchData()
+void ConsoleUI::searchScientist()
 {
     bool error = false;
     do
@@ -771,10 +306,6 @@ void ConsoleUI::searchScientistByName()
     cout << "Enter name: ";
     cin >> ws;
     getline(cin, n);
-    if(!isupper(n[0]))
-    {
-        n[0] = toupper(n[0]);
-    }
     vector<int> vSN = serve.searchScientistByName(n);
     if (vSN.size() == 0)
     {
@@ -785,7 +316,7 @@ void ConsoleUI::searchScientistByName()
         printScientistLine();
         for (unsigned int i = 0; i < vSN.size(); i++)
         {
-            cout << serve.readScientists(0,1)[vSN[i]];
+            cout << serve.listScientists(1,1)[vSN[i]];
         }
     }
 
@@ -818,7 +349,7 @@ void ConsoleUI::searchScientistByGender()
                 printScientistLine();
                 for (unsigned int i = 0; i < vG.size(); i++)
                 {
-                    cout << serve.readScientists(0,1)[vG[i]];
+                    cout << serve.listScientists(1,1)[vG[i]];
                 }
             }
         }
@@ -853,7 +384,7 @@ void ConsoleUI::searchScientistByBirthYear()
         printScientistLine();
         for (unsigned int i = 0; i < vY.size(); i++)
         {
-            cout << serve.readScientists(0,1)[vY[i]];
+            cout << serve.listScientists(1,1)[vY[i]];
         }
     }
 
@@ -883,7 +414,7 @@ void ConsoleUI::searchScientistByYearRange()
             cout << "Invalid input!\n";
         }
     }
-    vector<int> vR = serve.searchScientistByRange(f,l);
+    vector<int> vR = serve.searchScientistByYearRange(f,l);
     if (vR.size() == 0)
     {
         cout << "No results found" << endl;
@@ -893,11 +424,467 @@ void ConsoleUI::searchScientistByYearRange()
         printScientistLine();
         for (unsigned int i = 0; i < vR.size(); i++)
         {
-            cout << serve.readScientists(0,1)[vR[i]];
+            cout << serve.listScientists(1,1)[vR[i]];
         }
     }
 
 }
+
+// Asks you to enter whether you want to add data manually or from a file.
+void ConsoleUI::addScientist()
+{
+    bool error = false;
+    do
+    {
+        cout << " ================================" << endl;
+        cout << " Press 1 to add manually"          << endl;
+        cout << " Press 2 to add from file"         << endl;
+        cout << " Press 3 to cancel"                << endl;
+        cout << " ================================" << endl;
+
+        char input = '0';
+        cin >> input;
+        onlyTakeOneInput();
+        int choice = input - '0';
+
+        switch (choice)
+        {
+        case 1:
+        {
+            addScientistManually();
+            error = false;
+            break;
+        }
+        case 2:
+        {
+            addScientistsFromFile();
+            error = false;
+            break;
+        }
+        case 3:
+        {
+            error = false;
+            break;
+        }
+        default:
+        {
+            cout << "Error! Invalid input" << endl;
+            error = true;
+            break;
+        }
+        }
+    }
+    while (error);
+}
+
+//We add a person through the console.
+//If user does not enter a string with names he gets an error message.
+//The first letter becomes uppercase.
+//there are error checks for birth Year and death Year.
+//If no invalid information is entered, the person is added to the file.
+void ConsoleUI::addScientistManually()
+{
+    string n = " ", year;
+    char g = ' ';
+    int bY = 0, dY = 0;
+
+    cout << "Enter name: ";                                 //Adds the name of a person
+    cin >> ws;
+    getline(cin,n);
+    while(!validName(n))
+    {
+        cout << "Wrong input for name!" << endl;
+        cout << "Enter name: ";
+        cin  >> ws;
+        getline(cin,n);
+    }
+    if(!isupper(n[0]))                                      //Converts lower case letter to upper case if first is lower case
+    {
+        n[0] = toupper(n[0]);
+    }
+
+    cout << "Enter gender: ";                               //Adds the gender of the person
+    cin >> g;
+    onlyTakeOneInput();
+    while(!genderCheck(g))                                  //Error check for gender
+    {
+        cout << "Wrong input for gender!" << endl;
+        cout << "Enter gender (M/F): ";
+        cin  >> g;
+        onlyTakeOneInput();
+    }
+
+    while(!validYear(year, bY) || bY == 0)                  //Adds the birth year and error checks
+    {
+        cout << "Enter birth year: ";
+        cin >> year;
+        onlyTakeOneInput();
+        if (!validYear(year, bY) || bY == 0)
+        {
+            cout << "Invalid input!\n";
+        }
+    }
+    year = " ";
+
+    while(!validYear(year, dY))                             //Adds the death year and error checks
+    {
+        cout << "Enter death year (0 for living person): ";
+        cin >> year;
+        onlyTakeOneInput();
+        if(!validYear(year, dY))
+        {
+            cout << "Invalid input!\n";
+        }
+    }
+
+    if(!birthChecks(bY, dY))
+    {
+        check();                                            // Checks if you want to try to input again.
+    }
+    else
+    {
+        Persons p(n, g, bY, dY);
+        int a = 0;
+        for (unsigned int i = 0; i < serve.listScientists(0,1).size(); i++)
+        {
+            if (p == serve.listScientists(0,1)[i])
+            {
+                cout << "Scientist already on list!\n";
+                a++;
+                break;
+            }
+        }
+        if (a == 0)
+        {
+            serve.addScientist(p);
+            cout << "Scientist added\n";
+        }
+    }
+}
+
+
+// Asks user to enter path to file. This WILL overwrite the default file.
+void ConsoleUI::addScientistsFromFile()
+{
+    string fileName = "";
+    bool fileOpen = false;
+
+    do
+    {
+        cout << "Enter the full path of the file, or the name of the file, if the file is in the same directory: " << endl;
+        cin >> fileName;
+        if(serve.addScientistsFromFile(fileName))
+        {
+            cout << "Success!" << endl;
+            fileOpen = false;
+        }
+        else
+        {
+            cout << "Error! Failed to open file" << endl;
+            char continuel;
+            bool cont = true;
+            while (cont)
+            {
+                cout << "Do you want to try again? (Y for yes and N for no) " ;
+                cin  >> continuel;
+                if(continuel == 'Y' || continuel == 'y')
+                {
+                    fileOpen = true;
+                    cont = false;
+                }
+                else if (continuel == 'N' || continuel == 'n')
+                {
+                    fileOpen = false;
+                    cont = false;
+                }
+                else
+                {
+                    cout << "Error! Invalid input" << endl;
+                    cont = true;
+                }
+            }
+        }
+    }
+    while (fileOpen);
+}
+
+//This deletes a scientist. RIP. He/she probably didn't belong on the list anyway.
+void ConsoleUI::deleteScientist()
+{
+    cout << "Enter name of scientist(s) you would like to delete: ";
+    string n = " ";
+    cin >> ws;
+    getline(cin, n);
+    vector<int> v = serve.searchScientistByName(n);
+    int s = v.size();
+    if (s > 0)
+    {
+        bool d = false;
+        while (!d)
+        {
+            cout << endl;
+            cout << "Are you sure you would like to delete the following scientist(s)? (y/n)\n" << endl;
+            printScientistLine();
+            for (int i = 0; i < s; i++)
+            {
+                cout << serve.listScientists(1,1)[v[i]];
+            }
+            char a = ' ';
+            cin >> a;
+            if (a == 'y' || a == 'Y')
+            {
+                for (int i = s-1; i >= 0; i--)
+                {
+                    serve.deleteScientist(n);
+                }
+                cout << "Scientist(s) deleted\n";
+                d = true;
+            }
+            else if (a == 'n' || a == 'N')
+            {
+                cout << "Delete cancelled\n";
+                d = true;
+            }
+            else
+            {
+                cout << "Invalid input!\n";
+            }
+        }
+    }
+    else
+    {
+        cout << "No match for " << n << endl;
+    }
+}
+
+void ConsoleUI::saveScientistsToFile()
+{
+    bool fileOpen = false;
+    string fileName;
+    do
+    {
+        cout << "WARNING: This will overwrite everything in the file selected!" << endl;
+        cout << "If the File Doesn't exist, it will create a new file." << endl << endl;
+        cout << "Enter the full path of the file, or the name of the file, if the file is in the same directory: " << endl;
+        cin >> fileName;
+        if(serve.saveScientistsToFile(fileName))
+        {
+            cout << "Success!" << endl;
+            fileOpen = false;
+        }
+        else
+        {
+            cout << "Error! Failed to open file" << endl;
+            char continuel;
+            bool cont = true;
+            while (cont)
+            {
+                cout << "Do you want to try again? (Y for yes and N for no) " ;
+                cin  >> continuel;
+                if(continuel == 'Y' && continuel == 'y')
+                {
+                    fileOpen = true;
+                    cont = false;
+                }
+                else if (continuel == 'N' && continuel == 'n')
+                {
+                    fileOpen = false;
+                    cont = false;
+                }
+                else
+                {
+                    cout << "Error! Invalid input" << endl;
+                    cont = true;
+                }
+            }
+        }
+
+    }
+    while (fileOpen);
+}
+
+//The header used when we list scientists.
+void ConsoleUI::printScientistLine()
+{
+    cout.width(26);
+    cout << left << "Name";
+    cout <<  "\tGender\tBorn\tDied" << endl;
+    cout << "_____________________________________________________" << endl;
+}
+
+
+
+
+void ConsoleUI::computers()
+{
+    bool run = true;
+
+    while (run)
+    {
+        cout << " ================================" << endl;
+        cout << " Press 1 to list the computers"    << endl;
+        cout << " Press 2 to search computers"        << endl;
+        cout << " Press 3 to add a computer"       << endl;
+        cout << " Press 4 to remove a computers"    << endl;
+        cout << " Press 5 to save to a custom file" << endl;
+        cout << " Press 6 to go back to main menu"  << endl;
+        cout << " Press 7 to quit"                  << endl;
+        cout << " ================================" << endl;
+
+        char input = '0';
+        cin >> input;
+        clearScreen();
+
+        onlyTakeOneInput();                                                  // Takes only one letter and flushes the rest.
+        int choice = input - '0';
+
+        switch (choice)
+           {
+           case 1:
+           {
+               listComputerData();
+               break;
+           }
+           case 2:
+           {
+               searchComputer();
+               break;
+           }
+           case 3:
+           {
+               //addComputer();
+               break;
+           }
+           case 4:
+           {
+               deleteComputer();
+               break;
+           }
+           case 5:
+           {
+               saveComputersToFile();
+               break;
+           }
+           case 6:
+           {
+                run = false;
+                break;
+           }
+           case 7:
+           {
+                exit (0);
+                break;
+           }
+
+           default:
+           {
+               cout << "Error! Invalid input" << endl;
+           }
+           }
+    }
+}
+
+void ConsoleUI::listComputerData()
+{
+    char input = '0';
+    int choice = 0;
+    bool error = false;
+
+    do
+    {
+        cout << "How would you like to sort the list?"   << endl;
+        cout << " =================================="    << endl;
+        cout << " Press 1 to sort by name"               << endl;
+        cout << " Press 2 to sort by year built"         << endl;
+        cout << " Press 3 to sort by type"               << endl;
+        cout << " Press 4 to sort by whether it was built" << endl;
+        cout << " Press 5 to Cancel"                     << endl;
+        cout << " =================================="    << endl;
+
+        cin >> input;
+        onlyTakeOneInput();
+        clearScreen();
+        choice = input - '0';
+        input = '1';
+
+
+
+            switch (choice)
+            {
+            case 1:
+            {
+                ascOrDescComputers(choice);
+                error = false;
+                break;
+            }
+             case 2:
+            {
+                ascOrDescComputers(choice);
+                error = false;
+                break;
+            }
+             case 3:
+             {
+                ascOrDescComputers(choice);
+                error = false;
+                break;
+            }
+             case 4:
+            {
+                ascOrDescComputers(choice);
+                error = false;
+                break;
+            }
+             case 5:
+            {
+                error = false;
+                break;
+            }
+             default:
+            {
+                 cout << "Error! Invalid input!" << endl;
+                 error = true;
+            }
+        }
+    }
+    while (error);
+}
+
+void ConsoleUI::ascOrDescComputers(int orderBy)
+{
+    char input = '0';
+    int order = 1;
+    do
+    {
+        cout << "Regular or Reversed sorting?"      << endl;
+        cout << " ================================" << endl;
+        cout << "Press 1 for regular sorting"       << endl;
+        cout << "Press 2 for reversed sorting"      << endl;
+        cout << "Press 3 to cancel"                 << endl;
+        cout << " ================================" << endl;
+
+        cin >> input;
+        onlyTakeOneInput();
+        if (input != '1' && input != '2' && input != '3')
+        {
+            cout << "Error! Invalid input" << endl;
+        }
+    }
+    while (input != '1' && input != '2' && input != '3');
+    order = input - '0';
+
+    if (order == 1 || order == 2)
+    {
+        printComputerLine();
+
+        for(unsigned int i = 0; i < serve.listComputers(orderBy, order).size(); i++)
+        {
+            cout << serve.listComputers(orderBy, order)[i];
+        }
+        cout << "_____________________________________________________" << endl;
+    }
+}
+
 
 void ConsoleUI::searchComputer()
 {
@@ -974,7 +961,7 @@ void ConsoleUI::searchComputerByName()
         printComputerLine();
         for (unsigned int i = 0; i < vCN.size(); i++)
         {
-            cout << serve.readComputers(0,1)[vCN[i]];
+            cout << serve.listComputers(1,1)[vCN[i]];
         }
     }
 }
@@ -1001,7 +988,7 @@ void ConsoleUI::searchComputerByYearMade()
         printComputerLine();
         for (unsigned int i = 0; i < vY.size(); i++)
         {
-            cout << serve.readComputers(0,1)[vY[i]];
+            cout << serve.listComputers(1,1)[vY[i]];
         }
     }
 }
@@ -1038,7 +1025,7 @@ void ConsoleUI::searchComputerByYearRange()
         printComputerLine();
         for (unsigned int i = 0; i < vR.size(); i++)
         {
-            cout << serve.readComputers(0,1)[vR[i]];
+            cout << serve.listComputers(1,1)[vR[i]];
         }
     }
 }
@@ -1059,103 +1046,75 @@ void ConsoleUI::searchComputerByType()
         printComputerLine();
         for (unsigned int i = 0; i < vCT.size(); i++)
         {
-            cout << serve.readComputers(0,1)[vCT[i]];
+            cout << serve.listComputers(1,1)[vCT[i]];
         }
     }
 }
-/*
-void ConsoleUI::deleteData()
+
+void ConsoleUI::addComputerManually()
 {
-    bool error = false;
+    string n = " ", t = " ", built = " ";
+    int yM = 0;
+    bool b;
+    cout << "Enter name: ";
+    cin >> ws;
+
+    getline(cin, n);
+    cout << "Enter build year: ";
+    cin >> yM;
+    cout << "Enter type: ";
+    cin >> t;
+    cout << "Enter B if the computer was built and any other character if it wasn't";
+    cin >> built;
+    if (built == "B" || built == "b") b = true;
+    else b = false;
+    Computer c(n, yM, t, b);
+    serve.addComputer(c);
+}
+
+// Asks user to enter path to file. This WILL overwrite the default file.
+void ConsoleUI::addComputersFromFile()
+{
+    string fileName = "";
+    bool fileOpen = false;
+
     do
     {
-        cout << " Would you like to delete a scientist or a computer?" << endl;
-        cout << " ====================================="  << endl;
-        cout << " Press 1 for scientist" << endl;
-        cout << " Press 2 for computer" << endl;
-        cout << " ====================================="  << endl;
-        char input = '0';
-        cin >> input;
-        onlyTakeOneInput();
-        int choice = input - '0';
-
-        switch (choice)
+        cout << "Enter the full path of the file, or the name of the file, if the file is in the same directory: " << endl;
+        cin >> fileName;
+        if(serve.addComputersFromFile(fileName))
         {
-            case 1:
-            {
-                deleteScientist();
-                error = false;
-                break;
-            }
-            case 2:
-            {
-                deleteComputer();
-                error = false;
-                break;
-            }
-            default:
-            {
-                cout << "Error! Invalid input" << endl;
-                error = true;
-            }
+            cout << "Success!" << endl;
+            fileOpen = false;
         }
-    }
-    while (error);
-}
-*/
-
-//This deletes a scientist. RIP. He/she probably didn't belong on the list anyway.
-void ConsoleUI::deleteScientist()
-{
-    cout << "Enter name of scientist(s) you would like to delete: ";
-    string n = " ";
-    cin >> ws;
-    getline(cin, n);
-    if(!isupper(n[0]))
-    {
-        n[0] = toupper(n[0]);
-    }
-    vector<int> v = serve.searchScientistByName(n);
-    int s = v.size();
-    if (s > 0)
-    {
-        bool d = false;
-        while (!d)
+        else
         {
-            cout << endl;
-            cout << "Are you sure you would like to delete the following scientist(s)? (y/n)\n" << endl;
-            printScientistLine();
-            for (int i = 0; i < s; i++)
+            cout << "Error! Failed to open file" << endl;
+            char continuel;
+            bool cont = true;
+            while (cont)
             {
-
-                cout << serve.readScientists(0,1)[v[i]];
-            }
-            char a = ' ';
-            cin >> a;
-            if (a == 'y' || a == 'Y')
-            {
-                for (int i = s-1; i >= 0; i--)
+                cout << "Do you want to try again? (Y for yes and N for no) " ;
+                cin  >> continuel;
+                if(continuel == 'Y' || continuel == 'y')
                 {
-                    serve.deleteScientist(v[i]);
+                    fileOpen = true;
+                    cont = false;
                 }
-                cout << "Scientist(s) deleted\n";
-                d = true;
-            }
-            else if (a == 'n' || a == 'N')
-            {
-                cout << "Delete cancelled\n";
-                d = true;
-            }
-            else
-            {
-                cout << "Invalid input!\n";
+                else if (continuel == 'N' || continuel == 'n')
+                {
+                    fileOpen = false;
+                    cont = false;
+                }
+                else
+                {
+                    cout << "Error! Invalid input" << endl;
+                    cont = true;
+                }
             }
         }
     }
-    else
-    {
-        cout << "No match for " << n << endl;
-    }
+    while (fileOpen);
 }
 
 void ConsoleUI::deleteComputer()
@@ -1176,7 +1135,7 @@ void ConsoleUI::deleteComputer()
             printComputerLine();
             for (int i = 0; i < s; i++)
             {
-                cout << serve.readComputers(0,1)[v[i]];
+                cout << serve.listComputers(1,1)[v[i]];
             }
             char a = ' ';
             cin >> a;
@@ -1184,7 +1143,7 @@ void ConsoleUI::deleteComputer()
             {
                 for (int i = s-1; i >= 0; i--)
                 {
-                    serve.deleteComputer(v[i]);
+                    serve.deleteComputer(n);
                 }
                 cout << "Computer(s) deleted\n";
                 d = true;
@@ -1206,8 +1165,8 @@ void ConsoleUI::deleteComputer()
     }
 }
 
-//Here, the user puts in a string, where it will be attempted to save the list to.
-/*void ConsoleUI::saveToCustomFile()
+
+void ConsoleUI::saveComputersToFile()
 {
     bool fileOpen = false;
     string fileName;
@@ -1217,7 +1176,7 @@ void ConsoleUI::deleteComputer()
         cout << "If the File Doesn't exist, it will create a new file." << endl << endl;
         cout << "Enter the full path of the file, or the name of the file, if the file is in the same directory: " << endl;
         cin >> fileName;
-        if(serve.saveToOtherFile(fileName))
+        if(serve.saveComputersToFile(fileName))
         {
             cout << "Success!" << endl;
             fileOpen = false;
@@ -1248,9 +1207,37 @@ void ConsoleUI::deleteComputer()
                 }
             }
         }
+
     }
     while (fileOpen);
-}*/
+}
+
+//The header used when we list computers.
+void ConsoleUI::printComputerLine()
+{
+    cout.width(30);
+    cout << left << "Name";
+    cout << "\tBuilding Year\tComputer type\tBuilt?" << endl;
+    cout << "_____________________________________________________" << endl;
+}
+
+void ConsoleUI:: clearScreen()
+{
+#ifdef __cplusplus__
+  #include <cstdlib>
+#else
+  #include <stdlib.h>
+#endif
+
+if (system("CLS")) system("clear");
+}
+
+//If the user entered too many commands, the rest will just be flushed. Fun stuff.
+void ConsoleUI::onlyTakeOneInput()
+{
+    cin.clear();
+    fflush(stdin);
+}
 
 //a function which checks whether a certain entered string is a year.
 //And whether it's a valid year (AKA not in the future).
@@ -1325,7 +1312,7 @@ bool ConsoleUI::check()
     cin  >> continuel;
     if(continuel == 'Y' || continuel == 'y')
     {
-        addPerson();
+        addScientist();
         return true;
     }
     else
@@ -1353,120 +1340,4 @@ bool ConsoleUI::genderCheck(char& gender)
     {
         return false;
     }
-}
-
-//If the user entered too many commands, the rest will just be flushed. Fun stuff.
-void ConsoleUI::onlyTakeOneInput()
-{
-    cin.clear();
-    fflush(stdin);
-}
-
-//The header used when we list scientists.
-void ConsoleUI::printScientistLine()
-{
-    cout.width(26);
-    cout << left << "Name";
-    cout <<  "\tGender\tBorn\tDied" << endl;
-    cout << "_____________________________________________________" << endl;
-}
-
-//The header used when we list computers.
-void ConsoleUI::printComputerLine()
-{
-    cout.width(30);
-    cout << left << "Name";
-    cout << "\tBuilding Year\tComputer type\tBuilt?" << endl;
-    cout << "_____________________________________________________" << endl;
-}
-void ConsoleUI::saveToFile()
-{
-    bool fileOpen = false;
-    string fileName;
-    do
-    {
-        cout << "WARNING: This will overwrite everything in the file selected!" << endl;
-        cout << "If the File Doesn't exist, it will create a new file." << endl << endl;
-        cout << "Enter the full path of the file, or the name of the file, if the file is in the same directory: " << endl;
-        cin >> fileName;
-        if(serve.saveToOtherFile(fileName))
-        {
-            cout << "Success!" << endl;
-            fileOpen = false;
-        }
-        else
-        {
-            cout << "Error! Failed to open file" << endl;
-            char continuel;
-            bool cont = true;
-            while (cont)
-            {
-                cout << "Do you want to try again? (Y for yes and N for no) " ;
-                cin  >> continuel;
-                if(continuel == 'Y' && continuel == 'y')
-                {
-                    fileOpen = true;
-                    cont = false;
-                }
-                else if (continuel == 'N' && continuel == 'n')
-                {
-                    fileOpen = false;
-                    cont = false;
-                }
-                else
-                {
-                    cout << "Error! Invalid input" << endl;
-                    cont = true;
-                }
-            }
-        }
-
-    }
-    while (fileOpen);
-}
-
-void ConsoleUI::saveToFile2()
-{
-    bool fileOpen = false;
-    string fileName;
-    do
-    {
-        cout << "WARNING: This will overwrite everything in the file selected!" << endl;
-        cout << "If the File Doesn't exist, it will create a new file." << endl << endl;
-        cout << "Enter the full path of the file, or the name of the file, if the file is in the same directory: " << endl;
-        cin >> fileName;
-        if(serve.saveToOtherFile2(fileName))
-        {
-            cout << "Success!" << endl;
-            fileOpen = false;
-        }
-        else
-        {
-            cout << "Error! Failed to open file" << endl;
-            char continuel;
-            bool cont = true;
-            while (cont)
-            {
-                cout << "Do you want to try again? (Y for yes and N for no) " ;
-                cin  >> continuel;
-                if(continuel == 'Y' && continuel == 'y')
-                {
-                    fileOpen = true;
-                    cont = false;
-                }
-                else if (continuel == 'N' && continuel == 'n')
-                {
-                    fileOpen = false;
-                    cont = false;
-                }
-                else
-                {
-                    cout << "Error! Invalid input" << endl;
-                    cont = true;
-                }
-            }
-        }
-
-    }
-    while (fileOpen);
 }

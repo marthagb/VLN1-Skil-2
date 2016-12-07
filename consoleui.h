@@ -7,43 +7,42 @@ class ConsoleUI
 {
     ServiceLayer serve;
     void scientists();
-    void computers();
-    void clearScreen();
-    void listScientistData(); // Lists the Scientists from the Database.
-    void listComputerData();
-    void addPerson();
-    void addComputer();
+    void listScientistData();
     void ascOrDescScientists(int orderBy);
-    void ascOrDescComputers(int orderBy);
-    bool validName(const string& s);
-    bool validYear(const string& s, int& year);
-    bool genderCheck(char& gender);
-    bool birthChecks(int birthYear, int deathYear);
-    bool check();
-    void sortScientists();
-    void sortComputers();
-    void addData();
-    void addPeopleFromFile();
-    void addComputersFromFile();
-    void searchData();
+    void searchScientist();
     void searchScientistByName();
     void searchScientistByGender();
     void searchScientistByBirthYear();
     void searchScientistByYearRange();
+    void addScientist();
+    void addScientistManually();
+    void addScientistsFromFile();
+    void deleteScientist();
+    void saveScientistsToFile();
+    void printScientistLine();
+
+    void computers();
+    void listComputerData();
+    void ascOrDescComputers(int orderBy);
     void searchComputer();
     void searchComputerByName();
     void searchComputerByYearMade();
     void searchComputerByYearRange();
     void searchComputerByType();
-    void deleteData();
-    void deleteScientist();
+    void addComputer();
+    void addComputerManually();
+    void addComputersFromFile();
     void deleteComputer();
-    void saveToCustomFile();
-    void onlyTakeOneInput();
-    void printScientistLine();
+    void saveComputersToFile();
     void printComputerLine();
-    void saveToFile();
-    void saveToFile2();
+
+    void clearScreen();
+    void onlyTakeOneInput();
+    bool validName(const string& s);
+    bool validYear(const string& s, int& year);
+    bool genderCheck(char& gender);
+    bool birthChecks(int birthYear, int deathYear);
+    bool check();
 public:
     ConsoleUI();
     void run();
