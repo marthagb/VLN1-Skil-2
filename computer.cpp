@@ -79,8 +79,10 @@ bool Computer::operator != (const Computer& c)
 
 ostream& operator << (ostream& out, const Computer& c)
 {
-    out.width(26);
-    out << left << c.getComputerName() << "\t" << c.getYearMade() << "\t" << c.getType()  << "\t";
+    out.width(20);
+    out << left << c.getComputerName() << "\t" << c.getYearMade() << "\t";
+    out.width(25);
+    out << left << c.getType()  << "\t";
     if (!c.getBuiltOrNot())
     {
         out << "Not Built" << endl;

@@ -1374,10 +1374,13 @@ void ConsoleUI::printScientistLine()
 //The header used when we list computers.
 void ConsoleUI::printComputerLine()
 {
-    cout.width(30);
+    cout.width(20);
     cout << left << "Name";
-    cout << "\tBuilding Year\tComputer type\tBuilt?" << endl;
-    cout << "_____________________________________________________" << endl;
+    cout << "\tYear\t";
+    cout.width(25);
+    cout << left << "Computer type";
+    cout << "\tBuilt?" << endl;
+    cout << "________________________________________________________________________" << endl;
 }
 void ConsoleUI::saveToFile()
 {
