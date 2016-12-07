@@ -410,16 +410,16 @@ void ConsoleUI::ascOrDescScientists(int orderBy)
     while (input != '1' && input != '2' && input != '3');
     order = input - '0';
 
-    printScientistLine();
 
     if (order == 1 || order == 2)
     {
+        printScientistLine();
 
-    for(unsigned int i = 0; i < serve.readScientists(orderBy, order).size(); i++)
-    {
-        cout << serve.readScientists(orderBy, order)[i];
-    }
-    cout << "_____________________________________________________" << endl;
+        for(unsigned int i = 0; i < serve.readScientists(orderBy, order).size(); i++)
+        {
+            cout << serve.readScientists(orderBy, order)[i];
+        }
+        cout << "_____________________________________________________" << endl;
     }
 }
 
@@ -446,16 +446,15 @@ void ConsoleUI::ascOrDescComputers(int orderBy)
     while (input != '1' && input != '2' && input != '3');
     order = input - '0';
 
-    printComputerLine();
-
     if (order == 1 || order == 2)
     {
+        printComputerLine();
 
-    for(unsigned int i = 0; i < serve.readComputers(orderBy, order).size(); i++)
-    {
-        cout << serve.readComputers(orderBy, order)[i];
-    }
-    cout << "_____________________________________________________" << endl;
+        for(unsigned int i = 0; i < serve.readComputers(orderBy, order).size(); i++)
+        {
+            cout << serve.readComputers(orderBy, order)[i];
+        }
+        cout << "_____________________________________________________" << endl;
     }
 }
 
