@@ -177,7 +177,7 @@ void ConsoleUI::computers()
            }
            case 3:
            {
-               //addComputer();
+               addComputer();
                break;
            }
            case 4:
@@ -458,7 +458,7 @@ void ConsoleUI::ascOrDescComputers(int orderBy)
     }
 }
 
-void ConsoleUI::addComputer()
+void ConsoleUI::addComputerManually()
 {
     string n = " ", t = " ", built = " ";
     int yM = 0;
@@ -655,6 +655,52 @@ void ConsoleUI::addPeopleFromFile()
         }
     }
     while (fileOpen);
+}
+
+void ConsoleUI::addComputer()
+{
+    bool error = false;
+    do
+    {
+        cout << " ================================" << endl;
+        cout << " Press 1 to add manually"          << endl;
+        cout << " Press 2 to add from file"         << endl;
+        cout << " Press 3 to cancel"                << endl;
+        cout << " ================================" << endl;
+
+        char input = '0';
+        cin >> input;
+        onlyTakeOneInput();
+        int choice = input - '0';
+
+        switch (choice)
+        {
+        case 1:
+        {
+            addComputerManually();
+            error = false;
+            break;
+        }
+        case 2:
+        {
+            addComputersFromFile();
+            error = false;
+            break;
+        }
+        case 3:
+        {
+            error = false;
+            break;
+        }
+        default:
+        {
+            cout << "Error! Invalid input" << endl;
+            error = true;
+            break;
+        }
+        }
+    }
+    while (error);
 }
 
 // Asks user to enter path to file. This WILL overwrite the default file.
