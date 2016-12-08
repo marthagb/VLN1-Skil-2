@@ -98,7 +98,7 @@ void validation::errorCheckSaveToFile(bool& fileOpen)
 
 //a function which checks whether a certain entered string is a year.
 //And whether it's a valid year (AKA not in the future).
-bool validation::validYear(const string& s, int& year)                                                  //komið
+bool validation::validYear(const string& s, int& year)                                                  //komið í console
 {
     string::const_iterator it = s.begin();
     //Checks if the string 's' is a number
