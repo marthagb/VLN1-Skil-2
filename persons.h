@@ -12,6 +12,7 @@ class Persons
     int deathYear;
     char gender;
     bool alive;
+    int age;
 
     bool validName(const string& s);
     bool genderCheck(char& gender);
@@ -27,6 +28,7 @@ public:
     int getDeathYear() const;
     char getGender() const;
     bool getAlive() const;
+    int getAge() const;
 
     void operator = (const Persons& p);
     bool operator == (const Persons& p);

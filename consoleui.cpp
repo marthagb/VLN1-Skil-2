@@ -215,7 +215,7 @@ void ConsoleUI::ascOrDescScientists(int orderBy)
         {
             cout << serve.listScientists()[i];
         }
-        cout << "_____________________________________________________" << endl;
+        cout << "___________________________________________________________" << endl;
     }
 }
 
@@ -302,6 +302,7 @@ void ConsoleUI::searchScientistByName()
         {
             cout << serve.listScientists()[vSN[i]];
         }
+        cout << "___________________________________________________________" << endl;
     }
 
 }
@@ -336,6 +337,7 @@ void ConsoleUI::searchScientistByGender()
                 {
                     cout << serve.listScientists()[vG[i]];
                 }
+                cout << "___________________________________________________________" << endl;
             }
         }
     }
@@ -372,7 +374,7 @@ void ConsoleUI::searchScientistByBirthYear()
         {
             cout << serve.listScientists()[vY[i]];
         }
-        cout << "________________________________________________________________________" << endl;
+        cout << "___________________________________________________________" << endl;
     }
 
 }
@@ -414,6 +416,7 @@ void ConsoleUI::searchScientistByYearRange()
         {
             cout << serve.listScientists()[vR[i]];
         }
+        cout << "___________________________________________________________" << endl;
     }
 
 }
@@ -761,8 +764,8 @@ void ConsoleUI::printScientistLine()
 {
     cout.width(26);
     cout << left << "Name";
-    cout <<  "\tGender\tBorn\tDied" << endl;
-    cout << "_____________________________________________________" << endl;
+    cout <<  "\tGender\tBorn\tDied\tAge" << endl;
+    cout << "___________________________________________________________" << endl;
 }
 
 
@@ -1387,6 +1390,9 @@ void ConsoleUI::printComputerLine()
     cout << "\tYear Made\tComputer Type\tBuilt?" << endl;
     cout << "_____________________________________________________" << endl;
 }
+
+
+
 
 void ConsoleUI::associations()
 {

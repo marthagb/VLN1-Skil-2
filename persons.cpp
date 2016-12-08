@@ -2,6 +2,10 @@
 #include <iomanip>
 #include <QtSql>
 
+time_t t = time(NULL);
+tm* TimePtr = localtime(&t);
+const int CURRENT_YEAR = TimePtr->tm_year + 1900;
+
 
 //Default Constructor.
 //If a person is ever read in as this, it will be skipped.
@@ -13,6 +17,7 @@ Persons::Persons()
     birthYear = 1980;
     deathYear = 0;
     alive = true;
+    age = CURRENT_YEAR - 1980;
 }
 
 //Constructor.
@@ -26,10 +31,12 @@ Persons::Persons(string n, char g, int bY, int dY)
     if (dY == 0)
     {
         alive = true;
+        age = CURRENT_YEAR - birthYear;
     }
     else
     {
         alive = false;
+        age = deathYear - birthYear;
     }
 }
 
@@ -125,6 +132,11 @@ bool Persons::getAlive() const
     return alive;
 }
 
+int Persons::getAge() const
+{
+    return age;
+}
+
 //Overloads the = operator. Basic stuff.
 void Persons::operator = (const Persons& p)
 {
@@ -157,12 +169,13 @@ ostream& operator << (ostream& out, const Persons& p)
     out << left << p.getName() << "\t" << p.getGender() << "\t" << p.getBirthYear()  << "\t";
     if (!p.getAlive())
     {
-        out << p.getDeathYear() << endl;
+        out << p.getDeathYear() << "\t";
     }
     else
     {
-        out << "Alive " << endl;
+        out << "Alive " << "\t";
     }
+    out << p.getAge() << endl;
     return out;
 }
 
