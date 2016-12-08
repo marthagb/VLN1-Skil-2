@@ -316,7 +316,7 @@ void ConsoleUI::searchScientistByGender()
     if (gender.length() == 1)
     {
         char g = gender.at(0);
-        if (!genderCheck(g))
+        if (!valid.genderCheck(g))
         {
             cout << "Invalid gender input!" << endl;
             searchScientistByGender();
@@ -351,11 +351,11 @@ void ConsoleUI::searchScientistByBirthYear()
 {
     int y = 0;
     string s = " ";
-    while (!validYear(s, y) || y == 0)
+    while (!valid.validYear(s, y) || y == 0)
     {
         cout << "Enter year: ";
         cin >> s;
-        if(!validYear(s, y) || y == 0) {
+        if(!valid.validYear(s, y) || y == 0) {
             cout << "Invalid input!\n";
         }
     }
@@ -383,20 +383,20 @@ void ConsoleUI::searchScientistByYearRange()
 {
     int f = 0, l = 0;
     string s = " ";
-    while(!validYear(s, f))
+    while(!valid.validYear(s, f))
     {
         cout << "Enter first year in range: ";
         cin >> s;
-        if (!validYear(s, f)) {
+        if (!valid.validYear(s, f)) {
             cout << "Invalid input!\n";
         }
     }
     s = " ";
-    while(!validYear(s, l) || l < f)
+    while(!valid.validYear(s, l) || l < f)
     {
         cout << "Enter last year in range: ";
         cin >> s;
-        if(!validYear(s, l) || l < f)
+        if(!valid.validYear(s, l) || l < f)
         {
             cout << "Invalid input!\n";
         }
@@ -472,86 +472,139 @@ void ConsoleUI::addScientist()
 //If no invalid information is entered, the person is added to the file.
 void ConsoleUI::addScientistManually()
 {
-    string n = " ", year;
+    string n = " ", year = " ";
     char g = ' ';
     int bY = 0, dY = 0;
+    cout << "Type q and enter to cancel at anytime\n" << endl;
+    cout << "Enter name: ";                                     //Adds the name of a person
+    cin >> ws;    
 
-    cout << "Enter name: ";                                 //Adds the name of a person
-    cin >> ws;
     getline(cin,n);
-    //ValidateString(n);
-    //valid.ValidateString(n);
-    /*
-    while(!validName(n))
-    {
-        cout << "Wrong input for name!" << endl;
-        cout << "Enter name: ";
-        cin  >> ws;
-        getline(cin,n);
-    }
-    if(!isupper(n[0]))                                      //Converts lower case letter to upper case if first is lower case
-    {
-        n[0] = toupper(n[0]);
-    }*/
 
-    cout << "Enter gender: ";                               //Adds the gender of the person
-    cin >> g;
-    onlyTakeOneInput();
-    while(!genderCheck(g))                                  //Error check for gender
+    if(n == "q" || n == "Q")
     {
-        cout << "Wrong input for gender!" << endl;
-        cout << "Enter gender (M/F): ";
-        cin  >> g;
-        onlyTakeOneInput();
-    }
-
-    while(!validYear(year, bY) || bY == 0)                  //Adds the birth year and error checks
-    {
-        cout << "Enter birth year: ";
-        cin >> year;
-        onlyTakeOneInput();
-        if (!validYear(year, bY) || bY == 0)
-        {
-            cout << "Invalid input!\n";
-        }
-    }
-    year = " ";
-
-    while(!validYear(year, dY))                             //Adds the death year and error checks
-    {
-        cout << "Enter death year (0 for living person): ";
-        cin >> year;
-        onlyTakeOneInput();
-        if(!validYear(year, dY))
-        {
-            cout << "Invalid input!\n";
-        }
-    }
-
-    if(!birthChecks(bY, dY))
-    {
-        check();                                            // Checks if you want to try to input again.
+        cout << "Adding new scientist cancelled" << endl;
     }
     else
     {
-        Persons p(n, g, bY, dY);
-        int a = 0;
-        for (unsigned int i = 0; i < serve.listScientists().size(); i++)
+        while(!valid.validName(n))                                  //error checks name through validation layer
         {
-            if (p == serve.listScientists()[i])
+            cout << "Wrong input for name!" << endl;
+            cout << "Enter name: ";
+            cin  >> ws;
+            getline(cin,n);
+            if(n == "q" || n == "Q")
             {
-                cout << "Scientist already on list!\n";
-                a++;
+                cout << "Adding new scientist cancelled" << endl;
                 break;
             }
         }
-        if (a == 0)
+        if(!isupper(n[0]))                                          //Converts lower case letter to upper case if first is lower case
         {
-            serve.addScientist(p);
-            cout << "Scientist added\n";
+            n[0] = toupper(n[0]);
+        }
+
+        cout << "Enter gender: ";                                   //Adds the gender of the person through validation layer
+        cin >> g;
+        onlyTakeOneInput();
+
+        if(g == 'q' || g == 'Q')
+        {
+                cout << "Adding new scientist cancelled" << endl;
+        }
+        else
+        {
+            while(!valid.genderCheck(g))                                //Error check for gender through validation layer
+            {
+                cout << "Wrong input for gender!" << endl;
+                cout << "Enter gender (M/F): ";
+                cin  >> g;
+                onlyTakeOneInput();
+                if(g == 'q' || g == 'Q')
+                {
+                        cout << "Adding new scientist cancelled" << endl;
+                        break;
+                }
+            }
+            if (valid.genderCheck(g))
+            {
+                while(!valid.validYear(year, bY) || bY == 0)                //Adds the birth year and error checks through validation layer
+                {
+                    cout << "Enter birth year: ";
+                    cin >> year;
+                    onlyTakeOneInput();
+                    if(year == "q" || year == "Q")
+                    {
+                        cout << "Adding new scientist cancelled" << endl;
+                        break;
+                    }
+                    if (!valid.validYear(year, bY) || bY == 0)
+                    {
+                        cout << "Invalid input!\n";
+                    }
+                }
+                if (valid.validYear(year, bY))
+                {
+                    year = " ";
+                    while(!valid.validYear(year, dY))                             //Adds the death year and error checks through validation layer
+                    {
+                        cout << "Enter death year (0 for living person): ";
+                        cin >> year;
+                        if(year == "q" || year == "Q")
+                        {
+                            cout << "Adding new scientist cancelled" << endl;
+                            break;
+                        }
+                        onlyTakeOneInput();
+                        if(!valid.validYear(year, dY))
+                        {
+                            cout << "Invalid input!\n";
+                        }
+                    }
+                    if (valid.validYear(year, dY))
+                    {
+                        if(valid.birthChecks(bY, dY) == 1)                                          //error checks in validatioin for correct year input
+                        {
+
+                            cout << "The scientist cannot die before they are born!" << endl;
+                            check();                                                                // Checks if you want to try to input again.
+                        }
+                        else if(valid.birthChecks(bY, dY) == 2)
+                        {
+                            cout << "That is too old, the oldest woman was 122 years old!" << endl;
+                            check();
+                        }
+                        else if (valid.birthChecks(bY,dY) == 3)
+                        {
+                            cout << "That is too old, the oldest woman was 122 years old!" << endl;
+                            check();
+                        }
+                        else
+                        {
+                            Persons p(n, g, bY, dY);                                                //adds new scientist to datab
+                            int a = 0;
+                            for (unsigned int i = 0; i < serve.listScientists().size(); i++)
+                            {
+                                if (p == serve.listScientists()[i])
+                                {
+                                    cout << "Scientist already on list!\n";
+                                    a++;
+                                    break;
+                                }
+                            }
+                            if (a == 0)
+                            {
+                                serve.addScientist(p);
+                                cout << "Scientist added\n";
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
+
 
 
 // Asks user to enter path to file. This WILL overwrite the default file.
@@ -562,8 +615,15 @@ void ConsoleUI::addScientistsFromFile()
 
     do
     {
+
         cout << "Enter the full path of the file, or the name of the file, if the file is in the same directory: " << endl;
+        cout << "Type q and enter to cancel adding scientists from file \n" ;
         cin >> fileName;
+        if(fileName == "q" || fileName == "Q")
+        {
+            cout << "Adding scientists from file canceled " << endl;
+            scientists();
+        }
         if(serve.addScientistsFromFile(fileName))
         {
             cout << "Success!" << endl;
@@ -571,6 +631,7 @@ void ConsoleUI::addScientistsFromFile()
         }
         else
         {
+
             cout << "Error! Failed to open file" << endl;
             char continuel;
             bool cont = true;
@@ -744,7 +805,7 @@ void ConsoleUI::computers()
            }
            case 3:
            {
-               //addComputer();
+               addComputers();
                break;
            }
            case 4:
@@ -855,7 +916,6 @@ void ConsoleUI::ascOrDescComputers(int orderBy)
     }
 }
 
-
 void ConsoleUI::searchComputer()
 {
     bool error = false;
@@ -941,11 +1001,11 @@ void ConsoleUI::searchComputerByYearMade()
 {
     int y = 0;
     string s = " ";
-    while (!validYear(s, y) || y == 0)
+    while (!valid.validYear(s, y) || y == 0)
     {
         cout << "Enter year: ";
         cin >> s;
-        if(!validYear(s, y) || y == 0) {
+        if(!valid.validYear(s, y) || y == 0) {
             cout << "Invalid input!\n";
         }
     }
@@ -969,20 +1029,20 @@ void ConsoleUI::searchComputerByYearRange()
 {
     int f = 0, l = 0;
     string s = " ";
-    while(!validYear(s, f))
+    while(!valid.validYear(s, f))
     {
         cout << "Enter first year in range: ";
         cin >> s;
-        if (!validYear(s, f)) {
+        if (!valid.validYear(s, f)) {
             cout << "Invalid input!\n";
         }
     }
     s = " ";
-    while(!validYear(s, l) || l < f)
+    while(!valid.validYear(s, l) || l < f)
     {
         cout << "Enter last year in range: ";
         cin >> s;
-        if(!validYear(s, l) || l < f)
+        if(!valid.validYear(s, l) || l < f)
         {
             cout << "Invalid input!\n";
         }
@@ -1024,38 +1084,157 @@ void ConsoleUI::searchComputerByType()
         }
     }
 }
+// Asks you to enter whether you want to add data manually or from a file.
+void ConsoleUI::addComputers()
+{
+    bool error = false;
+    do
+    {
+        cout << " ================================" << endl;
+        cout << " Press 1 to add manually"          << endl;
+        cout << " Press 2 to add from file"         << endl;
+        cout << " Press 3 to cancel"                << endl;
+        cout << " ================================" << endl;
+
+        char input = '0';
+        cin >> input;
+        onlyTakeOneInput();
+        int choice = input - '0';
+
+        switch (choice)
+        {
+        case 1:
+        {
+            addComputerManually();
+            error = false;
+            break;
+        }
+        case 2:
+        {
+            addComputersFromFile();
+            error = false;
+            break;
+        }
+        case 3:
+        {
+            error = false;
+            break;
+        }
+        default:
+        {
+            cout << "Error! Invalid input" << endl;
+            error = true;
+            break;
+        }
+        }
+    }
+    while (error);
+}
 
 void ConsoleUI::addComputerManually()
 {
-    string n = " ", t = " ", built = " ";
+    string n = " ",y = " ", t = " ", built = " ";
     int yM = 0;
     bool b;
+    cout << "Type Q and enter to cancel at anytime\n" << endl;
     cout << "Enter name: ";
     cin >> ws;
-
     getline(cin, n);
-    cout << "Enter build year: ";
-    cin >> yM;
-    cout << "Enter type: ";
-    cin >> t;
-    cout << "Enter B if the computer was built and any other character if it wasn't";
-    cin >> built;
-    if (built == "B" || built == "b") b = true;
-    else b = false;
-    Computer c(n, yM, t, b);
-    serve.addComputer(c);
+    if(n == "q" || n == "Q")
+    {
+        cout << "Adding new computer cancelled" << endl;
+    }
+    else
+    {
+        while(!valid.validName(n))                           //error checks name through validation layer
+        {
+            cout << "Wrong input for name!" << endl;
+            cout << "Enter name: ";
+            cin  >> ws;
+            getline(cin,n);
+            if (n == "q" || n == "Q")
+            {
+                cout << "Adding new computer cancelled" << endl;
+                break;
+            }
+        }
+        if (valid.validName(n))
+        {
+            cout << "Enter build year: ";
+            cin >> y;
+            onlyTakeOneInput();
+            if (y == "q" || y == "Q")
+            {
+                cout << "Adding new computer cancelled" << endl;
+            }
+            else
+            {
+                while (!valid.validYear(y, yM))
+                {
+                    cout << "Invalid input!" << endl;
+                    cout << "Enter build year: ";
+                    cin >> y;
+                    onlyTakeOneInput();
+                    if (y == "q" || y == "Q")
+                    {
+                        cout << "Adding new computer cancelled" << endl;
+                        break;
+                    }
+                }
+                if (valid.validYear(y, yM))
+                {
+                    cout << "Enter type: ";
+                    cin >> ws;
+                    getline(cin, t);
+                    if(t == "q" || t == "Q")
+                    {
+                        cout << "Adding new computer cancelled" << endl;
+                    }
+                    else
+                    {
+                        cout << "Enter B if the computer was built and any other character (except for Q) if it wasn't: ";
+                        cin >> built;
+                        if(built == "q" || built == "Q")
+                        {
+                            cout << "Adding new computer cancelled" << endl;
+                        }
+                        else
+                        {
+                            if (built == "B" || built == "b")
+                            {
+                                b = true;
+                            }
+                            else
+                            {
+                                b = false;
+                            }
+                            Computer c(n, yM, t, b);
+                            serve.addComputer(c);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 // Asks user to enter path to file. This WILL overwrite the default file.
 void ConsoleUI::addComputersFromFile()
 {
+
     string fileName = "";
     bool fileOpen = false;
 
     do
     {
         cout << "Enter the full path of the file, or the name of the file, if the file is in the same directory: " << endl;
+        cout << "Type q and enter to cancel \n" << endl;
         cin >> fileName;
+        if(fileName == "q" || fileName == "Q")
+        {
+            cout << "Adding computer from file canceled " << endl;
+            computers();
+        }
         if(serve.addComputersFromFile(fileName))
         {
             cout << "Success!" << endl;
@@ -1738,71 +1917,7 @@ void ConsoleUI::onlyTakeOneInput()
     fflush(stdin);
 }
 
-//a function which checks whether a certain entered string is a year.
-//And whether it's a valid year (AKA not in the future).
-bool ConsoleUI::validYear(const string& s, int& year)
-{
-    string::const_iterator it = s.begin();
-    //Checks if the string 's' is a number
-    while (it != s.end() && isdigit(*it))
-    {
-        it++;
-    }
-    if (s.empty() || it != s.end())
-    {
-        return false;
-    }
-    //Checks if 'year' is positive and lower than current year
-    year = atoi(s.c_str());
-    time_t t = time(NULL);
-    tm* TimePtr = localtime(&t);
-    int currentYear = TimePtr->tm_year + 1900;
-
-    return year >= 0 && year <= currentYear;
-}
-
-//we check whether a name entered by the user is valid
-// i.e. that it's not empty, no numbers.
-bool ConsoleUI::validName(const string& s)
-{
-    //Checks if 's' is empty or contains characters other than letters and spaces
-    string::const_iterator it = s.begin();
-    while (it != s.end() && (isalpha(*it) || *it == ' '))
-    {
-        it++;
-    }
-
-    return !s.empty() && it == s.end();
-}
-
-
-//Errorchecks for whether certain years entered by the user are valid.
-//sadly, it can't be a 300 year old dude. No vampires.
-bool ConsoleUI::birthChecks(int birthYear, int deathYear)
-{
-    time_t t = time(NULL);
-    tm* TimePtr = localtime(&t);
-    int currentYear = TimePtr->tm_year + 1900;
-
-    if(deathYear < birthYear && deathYear != 0)
-    {
-        cout << "The scientist cannot die before they are born!" << endl;
-        return false;
-    }
-    if((deathYear - birthYear) > 122)
-    {
-        cout << "That is too old, the oldest woman was 122 years old!" << endl;
-        return false;
-    }
-    if ((currentYear - birthYear) > 122 && deathYear == 0)
-    {
-        cout << "That is too old, the oldest woman was 122 years old!" << endl;
-        return false;
-    }
-    return true;
-}
-
-//in the addData() function, errors will call upon this function.
+//in the addScientistManually() function, errors will call upon this function.
 //it then loops back into said function if you want.
 bool ConsoleUI::check()
 {
@@ -1811,32 +1926,11 @@ bool ConsoleUI::check()
     cin  >> continuel;
     if(continuel == 'Y' || continuel == 'y')
     {
-        addScientist();
+        addScientistManually();
         return true;
     }
     else
     {
        return false;
-    }
-}
-
-//Errorcheck for whether the entered char is a recognised gender.
-bool ConsoleUI::genderCheck(char& gender)
-{
-    if (gender == 'm' || gender == 'M' || gender == 'f' || gender == 'F')
-    {
-        if(gender == 'm')
-        {
-            gender = 'M';
-        }
-        if(gender == 'f')
-        {
-            gender = 'F';
-        }
-        return true;
-    }
-    else
-    {
-        return false;
     }
 }

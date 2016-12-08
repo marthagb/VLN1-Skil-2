@@ -7,7 +7,7 @@
 
 class ConsoleUI
 {
-    //validation valid;
+    validation valid;
     ServiceLayer serve;
     void scientists();
     void listScientistData();
@@ -23,6 +23,7 @@ class ConsoleUI
     void deleteScientist();
     void saveScientistsToFile();
     void printScientistLine();
+    bool quitAddingPerson(string n);
 
     void computers();
     void listComputerData();
@@ -32,6 +33,7 @@ class ConsoleUI
     void searchComputerByYearMade();
     void searchComputerByYearRange();
     void searchComputerByType();
+    void addComputers();
     void addComputer();
     void addComputerManually();
     void addComputersFromFile();
@@ -56,7 +58,6 @@ class ConsoleUI
     void clearScreen();
     void onlyTakeOneInput();
     bool validName(const string& s);
-    bool validYear(const string& s, int& year);
     bool genderCheck(char& gender);
     bool birthChecks(int birthYear, int deathYear);
     bool check();
