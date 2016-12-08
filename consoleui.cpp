@@ -1209,7 +1209,21 @@ void ConsoleUI::addComputerManually()
                                 b = false;
                             }
                             Computer c(n, yM, t, b);
-                            serve.addComputer(c);
+                            int a = 0;
+                            for (unsigned int i = 0; i < serve.listComputers().size(); i++)
+                            {
+                                if (c == serve.listComputers()[i])
+                                {
+                                    a++;
+                                    cout << "Computer already on list!\n";
+                                    break;
+                                }
+                            }
+                            if (a==0)
+                            {
+                                serve.addComputer(c);
+                                cout << "Computer added!\n";
+                            }
                         }
                     }
                 }
@@ -1760,8 +1774,21 @@ void ConsoleUI::addAssociation()
         if (choice == 'y' || choice == 'Y')
         {
             Association a(s, c);
-            serve.addAssociation(a);
-            cout << "Association added" << endl;
+            int x = 0;
+            for (unsigned int i = 0; i < serve.listAssociations().size(); i++)
+            {
+                if(a == serve.listAssociations()[i])
+                {
+                    x++;
+                    cout << "Association already on list!\n";
+                    break;
+                }
+            }
+            if (x == 0)
+            {
+                serve.addAssociation(a);
+                cout << "Association added" << endl;
+            }
             error = false;
         }
         else if (choice == 'n' || choice == 'N')
@@ -1892,10 +1919,12 @@ void ConsoleUI::saveAssocToFile()
 
 void ConsoleUI::printAssocLine()
 {
-    cout.width(30);
+    cout.width(26);
     cout << left << "Scientist\t";
     cout.width(20);
-    cout << left << "Computer\tYear Made\tBuilt?\tComputer Type" << endl;
+    cout << left << "Computer\tYear Made\t";
+    cout.width(12);
+    cout << "Built?\tComputer Type" << endl;
     cout << "_____________________________________________________" << endl;
 }
 

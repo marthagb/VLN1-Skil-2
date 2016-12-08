@@ -179,18 +179,18 @@ void DataLayer::readAssociations(int orderBy, int ascOrDesc)
     {
         if (ascOrDesc == 1)
         {
-            query.exec("SELECT s.Name, c.ComputerName"
-                             "FROM Scientists s"
-                             "INNER JOIN Associations a ON s.ID = a.ScientistID"
-                             "INNER JOIN Computers c ON a.ComputerID = c.ComputerID"
+            query.exec("SELECT s.Name, c.ComputerName "
+                             "FROM Scientists s "
+                             "INNER JOIN Associations a ON s.ID = a.ScientistID "
+                             "INNER JOIN Computers c ON a.ComputerID = c.ComputerID "
                              "ORDER BY a.ConnectionID");
         }
         else if (ascOrDesc == 2)
         {
-            query.exec("SELECT s.Name, c.ComputerName"
-                             "FROM Scientists s"
-                             "INNER JOIN Associations a ON s.ID = a.ScientistID"
-                             "INNER JOIN Computers c ON a.ComputerID = c.ComputerID"
+            query.exec("SELECT s.Name, c.ComputerName "
+                             "FROM Scientists s "
+                             "INNER JOIN Associations a ON s.ID = a.ScientistID "
+                             "INNER JOIN Computers c ON a.ComputerID = c.ComputerID "
                              "ORDER BY a.ConnectionID DESC");
         }
     }
@@ -198,18 +198,18 @@ void DataLayer::readAssociations(int orderBy, int ascOrDesc)
     {
         if (ascOrDesc == 1)
         {
-            query.exec("SELECT s.Name, c.ComputerName"
-                             "FROM Scientists s"
-                             "INNER JOIN Associations a ON s.ID = a.ScientistID"
-                             "INNER JOIN Computers c ON a.ComputerID = c.ComputerID"
+            query.exec("SELECT s.Name, c.ComputerName "
+                             "FROM Scientists s "
+                             "INNER JOIN Associations a ON s.ID = a.ScientistID "
+                             "INNER JOIN Computers c ON a.ComputerID = c.ComputerID "
                              "ORDER BY s.Name");
         }
         else if (ascOrDesc == 2)
         {
-            query.exec("SELECT s.Name, c.ComputerName"
-                             "FROM Scientists s"
-                             "INNER JOIN Associations a ON s.ID = a.ScientistID"
-                             "INNER JOIN Computers c ON a.ComputerID = c.ComputerID"
+            query.exec("SELECT s.Name, c.ComputerName "
+                             "FROM Scientists s "
+                             "INNER JOIN Associations a ON s.ID = a.ScientistID "
+                             "INNER JOIN Computers c ON a.ComputerID = c.ComputerID "
                              "ORDER BY s.Name DESC");
         }
     }
@@ -217,18 +217,18 @@ void DataLayer::readAssociations(int orderBy, int ascOrDesc)
     {
         if (ascOrDesc == 1)
         {
-            query.exec("SELECT s.Name, c.ComputerName"
-                             "FROM Scientists s"
-                             "INNER JOIN Associations a ON s.ID = a.ScientistID"
-                             "INNER JOIN Computers c ON a.ComputerID = c.ComputerID"
+            query.exec("SELECT s.Name, c.ComputerName "
+                             "FROM Scientists s "
+                             "INNER JOIN Associations a ON s.ID = a.ScientistID "
+                             "INNER JOIN Computers c ON a.ComputerID = c.ComputerID "
                              "ORDER BY c.ComputerName");
         }
         else if (ascOrDesc == 2)
         {
-            query.exec("SELECT s.Name, c.ComputerName"
-                             "FROM Scientists s"
-                             "INNER JOIN Associations a ON s.ID = a.ScientistID"
-                             "INNER JOIN Computers c ON a.ComputerID = c.ComputerID"
+            query.exec("SELECT s.Name, c.ComputerName "
+                             "FROM Scientists s "
+                             "INNER JOIN Associations a ON s.ID = a.ScientistID "
+                             "INNER JOIN Computers c ON a.ComputerID = c.ComputerID "
                              "ORDER BY c.ComputerName DESC");
         }
     }
@@ -236,18 +236,18 @@ void DataLayer::readAssociations(int orderBy, int ascOrDesc)
     {
         if (ascOrDesc == 1)
         {
-            query.exec("SELECT s.Name, c.ComputerName"
-                             "FROM Scientists s"
-                             "INNER JOIN Associations a ON s.ID = a.ScientistID"
-                             "INNER JOIN Computers c ON a.ComputerID = c.ComputerID"
+            query.exec("SELECT s.Name, c.ComputerName "
+                             "FROM Scientists s "
+                             "INNER JOIN Associations a ON s.ID = a.ScientistID "
+                             "INNER JOIN Computers c ON a.ComputerID = c.ComputerID "
                              "ORDER BY c.YearMade");
         }
         else if (ascOrDesc == 2)
         {
-            query.exec("SELECT s.Name, c.ComputerName"
-                             "FROM Scientists s"
-                             "INNER JOIN Associations a ON s.ID = a.ScientistID"
-                             "INNER JOIN Computers c ON a.ComputerID = c.ComputerID"
+            query.exec("SELECT s.Name, c.ComputerName "
+                             "FROM Scientists s "
+                             "INNER JOIN Associations a ON s.ID = a.ScientistID "
+                             "INNER JOIN Computers c ON a.ComputerID = c.ComputerID "
                              "ORDER BY c.YearMade DESC");
         }
     }
@@ -255,18 +255,18 @@ void DataLayer::readAssociations(int orderBy, int ascOrDesc)
     {
         if (ascOrDesc == 1)
         {
-            query.exec("SELECT s.Name, c.ComputerName"
-                             "FROM Scientists s"
-                             "INNER JOIN Associations a ON s.ID = a.ScientistID"
-                             "INNER JOIN Computers c ON a.ComputerID = c.ComputerID"
+            query.exec("SELECT s.Name, c.ComputerName "
+                             "FROM Scientists s "
+                             "INNER JOIN Associations a ON s.ID = a.ScientistID "
+                             "INNER JOIN Computers c ON a.ComputerID = c.ComputerID "
                              "ORDER BY c.BuiltOrNot");
         }
         else if (ascOrDesc == 2)
         {
-            query.exec("SELECT s.Name, c.ComputerName"
-                             "FROM Scientists s"
-                             "INNER JOIN Associations a ON s.ID = a.ScientistID"
-                             "INNER JOIN Computers c ON a.ComputerID = c.ComputerID"
+            query.exec("SELECT s.Name, c.ComputerName "
+                             "FROM Scientists s "
+                             "INNER JOIN Associations a ON s.ID = a.ScientistID "
+                             "INNER JOIN Computers c ON a.ComputerID = c.ComputerID "
                              "ORDER BY c.BuiltOrNot DESC");
         }
     }
@@ -274,35 +274,38 @@ void DataLayer::readAssociations(int orderBy, int ascOrDesc)
     {
         if (ascOrDesc == 1)
         {
-            query.exec("SELECT s.Name, c.ComputerName"
-                             "FROM Scientists s"
-                             "INNER JOIN Associations a ON s.ID = a.ScientistID"
-                             "INNER JOIN Computers c ON a.ComputerID = c.ComputerID"
+            query.exec("SELECT s.Name, c.ComputerName "
+                             "FROM Scientists s "
+                             "INNER JOIN Associations a ON s.ID = a.ScientistID "
+                             "INNER JOIN Computers c ON a.ComputerID = c.ComputerID "
                              "ORDER BY c.Type");
         }
         else if (ascOrDesc == 2)
         {
-            query.exec("SELECT s.Name, c.ComputerName"
-                             "FROM Scientists s"
-                             "INNER JOIN Associations a ON s.ID = a.ScientistID"
-                             "INNER JOIN Computers c ON a.ComputerID = c.ComputerID"
+            query.exec("SELECT s.Name, c.ComputerName "
+                             "FROM Scientists s "
+                             "INNER JOIN Associations a ON s.ID = a.ScientistID "
+                             "INNER JOIN Computers c ON a.ComputerID = c.ComputerID "
                              "ORDER BY c.Type DESC");
         }
     }
 
-    vector<Association> A;
+    vector<string> sN;
+    vector<string> cN;
     while(query.next())
     {
-        string sN = query.value("s.Name").toString().toStdString();
-        string cN = query.value("c.ComputerName").toString().toStdString();
-        Persons s = getScientistVector()[searchScientistByName(sN)[0]];
-        cout << endl << s;
-        Computer c = getComputerVector()[searchComputerByName(cN)[0]];
-        cout << c;
+        sN.push_back(query.value("Name").toString().toStdString());
+        cN.push_back(query.value("ComputerName").toString().toStdString());
+    }
+    db.close();
+    vector<Association> A;
+    for (unsigned int i = 0; i < sN.size(); i++)
+    {
+        Persons s = getScientistVector()[searchScientistByName(sN[i])[0]];
+        Computer c = getComputerVector()[searchComputerByName(cN[i])[0]];
         Association a(s, c);
         A.push_back(a);
     }
-    db.close();
     associations = A;
 }
 
@@ -340,7 +343,7 @@ void DataLayer::addComputer(const Computer& c)
 
     QSqlQuery query(db);
 
-    query.prepare("INSERT INTO Computers(ComputerName, YearMade, Type, BuiltOrNot)"
+    query.prepare("INSERT INTO Computers(ComputerName, YearMade, Type, BuiltOrNot) "
                           "VALUES (:ComputerName, :YearMade, :Type, :BuiltOrNot)");
     query.bindValue(0, QString::fromStdString(c.getComputerName()));
     query.bindValue(1, QVariant(c.getYearMade()));
@@ -371,17 +374,14 @@ void DataLayer::addAssociation(const Association& a)
 
     QSqlQuery query2(db);
 
-    query2.exec("SELECT ComputerID FROM Computers"
+    query2.exec("SELECT ComputerID FROM Computers "
                        "WHERE ComputerName LIKE '" + QString::fromStdString(a.getComputerName()) + "'");
     int cID = query2.value("ComputerID").toUInt();
 
     QSqlQuery query3(db);
 
-    query3.prepare("INSERT INTO Associations(ScientistID, ComputerID)"
-                            "VALUES (:ScientistID, :ComputerID)");
-    query3.bindValue(0, QVariant(sID));
-    query3.bindValue(1, QVariant(cID));
-    query3.exec();
+    query3.exec("INSERT INTO Associations(ScientistID, ComputerID) "
+                       "VALUES (" + QVariant(sID).toString() + ", " + QVariant(cID).toString() + ")");
 
     db.close();
 
@@ -732,8 +732,8 @@ vector<int> DataLayer::searchAssocBySciName(const string sN)
 
     QSqlQuery query(db);
 
-    query.exec("SELECT a.ConnectionID FROM Associations a"
-                     "INNER JOIN Scientists s ON a.ScientistID = s.ID"
+    query.exec("SELECT a.ConnectionID FROM Associations a "
+                     "INNER JOIN Scientists s ON a.ScientistID = s.ID "
                      "WHERE s.Name LIKE '%" + QString::fromStdString(sN) + "%' ORDER BY a.ConnectionID");
 
     while (query.next())
@@ -761,8 +761,8 @@ vector<int> DataLayer::searchAssocByCompName(const string cN)
 
     QSqlQuery query(db);
 
-    query.exec("SELECT a.ConnectionID FROM Associations a"
-                     "INNER JOIN Computers c ON a.ComputerID = c.ComputerID"
+    query.exec("SELECT a.ConnectionID FROM Associations a "
+                     "INNER JOIN Computers c ON a.ComputerID = c.ComputerID "
                      "WHERE c.ComputerName LIKE '%" + QString::fromStdString(cN) + "%' ORDER BY a.ConnectionID");
 
     while (query.next())
@@ -790,8 +790,8 @@ vector<int> DataLayer::searchAssocByYear(const int year)
 
     QSqlQuery query(db);
 
-    query.exec("SELECT a.ConnectionID FROM Associations a"
-                     "INNER JOIN Computers c ON a.ComputerID = c.ComputerID"
+    query.exec("SELECT a.ConnectionID FROM Associations a "
+                     "INNER JOIN Computers c ON a.ComputerID = c.ComputerID "
                      "WHERE c.YearMade = " + QVariant(year).toString() + " ORDER BY a.ConnectionID");
 
     while (query.next())
@@ -819,8 +819,8 @@ vector<int> DataLayer::searchAssocByYearRange(const int f, const int l)
 
     QSqlQuery query(db);
 
-    query.exec("SELECT a.ConnectionID FROM Associations a"
-                     "INNER JOIN Computers c ON a.ComputerID = c.ComputerID"
+    query.exec("SELECT a.ConnectionID FROM Associations a "
+                     "INNER JOIN Computers c ON a.ComputerID = c.ComputerID "
                      "WHERE c.YearMade >= " + QVariant(f).toString() + " AND c.YearMade <= " + QVariant(l).toString() + " ORDER BY a.ConnectionID");
 
     while (query.next())
@@ -848,8 +848,8 @@ vector<int> DataLayer::searchAssocByCompType(const string type)
 
     QSqlQuery query(db);
 
-    query.exec("SELECT a.ConnectionID FROM Associations a"
-                     "INNER JOIN Computers c ON a.ComputerID = c.ComputerID"
+    query.exec("SELECT a.ConnectionID FROM Associations a "
+                     "INNER JOIN Computers c ON a.ComputerID = c.ComputerID "
                      "WHERE c.Type LIKE '%" + QString::fromStdString(type) + "%' ORDER BY a.ConnectionID");
 
     while (query.next())
@@ -906,7 +906,7 @@ void DataLayer::deleteAssociation(string sN, string cN)
 
     QSqlQuery query2(db);
 
-    query2.exec("SELECT ComputerID FROM Computers"
+    query2.exec("SELECT ComputerID FROM Computers "
                        "WHERE ComputerName LIKE '" + QString::fromStdString(cN) + "'");
     int cID = query2.value("ComputerID").toUInt();
 
