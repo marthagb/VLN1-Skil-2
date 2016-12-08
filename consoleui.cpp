@@ -507,7 +507,6 @@ void ConsoleUI::addScientistManually()
     if(n == "q" || n == "Q")
     {
         cout << "Adding new scientist cancelled" << endl;
-        //scientists();
     }
     else
     {
@@ -535,7 +534,6 @@ void ConsoleUI::addScientistManually()
         if(g == 'q' || g == 'Q')
         {
                 cout << "Adding new scientist cancelled" << endl;
-                //scientists();
         }
         else
         {
@@ -568,10 +566,9 @@ void ConsoleUI::addScientistManually()
                         cout << "Invalid input!\n";
                     }
                 }
-                year = " ";
-
                 if (valid.validYear(year, bY))
                 {
+                    year = " ";
                     while(!valid.validYear(year, dY))                             //Adds the death year and error checks through validation layer
                     {
                         cout << "Enter death year (0 for living person): ";
@@ -965,7 +962,6 @@ void ConsoleUI::ascOrDescComputers(int orderBy)
     }
 }
 
-
 void ConsoleUI::searchComputer()
 {
     bool error = false;
@@ -1183,43 +1179,89 @@ void ConsoleUI::addComputers()
 
 void ConsoleUI::addComputerManually()
 {
-    string n = " ", t = " ", built = " ";
+    string n = " ",y = " ", t = " ", built = " ";
     int yM = 0;
     bool b;
-    cout << "Type q and enter to cancel at anytime\n" << endl;
+    cout << "Type Q and enter to cancel at anytime\n" << endl;
     cout << "Enter name: ";
     cin >> ws;
     getline(cin, n);
     if(n == "q" || n == "Q")
     {
         cout << "Adding new computer cancelled" << endl;
-        computers();
     }
-    cout << "Enter build year: ";
-    cin >> yM;
-    if(yM == 'q' || yM == 'Q')
+    else
     {
-        cout << "Adding new computer cancelled" << endl;
-        computers();
+        while(!valid.validName(n))                           //error checks name through validation layer
+        {
+            cout << "Wrong input for name!" << endl;
+            cout << "Enter name: ";
+            cin  >> ws;
+            getline(cin,n);
+            if (n == "q" || n == "Q")
+            {
+                cout << "Adding new computer cancelled" << endl;
+                break;
+            }
+        }
+        if (valid.validName(n))
+        {
+            cout << "Enter build year: ";
+            cin >> y;
+            onlyTakeOneInput();
+            if (y == "q" || y == "Q")
+            {
+                cout << "Adding new computer cancelled" << endl;
+            }
+            else
+            {
+                while (!valid.validYear(y, yM))
+                {
+                    cout << "Invalid input!" << endl;
+                    cout << "Enter build year: ";
+                    cin >> y;
+                    onlyTakeOneInput();
+                    if (y == "q" || y == "Q")
+                    {
+                        cout << "Adding new computer cancelled" << endl;
+                        break;
+                    }
+                }
+                if (valid.validYear(y, yM))
+                {
+                    cout << "Enter type: ";
+                    cin >> ws;
+                    getline(cin, t);
+                    if(t == "q" || t == "Q")
+                    {
+                        cout << "Adding new computer cancelled" << endl;
+                    }
+                    else
+                    {
+                        cout << "Enter B if the computer was built and any other character (except for Q) if it wasn't: ";
+                        cin >> built;
+                        if(built == "q" || built == "Q")
+                        {
+                            cout << "Adding new computer cancelled" << endl;
+                        }
+                        else
+                        {
+                            if (built == "B" || built == "b")
+                            {
+                                b = true;
+                            }
+                            else
+                            {
+                                b = false;
+                            }
+                            Computer c(n, yM, t, b);
+                            serve.addComputer(c);
+                        }
+                    }
+                }
+            }
+        }
     }
-    cout << "Enter type: ";
-    cin >> t;
-    if(t == "q" || t == "Q")
-    {
-        cout << "Adding new computer cancelled" << endl;
-        computers();
-    }
-    cout << "Enter B if the computer was built and any other character if it wasn't: ";
-    cin >> built;
-    if(built == "q" || built == "Q")
-    {
-        cout << "Adding new computer cancelled" << endl;
-        computers();
-    }
-    if (built == "B" || built == "b") b = true;
-    else b = false;
-    Computer c(n, yM, t, b);
-    serve.addComputer(c);
 }
 
 // Asks user to enter path to file. This WILL overwrite the default file.
@@ -1396,7 +1438,7 @@ void ConsoleUI::onlyTakeOneInput()
     fflush(stdin);
 }
 
-//in the addData() function, errors will call upon this function.
+//in the addScientistManually() function, errors will call upon this function.
 //it then loops back into said function if you want.
 bool ConsoleUI::check()
 {
@@ -1405,7 +1447,7 @@ bool ConsoleUI::check()
     cin  >> continuel;
     if(continuel == 'Y' || continuel == 'y')
     {
-        addScientist();
+        addScientistManually();
         return true;
     }
     else
