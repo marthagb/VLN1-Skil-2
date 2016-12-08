@@ -495,8 +495,6 @@ void ConsoleUI::addScientist()
 //If no invalid information is entered, the person is added to the file.
 void ConsoleUI::addScientistManually()
 {
-    cout << "Type 'q' or 'Q' and press enter to cancel at any time\n" << endl;
-
     string n = " ", year;
     char g = ' ';
     int bY = 0, dY = 0;
@@ -505,69 +503,50 @@ void ConsoleUI::addScientistManually()
     cin >> ws;
     getline(cin,n);
 
-    if (n == "q" || n == "Q")
+    //ValidateString(n);
+    //valid.ValidateString(n);
+    while(!validName(n))
     {
-        cout << "Adding new scientist cancelled" << endl;
-        scientists();
+        cout << "Wrong input for name!" << endl;
+        cout << "Enter name: ";
+        cin  >> ws;
+        getline(cin,n);
     }
-    else
+    if(!isupper(n[0]))                                      //Converts lower case letter to upper case if first is lower case
     {
-        valid.ValidateString(n);
+        n[0] = toupper(n[0]);
     }
-
     cout << "Enter gender: ";                               //Adds the gender of the person
     cin >> g;
     onlyTakeOneInput();
-    if (g == 'q' || g == 'Q')
+    while(!genderCheck(g))                                  //Error check for gender
     {
-        cout << "Adding new scientist cancelled" << endl;
-        scientists();
-    }
-    else
-    {
-        valid.errorCheckGender(g);
-        if(valid.errorCheckGender(g) == true)
-        {
-            scientists();
-        }
+        cout << "Wrong input for gender!" << endl;
+        cout << "Enter gender (M/F): ";
+        cin  >> g;
+        onlyTakeOneInput();
     }
 
-    while(!valid.validYear(year, bY) || bY == 0)                  //Adds the birth year and error checks through validation layer
+    while(!validYear(year, bY) || bY == 0)                  //Adds the birth year and error checks
     {
         cout << "Enter birth year: ";
         cin >> year;
-        if (year == "q" || year == "Q")
+        onlyTakeOneInput();
+        if (!validYear(year, bY) || bY == 0)
         {
-            cout << "Adding new scientist cancelled" << endl;
-            scientists();
-        }
-        else
-        {
-            onlyTakeOneInput();
-            if (!valid.validYear(year, bY) || bY == 0)
-            {
-                cout << "Invalid input!\n";
-            }
+            cout << "Invalid input!\n";
         }
     }
     year = " ";
 
-    while(!valid.validYear(year, dY))                             //Adds the death year and error checks through validation layer
+    while(!validYear(year, dY))                             //Adds the death year and error checks
     {
         cout << "Enter death year (0 for living person): ";
         cin >> year;
-        if (year == "q" || year == "Q")
+        onlyTakeOneInput();
+        if(!validYear(year, dY))
         {
-            cout << "Adding new scientist cancelled" << endl;
-            scientists();
-        }
-        else
-        {
-            onlyTakeOneInput();
-            if(!valid.validYear(year, dY))
-            {
-                cout << "Invalid input!\n";
-            }
+            cout << "Invalid input!\n";
         }
     }
 
@@ -595,6 +574,7 @@ void ConsoleUI::addScientistManually()
         }
     }
 }
+
 
 
 // Asks user to enter path to file. This WILL overwrite the default file.
