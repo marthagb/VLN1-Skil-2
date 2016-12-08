@@ -495,7 +495,7 @@ void ConsoleUI::addScientist()
 //If no invalid information is entered, the person is added to the file.
 void ConsoleUI::addScientistManually()
 {
-    string n = " ", year;
+    string n = " ", year = " ";
     char g = ' ';
     int bY = 0, dY = 0;
     cout << "Type q and enter to cancel at anytime\n" << endl;
@@ -507,103 +507,126 @@ void ConsoleUI::addScientistManually()
     if(n == "q" || n == "Q")
     {
         cout << "Adding new scientist cancelled" << endl;
-        scientists();
-    }
-    while(!valid.validName(n))                                  //error checks name through validation layer
-    {
-        cout << "Wrong input for name!" << endl;
-        cout << "Enter name: ";
-        cin  >> ws;
-        getline(cin,n);
-    }
-    if(!isupper(n[0]))                                          //Converts lower case letter to upper case if first is lower case
-    {
-        n[0] = toupper(n[0]);
-    }
-
-    cout << "Enter gender: ";                                   //Adds the gender of the person through validation layer
-    cin >> g;
-    if(g == 'q' || g == 'Q')
-    {
-            cout << "Adding new scientist cancelled" << endl;
-            scientists();
-    }
-    onlyTakeOneInput();
-
-    while(!valid.genderCheck(g))                                //Error check for gender through validation layer
-    {
-        cout << "Wrong input for gender!" << endl;
-        cout << "Enter gender (M/F): ";
-        cin  >> g;
-        onlyTakeOneInput();
-    }
-
-    while(!valid.validYear(year, bY) || bY == 0)                //Adds the birth year and error checks through validation layer
-    {
-        cout << "Enter birth year: ";
-        cin >> year;
-        if(year == "q" || year == "Q")
-        {
-            cout << "Adding new scientist cancelled" << endl;
-            scientists();
-        }
-        onlyTakeOneInput();
-        if (!valid.validYear(year, bY) || bY == 0)
-        {
-            cout << "Invalid input!\n";
-        }
-    }
-    year = " ";
-
-    while(!valid.validYear(year, dY))                             //Adds the death year and error checks through validation layer
-    {
-        cout << "Enter death year (0 for living person): ";
-        cin >> year;
-        if(year == "q" || year == "Q")
-        {
-            cout << "Adding new scientist cancelled" << endl;
-            scientists();
-        }
-        onlyTakeOneInput();
-        if(!valid.validYear(year, dY))
-        {
-            cout << "Invalid input!\n";
-        }
-    }
-
-    if(valid.birthChecks(bY, dY) == 1)                                          //error checks in validatioin for correct year input
-    {
-
-        cout << "The scientist cannot die before they are born!" << endl;
-        check();                                                                // Checks if you want to try to input again.
-    }
-    else if(valid.birthChecks(bY, dY) == 2)
-    {
-        cout << "That is too old, the oldest woman was 122 years old!" << endl;
-        check();
-    }
-    else if (valid.birthChecks(bY,dY) == 3)
-    {
-        cout << "That is too old, the oldest woman was 122 years old!" << endl;
-        check();
+        //scientists();
     }
     else
     {
-        Persons p(n, g, bY, dY);                                                //adds new scientist to datab
-        int a = 0;
-        for (unsigned int i = 0; i < serve.listScientists().size(); i++)
+        while(!valid.validName(n))                                  //error checks name through validation layer
         {
-            if (p == serve.listScientists()[i])
+            cout << "Wrong input for name!" << endl;
+            cout << "Enter name: ";
+            cin  >> ws;
+            getline(cin,n);
+            if(n == "q" || n == "Q")
             {
-                cout << "Scientist already on list!\n";
-                a++;
+                cout << "Adding new scientist cancelled" << endl;
                 break;
             }
         }
-        if (a == 0)
+        if(!isupper(n[0]))                                          //Converts lower case letter to upper case if first is lower case
         {
-            serve.addScientist(p);
-            cout << "Scientist added\n";
+            n[0] = toupper(n[0]);
+        }
+
+        cout << "Enter gender: ";                                   //Adds the gender of the person through validation layer
+        cin >> g;
+        onlyTakeOneInput();
+
+        if(g == 'q' || g == 'Q')
+        {
+                cout << "Adding new scientist cancelled" << endl;
+                //scientists();
+        }
+        else
+        {
+            while(!valid.genderCheck(g))                                //Error check for gender through validation layer
+            {
+                cout << "Wrong input for gender!" << endl;
+                cout << "Enter gender (M/F): ";
+                cin  >> g;
+                onlyTakeOneInput();
+                if(g == 'q' || g == 'Q')
+                {
+                        cout << "Adding new scientist cancelled" << endl;
+                        break;
+                }
+            }
+            if (valid.genderCheck(g))
+            {
+                while(!valid.validYear(year, bY) || bY == 0)                //Adds the birth year and error checks through validation layer
+                {
+                    cout << "Enter birth year: ";
+                    cin >> year;
+                    onlyTakeOneInput();
+                    if(year == "q" || year == "Q")
+                    {
+                        cout << "Adding new scientist cancelled" << endl;
+                        break;
+                    }
+                    if (!valid.validYear(year, bY) || bY == 0)
+                    {
+                        cout << "Invalid input!\n";
+                    }
+                }
+                year = " ";
+
+                if (valid.validYear(year, bY))
+                {
+                    while(!valid.validYear(year, dY))                             //Adds the death year and error checks through validation layer
+                    {
+                        cout << "Enter death year (0 for living person): ";
+                        cin >> year;
+                        if(year == "q" || year == "Q")
+                        {
+                            cout << "Adding new scientist cancelled" << endl;
+                            break;
+                        }
+                        onlyTakeOneInput();
+                        if(!valid.validYear(year, dY))
+                        {
+                            cout << "Invalid input!\n";
+                        }
+                    }
+                    if (valid.validYear(year, dY))
+                    {
+                        if(valid.birthChecks(bY, dY) == 1)                                          //error checks in validatioin for correct year input
+                        {
+
+                            cout << "The scientist cannot die before they are born!" << endl;
+                            check();                                                                // Checks if you want to try to input again.
+                        }
+                        else if(valid.birthChecks(bY, dY) == 2)
+                        {
+                            cout << "That is too old, the oldest woman was 122 years old!" << endl;
+                            check();
+                        }
+                        else if (valid.birthChecks(bY,dY) == 3)
+                        {
+                            cout << "That is too old, the oldest woman was 122 years old!" << endl;
+                            check();
+                        }
+                        else
+                        {
+                            Persons p(n, g, bY, dY);                                                //adds new scientist to datab
+                            int a = 0;
+                            for (unsigned int i = 0; i < serve.listScientists().size(); i++)
+                            {
+                                if (p == serve.listScientists()[i])
+                                {
+                                    cout << "Scientist already on list!\n";
+                                    a++;
+                                    break;
+                                }
+                            }
+                            if (a == 0)
+                            {
+                                serve.addScientist(p);
+                                cout << "Scientist added\n";
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
