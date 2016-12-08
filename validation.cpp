@@ -67,8 +67,8 @@ bool validation::genderCheck(char& gender)                                      
         return false;
     }
 }
-
-void validation::errorCheckSaveToFile(bool& fileOpen)
+/*
+bool validation::errorCheckSaveToFile()
 {
 
     cout << "Error! Failed to open file" << endl;
@@ -94,7 +94,7 @@ void validation::errorCheckSaveToFile(bool& fileOpen)
             cont = true;
         }
     }
-}
+}*/
 
 //a function which checks whether a certain entered string is a year.
 //And whether it's a valid year (AKA not in the future).

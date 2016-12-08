@@ -23,6 +23,7 @@ class ConsoleUI
     void deleteScientist();
     void saveScientistsToFile();
     void printScientistLine();
+    bool quitAddingPerson(string n);
 
     void computers();
     void listComputerData();

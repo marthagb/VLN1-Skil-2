@@ -17,7 +17,7 @@ public:
     bool validName(const string& s);
     int birthChecks(int birthYear, int deathYear);
     bool genderCheck(char& gender);
-    void errorCheckSaveToFile(bool &fileOpen);
+    bool errorCheckSaveToFile();
     bool validYear(const string& s, int& year);
 };
 
