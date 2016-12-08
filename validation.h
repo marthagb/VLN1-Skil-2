@@ -23,8 +23,6 @@ public:
     bool validYear(const string& s, int& year);
     bool errorCheckGender(char g);
     void onlyTakeOneInput();
-    void yearBornCheck(string year, int bY);
-    void deathYearCheck(string year, int dY);
 };
 
 

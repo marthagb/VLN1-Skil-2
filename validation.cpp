@@ -177,30 +177,3 @@ void validation::onlyTakeOneInput()
     fflush(stdin);
 }
 
-void validation::yearBornCheck(string year, int bY)
-{
-    while(!validYear(year, bY) || bY == 0)                  //Adds the birth year and error checks
-    {
-        cout << "Enter birth year: ";
-        cin >> year;
-        onlyTakeOneInput();
-        if (!validYear(year, bY) || bY == 0)
-        {
-            cout << "Invalid input!\n";
-        }
-    }
-    year = " ";
-}
-void validation::deathYearCheck(string year, int dY)
-{
-    while(!validYear(year, dY))                             //Adds the death year and error checks
-    {
-        cout << "Enter death year (0 for living person): ";
-        cin >> year;
-        onlyTakeOneInput();
-        if(!validYear(year, dY))
-        {
-            cout << "Invalid input!\n";
-        }
-    }
-}

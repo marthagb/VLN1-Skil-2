@@ -532,26 +532,42 @@ void ConsoleUI::addScientistManually()
         }
     }
 
-    while(!validYear(year, bY) || bY == 0)                  //Adds the birth year and error checks
+    while(!valid.validYear(year, bY) || bY == 0)                  //Adds the birth year and error checks through validation layer
     {
         cout << "Enter birth year: ";
         cin >> year;
-        onlyTakeOneInput();
-        if (!validYear(year, bY) || bY == 0)
+        if (year == "q" || year == "Q")
         {
-            cout << "Invalid input!\n";
+            cout << "Adding new scientist cancelled" << endl;
+            scientists();
+        }
+        else
+        {
+            onlyTakeOneInput();
+            if (!valid.validYear(year, bY) || bY == 0)
+            {
+                cout << "Invalid input!\n";
+            }
         }
     }
     year = " ";
 
-    while(!validYear(year, dY))                             //Adds the death year and error checks
+    while(!valid.validYear(year, dY))                             //Adds the death year and error checks through validation layer
     {
         cout << "Enter death year (0 for living person): ";
         cin >> year;
-        onlyTakeOneInput();
-        if(!validYear(year, dY))
+        if (year == "q" || year == "Q")
         {
-            cout << "Invalid input!\n";
+            cout << "Adding new scientist cancelled" << endl;
+            scientists();
+        }
+        else
+        {
+            onlyTakeOneInput();
+            if(!valid.validYear(year, dY))
+            {
+                cout << "Invalid input!\n";
+            }
         }
     }
 
