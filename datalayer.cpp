@@ -322,18 +322,19 @@ vector<int> DataLayer::getComputerIDs()
 vector<int> DataLayer::searchScientistByName(const string name)
 {
     vector<int> vSN;
+    vector<int> sIDs = getScientistIDs();
     db.open();
 
     QSqlQuery query(db);
 
-    query.exec("SELECT ID FROM Scientists WHERE Name LIKE '%" + QString::fromStdString(name) + "%' ORDER BY Name");
+    query.exec("SELECT * FROM Scientists WHERE Name LIKE '%" + QString::fromStdString(name) + "%' ORDER BY Name");
 
     while (query.next())
     {
         int id = query.value("ID").toUInt();
-        for (unsigned int i = 0; i < getScientistIDs().size(); i++)
+        for (unsigned int i = 0; i < sIDs.size(); i++)
         {
-            if (id == getScientistIDs()[i])
+            if (id == sIDs[i])
             {
                 vSN.push_back(i);
                 break;
