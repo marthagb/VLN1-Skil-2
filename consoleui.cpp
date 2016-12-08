@@ -1635,11 +1635,11 @@ void ConsoleUI::searchAssocByYear()
 {
     int y = 0;
     string s = " ";
-    while (!validYear(s, y) || y == 0)
+    while (!valid.validYear(s, y) || y == 0)
     {
         cout << "Enter year: ";
         cin >> s;
-        if(!validYear(s, y) || y == 0) {
+        if(!valid.validYear(s, y) || y == 0) {
             cout << "Invalid input!\n";
         }
     }
@@ -1663,20 +1663,20 @@ void ConsoleUI::searchAssocByYearRange()
 {
     int f = 0, l = 0;
     string s = " ";
-    while(!validYear(s, f))
+    while(!valid.validYear(s, f))
     {
         cout << "Enter first year in range: ";
         cin >> s;
-        if (!validYear(s, f)) {
+        if (!valid.validYear(s, f)) {
             cout << "Invalid input!\n";
         }
     }
     s = " ";
-    while(!validYear(s, l) || l < f)
+    while(!valid.validYear(s, l) || l < f)
     {
         cout << "Enter last year in range: ";
         cin >> s;
-        if(!validYear(s, l) || l < f)
+        if(!valid.validYear(s, l) || l < f)
         {
             cout << "Invalid input!\n";
         }
