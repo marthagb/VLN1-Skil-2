@@ -339,7 +339,7 @@ void ConsoleUI::searchScientistByGender()
     if (gender.length() == 1)
     {
         char g = gender.at(0);
-        if (!genderCheck(g))
+        if (!valid.genderCheck(g))
         {
             cout << "Invalid gender input!" << endl;
             searchScientistByGender();
@@ -374,11 +374,11 @@ void ConsoleUI::searchScientistByBirthYear()
 {
     int y = 0;
     string s = " ";
-    while (!validYear(s, y) || y == 0)
+    while (!valid.validYear(s, y) || y == 0)
     {
         cout << "Enter year: ";
         cin >> s;
-        if(!validYear(s, y) || y == 0) {
+        if(!valid.validYear(s, y) || y == 0) {
             cout << "Invalid input!\n";
         }
     }
@@ -406,20 +406,20 @@ void ConsoleUI::searchScientistByYearRange()
 {
     int f = 0, l = 0;
     string s = " ";
-    while(!validYear(s, f))
+    while(!valid.validYear(s, f))
     {
         cout << "Enter first year in range: ";
         cin >> s;
-        if (!validYear(s, f)) {
+        if (!valid.validYear(s, f)) {
             cout << "Invalid input!\n";
         }
     }
     s = " ";
-    while(!validYear(s, l) || l < f)
+    while(!valid.validYear(s, l) || l < f)
     {
         cout << "Enter last year in range: ";
         cin >> s;
-        if(!validYear(s, l) || l < f)
+        if(!valid.validYear(s, l) || l < f)
         {
             cout << "Invalid input!\n";
         }
@@ -503,9 +503,7 @@ void ConsoleUI::addScientistManually()
     cin >> ws;
     getline(cin,n);
 
-    //ValidateString(n);
-    //valid.ValidateString(n);
-    while(!validName(n))
+    while(!valid.validName(n))
     {
         cout << "Wrong input for name!" << endl;
         cout << "Enter name: ";
@@ -516,10 +514,12 @@ void ConsoleUI::addScientistManually()
     {
         n[0] = toupper(n[0]);
     }
+
     cout << "Enter gender: ";                               //Adds the gender of the person
     cin >> g;
     onlyTakeOneInput();
-    while(!genderCheck(g))                                  //Error check for gender
+
+    while(!valid.genderCheck(g))                                  //Error check for gender
     {
         cout << "Wrong input for gender!" << endl;
         cout << "Enter gender (M/F): ";
@@ -527,32 +527,44 @@ void ConsoleUI::addScientistManually()
         onlyTakeOneInput();
     }
 
-    while(!validYear(year, bY) || bY == 0)                  //Adds the birth year and error checks
+    while(!valid.validYear(year, bY) || bY == 0)                  //Adds the birth year and error checks
     {
         cout << "Enter birth year: ";
         cin >> year;
         onlyTakeOneInput();
-        if (!validYear(year, bY) || bY == 0)
+        if (!valid.validYear(year, bY) || bY == 0)
         {
             cout << "Invalid input!\n";
         }
     }
     year = " ";
 
-    while(!validYear(year, dY))                             //Adds the death year and error checks
+    while(!valid.validYear(year, dY))                             //Adds the death year and error checks
     {
         cout << "Enter death year (0 for living person): ";
         cin >> year;
         onlyTakeOneInput();
-        if(!validYear(year, dY))
+        if(!valid.validYear(year, dY))
         {
             cout << "Invalid input!\n";
         }
     }
 
-    if(!birthChecks(bY, dY))
+    if(valid.birthChecks(bY, dY) == 1)
     {
-        check();                                            // Checks if you want to try to input again.
+
+        cout << "The scientist cannot die before they are born!" << endl;
+        check();                                                                // Checks if you want to try to input again.
+    }
+    else if(valid.birthChecks(bY, dY) == 2)
+    {
+        cout << "That is too old, the oldest woman was 122 years old!" << endl;
+        check();                                                                // Checks if you want to try to input again.
+    }
+    else if (valid.birthChecks(bY,dY) == 3)
+    {
+        cout << "That is too old, the oldest woman was 122 years old!" << endl;
+        check();
     }
     else
     {
@@ -987,11 +999,11 @@ void ConsoleUI::searchComputerByYearMade()
 {
     int y = 0;
     string s = " ";
-    while (!validYear(s, y) || y == 0)
+    while (!valid.validYear(s, y) || y == 0)
     {
         cout << "Enter year: ";
         cin >> s;
-        if(!validYear(s, y) || y == 0) {
+        if(!valid.validYear(s, y) || y == 0) {
             cout << "Invalid input!\n";
         }
     }
@@ -1015,20 +1027,20 @@ void ConsoleUI::searchComputerByYearRange()
 {
     int f = 0, l = 0;
     string s = " ";
-    while(!validYear(s, f))
+    while(!valid.validYear(s, f))
     {
         cout << "Enter first year in range: ";
         cin >> s;
-        if (!validYear(s, f)) {
+        if (!valid.validYear(s, f)) {
             cout << "Invalid input!\n";
         }
     }
     s = " ";
-    while(!validYear(s, l) || l < f)
+    while(!valid.validYear(s, l) || l < f)
     {
         cout << "Enter last year in range: ";
         cin >> s;
-        if(!validYear(s, l) || l < f)
+        if(!valid.validYear(s, l) || l < f)
         {
             cout << "Invalid input!\n";
         }
@@ -1259,70 +1271,6 @@ void ConsoleUI::onlyTakeOneInput()
     fflush(stdin);
 }
 
-//a function which checks whether a certain entered string is a year.
-//And whether it's a valid year (AKA not in the future).
-bool ConsoleUI::validYear(const string& s, int& year)
-{
-    string::const_iterator it = s.begin();
-    //Checks if the string 's' is a number
-    while (it != s.end() && isdigit(*it))
-    {
-        it++;
-    }
-    if (s.empty() || it != s.end())
-    {
-        return false;
-    }
-    //Checks if 'year' is positive and lower than current year
-    year = atoi(s.c_str());
-    time_t t = time(NULL);
-    tm* TimePtr = localtime(&t);
-    int currentYear = TimePtr->tm_year + 1900;
-
-    return year >= 0 && year <= currentYear;
-}
-
-//we check whether a name entered by the user is valid
-// i.e. that it's not empty, no numbers.
-bool ConsoleUI::validName(const string& s)
-{
-    //Checks if 's' is empty or contains characters other than letters and spaces
-    string::const_iterator it = s.begin();
-    while (it != s.end() && (isalpha(*it) || *it == ' '))
-    {
-        it++;
-    }
-
-    return !s.empty() && it == s.end();
-}
-
-
-//Errorchecks for whether certain years entered by the user are valid.
-//sadly, it can't be a 300 year old dude. No vampires.
-bool ConsoleUI::birthChecks(int birthYear, int deathYear)
-{
-    time_t t = time(NULL);
-    tm* TimePtr = localtime(&t);
-    int currentYear = TimePtr->tm_year + 1900;
-
-    if(deathYear < birthYear && deathYear != 0)
-    {
-        cout << "The scientist cannot die before they are born!" << endl;
-        return false;
-    }
-    if((deathYear - birthYear) > 122)
-    {
-        cout << "That is too old, the oldest woman was 122 years old!" << endl;
-        return false;
-    }
-    if ((currentYear - birthYear) > 122 && deathYear == 0)
-    {
-        cout << "That is too old, the oldest woman was 122 years old!" << endl;
-        return false;
-    }
-    return true;
-}
-
 //in the addData() function, errors will call upon this function.
 //it then loops back into said function if you want.
 bool ConsoleUI::check()
@@ -1338,26 +1286,5 @@ bool ConsoleUI::check()
     else
     {
        return false;
-    }
-}
-
-//Errorcheck for whether the entered char is a recognised gender.
-bool ConsoleUI::genderCheck(char& gender)
-{
-    if (gender == 'm' || gender == 'M' || gender == 'f' || gender == 'F')
-    {
-        if(gender == 'm')
-        {
-            gender = 'M';
-        }
-        if(gender == 'f')
-        {
-            gender = 'F';
-        }
-        return true;
-    }
-    else
-    {
-        return false;
     }
 }

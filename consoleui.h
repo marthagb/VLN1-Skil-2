@@ -42,7 +42,6 @@ class ConsoleUI
     void clearScreen();
     void onlyTakeOneInput();
     bool validName(const string& s);
-    bool validYear(const string& s, int& year);
     bool genderCheck(char& gender);
     bool birthChecks(int birthYear, int deathYear);
     bool check();

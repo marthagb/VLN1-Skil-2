@@ -13,7 +13,7 @@ validation::validation()
 
 void validation::ValidateString(string& n)
 {
-    while(!validNames(n))
+    while(!validName(n))
     {
         cout << "Wrong input for name!" << endl;
         cout << "Enter name: ";
@@ -27,7 +27,7 @@ void validation::ValidateString(string& n)
 
 }
 
-bool validation::validNames(const string& s)
+bool validation::validName(const string& s)                                                     //komið í console
 {
     //Checks if 's' is empty or contains characters other than letters and spaces
     string::const_iterator it = s.begin();
@@ -42,7 +42,7 @@ bool validation::validNames(const string& s)
 
 //Errorchecks for whether certain years entered by the user are valid.
 //sadly, it can't be a 300 year old dude. No vampires.
-bool validation::birthChecks(int birthYear, int deathYear)
+int validation::birthChecks(int birthYear, int deathYear)
 {
     time_t t = time(NULL);
     tm* TimePtr = localtime(&t);
@@ -50,20 +50,17 @@ bool validation::birthChecks(int birthYear, int deathYear)
 
     if(deathYear < birthYear && deathYear != 0)
     {
-        cout << "The scientist cannot die before they are born!" << endl;
-        return false;
+        return 1;
     }
     if((deathYear - birthYear) > 122)
     {
-        cout << "That is too old, the oldest woman was 122 years old!" << endl;
-        return false;
+        return 2;
     }
     if ((currentYear - birthYear) > 122 && deathYear == 0)
     {
-        cout << "That is too old, the oldest woman was 122 years old!" << endl;
-        return false;
+        return 3;
     }
-    return true;
+    return 0;
 }
 
 bool validation::genderCheck(char& gender)

@@ -15,8 +15,8 @@ class validation
 public:
     validation();
     void ValidateString(string& n);
-    bool validNames(const string& s);
-    bool birthChecks(int birthYear, int deathYear);
+    bool validName(const string& s);
+    int birthChecks(int birthYear, int deathYear);
     bool genderCheck(char& gender);
     void errorCheckSaveToFile(bool &fileOpen);
     bool check();
