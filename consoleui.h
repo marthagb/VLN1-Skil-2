@@ -39,6 +39,20 @@ class ConsoleUI
     void saveComputersToFile();
     void printComputerLine();
 
+    void associations();
+    void listAssociationData();
+    void ascOrDescAssoc(int orderBy);
+    void searchAssociation();
+    void searchAssocBySciName();
+    void searchAssocByCompName();
+    void searchAssocByYear();
+    void searchAssocByYearRange();
+    void searchAssocByCompType();
+    void addAssociation();
+    void deleteAssociation();
+    void saveAssocToFile();
+    void printAssocLine();
+
     void clearScreen();
     void onlyTakeOneInput();
     bool validName(const string& s);

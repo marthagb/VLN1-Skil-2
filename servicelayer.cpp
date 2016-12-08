@@ -18,6 +18,11 @@ vector<Computer> ServiceLayer::listComputers()
     return dl.getComputerVector();
 }
 
+vector<Association> ServiceLayer::listAssociations()
+{
+    return dl.getAssociationVector();
+}
+
 void ServiceLayer::sortScientists(int orderBy, int ascOrDesc)
 {
     dl.readScientists(orderBy, ascOrDesc);
@@ -26,6 +31,11 @@ void ServiceLayer::sortScientists(int orderBy, int ascOrDesc)
 void ServiceLayer::sortComputers(int orderBy, int ascOrDesc)
 {
     dl.readComputers(orderBy, ascOrDesc);
+}
+
+void ServiceLayer::sortAssociations(int orderBy, int ascOrDesc)
+{
+    dl.readAssociations(orderBy, ascOrDesc);
 }
 
 vector<int> ServiceLayer::searchScientistByName(const string name)
@@ -68,6 +78,31 @@ vector<int> ServiceLayer::searchComputerByType(const string type)
     return dl.searchComputerByType(type);
 }
 
+vector<int> ServiceLayer::searchAssocBySciName(const string sN)
+{
+    return dl.searchAssocBySciName(sN);
+}
+
+vector<int> ServiceLayer::searchAssocByCompName(const string cN)
+{
+    return dl.searchAssocByCompName(cN);
+}
+
+vector<int> ServiceLayer::searchAssocByYear(const int year)
+{
+    return dl.searchAssocByYear(year);
+}
+
+vector<int> ServiceLayer::searchAssocByYearRange(const int f, const int l)
+{
+    return dl.searchAssocByYearRange(f,l);
+}
+
+vector<int> ServiceLayer::searchAssocByCompType(const string type)
+{
+    return dl.searchAssocByCompType(type);
+}
+
 void ServiceLayer::addScientist(const Persons &p)
 {
     dl.addScientist(p);
@@ -96,6 +131,16 @@ bool ServiceLayer::addComputersFromFile(string input)
 void ServiceLayer::deleteComputer(string n)
 {
     dl.deleteComputer(n);
+}
+
+void ServiceLayer::addAssociation(const Association &a)
+{
+    dl.addAssociation(a);
+}
+
+void ServiceLayer::deleteAssociation(string sN, string cN)
+{
+    dl.deleteAssociation(sN, cN);
 }
 
 bool ServiceLayer::saveScientistsToFile(string input)
@@ -154,6 +199,35 @@ bool ServiceLayer::saveComputersToFile(string input)
     }
            out.close();
            return true;
+}
+
+bool ServiceLayer::saveAssociationsToFile(string input)
+{
+    ofstream out;
+    out.open(input);
+
+    if(out.fail())
+    {
+          return false;
+    }
+     else
+    {
+        out.width(26);
+        out << left << "Scientist\t";
+        out.width(20);
+        out << left << "Computer\tYear Made\tBuilt?\tComputer Type" << endl;
+        out << "______________________________________________________________________" << endl;
+
+        out.seekp(100);
+        out << endl;
+        for(size_t i = 0; i < dl.getAssociationVector().size(); i++)
+        {
+             out << dl.getAssociationVector()[i];
+        }
+
+     }
+            out.close();
+            return true;
 }
 
 

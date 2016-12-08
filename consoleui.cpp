@@ -50,7 +50,7 @@ void ConsoleUI::run()
                 }
                 case 3:
                 {
-                    //TODO
+                    associations();
                     break;
                 }
                 case 4:
@@ -164,42 +164,19 @@ void ConsoleUI::listScientistData()
 
 
 
-            switch (choice)
-            {
-            case 1:
-            {
-                ascOrDescScientists(choice);
-                error = false;
-                break;
-            }
-             case 2:
-            {
-                ascOrDescScientists(choice);
-                error = false;
-                break;
-            }
-             case 3:
-             {
-                ascOrDescScientists(choice);
-                error = false;
-                break;
-            }
-             case 4:
-            {
-                ascOrDescScientists(choice);
-                error = false;
-                break;
-            }
-             case 5:
-            {
-                error = false;
-                break;
-            }
-             default:
-            {
-                 cout << "Error! Invalid input!" << endl;
-                 error = true;
-            }
+        if (choice >= 1 && choice <= 4)
+        {
+            ascOrDescScientists(choice);
+            error = false;
+        }
+        else if (choice == 5)
+        {
+            error = false;
+        }
+        else
+        {
+            cout << "Error! Invalid input!" << endl;
+            error = true;
         }
     }
     while (error);
@@ -309,7 +286,7 @@ void ConsoleUI::searchScientist()
 void ConsoleUI::searchScientistByName()
 {
     string n = " ";
-    cout << "Enter name: ";
+    cout << "Enter scientist name: ";
     cin >> ws;
     getline(cin, n);
     serve.sortScientists(1, 1);
@@ -740,7 +717,7 @@ void ConsoleUI::computers()
         cout << " Press 1 to list the computers"    << endl;
         cout << " Press 2 to search computers"        << endl;
         cout << " Press 3 to add a computer"       << endl;
-        cout << " Press 4 to remove a computers"    << endl;
+        cout << " Press 4 to remove a computer"    << endl;
         cout << " Press 5 to save to a custom file" << endl;
         cout << " Press 6 to go back to main menu"  << endl;
         cout << " Press 7 to quit"                  << endl;
@@ -810,7 +787,7 @@ void ConsoleUI::listComputerData()
         cout << "How would you like to sort the list?"   << endl;
         cout << " =================================="    << endl;
         cout << " Press 1 to sort by name"               << endl;
-        cout << " Press 2 to sort by year built"         << endl;
+        cout << " Press 2 to sort by year made"         << endl;
         cout << " Press 3 to sort by type"               << endl;
         cout << " Press 4 to sort by whether it was built" << endl;
         cout << " Press 5 to Cancel"                     << endl;
@@ -824,42 +801,19 @@ void ConsoleUI::listComputerData()
 
 
 
-            switch (choice)
-            {
-            case 1:
-            {
-                ascOrDescComputers(choice);
-                error = false;
-                break;
-            }
-             case 2:
-            {
-                ascOrDescComputers(choice);
-                error = false;
-                break;
-            }
-             case 3:
-             {
-                ascOrDescComputers(choice);
-                error = false;
-                break;
-            }
-             case 4:
-            {
-                ascOrDescComputers(choice);
-                error = false;
-                break;
-            }
-             case 5:
-            {
-                error = false;
-                break;
-            }
-             default:
-            {
-                 cout << "Error! Invalid input!" << endl;
-                 error = true;
-            }
+        if (choice >= 1 && choice <= 4)
+        {
+            ascOrDescComputers(choice);
+            error = false;
+        }
+        else if (choice == 5)
+        {
+            error = false;
+        }
+        else
+        {
+            cout << "Error! Invalid input!" << endl;
+            error = true;
         }
     }
     while (error);
@@ -964,7 +918,7 @@ void ConsoleUI::searchComputer()
 void ConsoleUI::searchComputerByName()
 {
     string n = " ";
-    cout << "Enter name: ";
+    cout << "Enter computer name: ";
     cin >> ws;
     getline(cin, n);
     serve.sortComputers(1,1);
@@ -1237,7 +1191,532 @@ void ConsoleUI::printComputerLine()
 {
     cout.width(30);
     cout << left << "Name";
-    cout << "\tBuilding Year\tComputer type\tBuilt?" << endl;
+    cout << "\tYear Made\tComputer Type\tBuilt?" << endl;
+    cout << "_____________________________________________________" << endl;
+}
+
+void ConsoleUI::associations()
+{
+    bool run = true;
+
+    while (run)
+    {
+        cout << " ================================" << endl;
+        cout << " Press 1 to list the associations"    << endl;
+        cout << " Press 2 to search associations"        << endl;
+        cout << " Press 3 to add an association"       << endl;
+        cout << " Press 4 to remove an association"    << endl;
+        cout << " Press 5 to save to a custom file" << endl;
+        cout << " Press 6 to go back to main menu"  << endl;
+        cout << " Press 7 to quit"                  << endl;
+        cout << " ================================" << endl;
+
+        char input = '0';
+        cin >> input;
+        clearScreen();
+
+        onlyTakeOneInput();                                                  // Takes only one letter and flushes the rest.
+        int choice = input - '0';
+
+        switch (choice)
+           {
+           case 1:
+           {
+               listAssociationData();
+               break;
+           }
+           case 2:
+           {
+               searchAssociation();
+               break;
+           }
+           case 3:
+           {
+               addAssociation();
+               break;
+           }
+           case 4:
+           {
+               deleteAssociation();
+               break;
+           }
+           case 5:
+           {
+               saveAssocToFile();
+               break;
+           }
+           case 6:
+           {
+                run = false;
+                break;
+           }
+           case 7:
+           {
+                exit (0);
+                break;
+           }
+
+           default:
+           {
+               cout << "Error! Invalid input" << endl;
+           }
+           }
+    }
+}
+
+void ConsoleUI::listAssociationData()
+{
+    char input = '0';
+    int choice = 0;
+    bool error = false;
+
+    do
+    {
+        cout << "How would you like to sort the list?"   << endl;
+        cout << " =================================="    << endl;
+        cout << " Press 1 to sort by scientist name"               << endl;
+        cout << " Press 2 to sort by computer name"         << endl;
+        cout << " Press 3 to sort by year made"  << endl;
+        cout << " Press 4 to sort by whether it was built"               << endl;
+        cout << " Press 5 to sort by computer type" << endl;
+        cout << " Press 6 to Cancel"                     << endl;
+        cout << " =================================="    << endl;
+
+        cin >> input;
+        onlyTakeOneInput();
+        clearScreen();
+        choice = input - '0';
+        input = '1';
+
+        if (choice >= 1 && choice <= 5)
+        {
+            ascOrDescAssoc(choice);
+            error = false;
+        }
+        else if (choice == 6)
+        {
+            error = false;
+        }
+        else
+        {
+            cout << "Error! Invalid input!" << endl;
+            error = true;
+        }
+    }
+    while (error);
+}
+
+void ConsoleUI::ascOrDescAssoc(int orderBy)
+{
+    char input = '0';
+    int order = 1;
+    do
+    {
+        cout << "Regular or Reversed sorting?"      << endl;
+        cout << " ================================" << endl;
+        cout << "Press 1 for regular sorting"       << endl;
+        cout << "Press 2 for reversed sorting"      << endl;
+        cout << "Press 3 to cancel"                 << endl;
+        cout << " ================================" << endl;
+
+        cin >> input;
+        onlyTakeOneInput();
+        if (input != '1' && input != '2' && input != '3')
+        {
+            cout << "Error! Invalid input" << endl;
+        }
+    }
+    while (input != '1' && input != '2' && input != '3');
+    order = input - '0';
+
+    if (order == 1 || order == 2)
+    {
+        printAssocLine();
+
+        serve.sortAssociations(orderBy, order);
+        for(unsigned int i = 0; i < serve.listAssociations().size(); i++)
+        {
+            cout << serve.listAssociations()[i];
+        }
+        cout << "_____________________________________________________" << endl;
+    }
+}
+
+void ConsoleUI::searchAssociation()
+{
+    bool error = false;
+    do
+    {
+        cout << "How would you like to search the data?"  << endl;
+        cout << " ====================================="  << endl;
+        cout << " Press 1 to search by scientist name"              << endl;
+        cout << " Press 2 to search by computer name" << endl;
+        cout << " Press 3 to search by year made"            << endl;
+        cout << " Press 4 to search by year range" << endl;
+        cout << " Press 5 to search by type"        << endl;
+        cout << " Press 6 to cancel"                      << endl;
+        cout << " ======================================" << endl;
+
+        char input = '0';
+        cin >> input;
+        onlyTakeOneInput();
+        int choice = input - '0';
+
+        switch(choice)
+        {
+            case 1:
+            {
+                searchAssocBySciName();
+                error = false;
+                break;
+            }
+            case 2:
+            {
+                searchAssocByCompName();
+                error = false;
+                break;
+            }
+            case 3:
+            {
+                searchAssocByYear();
+                error = false;
+                break;
+            }
+            case 4:
+            {
+                searchAssocByYearRange();
+                error = false;
+                break;
+            }
+            case 5:
+            {
+                searchAssocByCompType();
+                break;
+            }
+            case 6:
+            {
+                error = false;
+                break;
+            }
+            default:
+            {
+                cout << "Error! Invalid input" << endl;
+                error = true;
+            }
+        }
+    }
+    while (error);
+}
+
+void ConsoleUI::searchAssocBySciName()
+{
+    string n = " ";
+    cout << "Enter name: ";
+    cin >> ws;
+    getline(cin, n);
+    serve.sortAssociations(0, 1);
+    vector<int> vASN = serve.searchAssocBySciName(n);
+    if (vASN.size() == 0)
+    {
+        cout << "No results found\n";
+    }
+    else
+    {
+        printAssocLine();
+        for (unsigned int i = 0; i < vASN.size(); i++)
+        {
+            cout << serve.listAssociations()[vASN[i]];
+        }
+    }
+}
+
+void ConsoleUI::searchAssocByCompName()
+{
+    string n = " ";
+    cout << "Enter name: ";
+    cin >> ws;
+    getline(cin, n);
+    serve.sortAssociations(0,1);
+    vector<int> vACN = serve.searchAssocByCompName(n);
+    if (vACN.size() == 0)
+    {
+        cout << "No results found\n";
+    }
+    else
+    {
+        printAssocLine();
+        for (unsigned int i = 0; i < vACN.size(); i++)
+        {
+            cout << serve.listAssociations()[vACN[i]];
+        }
+    }
+}
+
+void ConsoleUI::searchAssocByYear()
+{
+    int y = 0;
+    string s = " ";
+    while (!validYear(s, y) || y == 0)
+    {
+        cout << "Enter year: ";
+        cin >> s;
+        if(!validYear(s, y) || y == 0) {
+            cout << "Invalid input!\n";
+        }
+    }
+    serve.sortAssociations(0,1);
+    vector<int> vAY = serve.searchAssocByYear(y);
+    if (vAY.size() == 0)
+    {
+        cout << "No results found\n";
+    }
+    else
+    {
+        printAssocLine();
+        for (unsigned int i = 0; i < vAY.size(); i++)
+        {
+            cout << serve.listAssociations()[vAY[i]];
+        }
+    }
+}
+
+void ConsoleUI::searchAssocByYearRange()
+{
+    int f = 0, l = 0;
+    string s = " ";
+    while(!validYear(s, f))
+    {
+        cout << "Enter first year in range: ";
+        cin >> s;
+        if (!validYear(s, f)) {
+            cout << "Invalid input!\n";
+        }
+    }
+    s = " ";
+    while(!validYear(s, l) || l < f)
+    {
+        cout << "Enter last year in range: ";
+        cin >> s;
+        if(!validYear(s, l) || l < f)
+        {
+            cout << "Invalid input!\n";
+        }
+    }
+    serve.sortAssociations(0,1);
+    vector<int> vAR = serve.searchAssocByYearRange(f,l);
+    if (vAR.size() == 0)
+    {
+        cout << "No results found" << endl;
+    }
+    else
+    {
+        printAssocLine();
+        for (unsigned int i = 0; i < vAR.size(); i++)
+        {
+            cout << serve.listAssociations()[vAR[i]];
+        }
+    }
+}
+
+void ConsoleUI::searchAssocByCompType()
+{
+    string t = " ";
+    cout << "Enter type: ";
+    cin >> ws;
+    getline(cin, t);
+    serve.sortAssociations(0,1);
+    vector<int> vACT = serve.searchAssocByCompType(t);
+    if (vACT.size() == 0)
+    {
+        cout << "No results found\n";
+    }
+    else
+    {
+        printAssocLine();
+        for (unsigned int i = 0; i < vACT.size(); i++)
+        {
+            cout << serve.listAssociations()[vACT[i]];
+        }
+    }
+}
+
+void ConsoleUI::addAssociation()
+{
+    string sN = " ", cN = " ";
+    bool error = true;
+    while (error)
+    {
+        cout << "Enter scientist name: ";
+        cin >> ws;
+        getline(cin, sN);
+        if (serve.searchScientistByName(sN).size() == 0)
+        {
+            cout << "Scientist not found!";
+        }
+        else error = false;
+    }
+    error = true;
+    while (error)
+    {
+        cout << "Enter computer name: ";
+        cin >> ws;
+        getline(cin, cN);
+        if (serve.searchComputerByName(cN).size() == 0)
+        {
+            cout << "Computer not found!";
+        }
+        else error = false;
+    }
+    serve.sortScientists(1,1);
+    Persons s = serve.listScientists()[serve.searchScientistByName(sN)[0]];
+    serve.sortComputers(1,1);
+    Computer c = serve.listComputers()[serve.searchComputerByName(cN)[0]];
+    error = true;
+    while (error)
+    {
+        cout << "Are you sure you want to associate " << s.getName() << " and " << c.getComputerName() << "? (Y/N)" << endl;
+        char choice = ' ';
+        cin >> choice;
+        onlyTakeOneInput();
+        if (choice == 'y' || choice == 'Y')
+        {
+            Association a(s, c);
+            serve.addAssociation(a);
+            cout << "Association added" << endl;
+            error = false;
+        }
+        else if (choice == 'n' || choice == 'N')
+        {
+            cout << "Association cancelled" << endl;
+            error = false;
+        }
+        else
+        {
+            cout << "Invalid input!" << endl;
+        }
+    }
+}
+
+void ConsoleUI::deleteAssociation()
+{
+    string sN = " ", cN = " ";
+    bool error = true;
+    while (error)
+    {
+        while (error)
+        {
+            cout << "Enter scientist name: ";
+            cin >> ws;
+            getline(cin, sN);
+            if (serve.searchScientistByName(sN).size() == 0)
+            {
+                cout << "Scientist not found!";
+            }
+            else error = false;
+        }
+        error = true;
+        while (error)
+        {
+            cout << "Enter computer name: ";
+            cin >> ws;
+            getline(cin, cN);
+            if (serve.searchComputerByName(cN).size() == 0)
+            {
+                cout << "Computer not found!";
+            }
+            else error = false;
+        }
+        serve.sortScientists(1,1);
+        Persons s = serve.listScientists()[serve.searchScientistByName(sN)[0]];
+        serve.sortComputers(1,1);
+        Computer c = serve.listComputers()[serve.searchComputerByName(cN)[0]];
+        Association a(s, c);
+        for (unsigned int i = 0; i < serve.listAssociations().size(); i++)
+        {
+            if (a == serve.listAssociations()[i])
+            {
+                error = true;
+                while (error)
+                {
+                    cout << "Are you sure you want to delete the following association?" << endl << a << endl << "Enter Y for yes or N for no" << endl;
+                    char choice = ' ';
+                    cin >> choice;
+                    onlyTakeOneInput();
+                    if (choice == 'y' || choice == 'Y')
+                    {
+                        serve.deleteAssociation(a.getScientistName(), a.getComputerName());
+                        cout << "Association deleted" << endl;
+                        error = false;
+                        break;
+                    }
+                    else if (choice == 'n' || choice == 'N')
+                    {
+                        cout << "Delete cancelled" << endl;
+                        error = false;
+                        break;
+                    }
+                    else
+                    {
+                        cout << "Invalid input!" << endl;
+                    }
+                }
+            }
+        }
+    }
+}
+
+void ConsoleUI::saveAssocToFile()
+{
+    bool fileOpen = false;
+    string fileName;
+    do
+    {
+        cout << "WARNING: This will overwrite everything in the file selected!" << endl;
+        cout << "If the File Doesn't exist, it will create a new file." << endl << endl;
+        cout << "Enter the full path of the file, or the name of the file, if the file is in the same directory: " << endl;
+        cin >> fileName;
+        if(serve.saveAssociationsToFile(fileName))
+        {
+            cout << "Success!" << endl;
+            fileOpen = false;
+        }
+        else
+        {
+            cout << "Error! Failed to open file" << endl;
+            char continuel;
+            bool cont = true;
+            while (cont)
+            {
+                cout << "Do you want to try again? (Y for yes and N for no) " ;
+                cin  >> continuel;
+                if(continuel == 'Y' && continuel == 'y')
+                {
+                    fileOpen = true;
+                    cont = false;
+                }
+                else if (continuel == 'N' && continuel == 'n')
+                {
+                    fileOpen = false;
+                    cont = false;
+                }
+                else
+                {
+                    cout << "Error! Invalid input" << endl;
+                    cont = true;
+                }
+            }
+        }
+
+    }
+    while (fileOpen);
+}
+
+void ConsoleUI::printAssocLine()
+{
+    cout.width(30);
+    cout << left << "Scientist\t";
+    cout.width(20);
+    cout << left << "Computer\tYear Made\tBuilt?\tComputer Type" << endl;
     cout << "_____________________________________________________" << endl;
 }
 

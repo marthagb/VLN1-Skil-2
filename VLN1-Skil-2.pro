@@ -16,8 +16,8 @@ SOURCES += main.cpp \
     persons.cpp \
     computer.cpp \
     datalayer.cpp \
-    validation.cpp
-    validation.cpp
+    validation.cpp \
+    association.cpp \
 
 HEADERS += \
     consoleui.h \
@@ -25,5 +25,5 @@ HEADERS += \
     persons.h \
     computer.h \
     datalayer.h \
-    validation.h
-    validation.h
+    validation.h \
+    association.h \
