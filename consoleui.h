@@ -33,6 +33,7 @@ class ConsoleUI
     void searchComputerByYearMade();
     void searchComputerByYearRange();
     void searchComputerByType();
+    void addComputers();
     void addComputer();
     void addComputerManually();
     void addComputersFromFile();

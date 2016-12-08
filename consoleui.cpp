@@ -440,15 +440,6 @@ void ConsoleUI::searchScientistByYearRange()
     }
 
 }
-bool ConsoleUI::quitAddingPerson(string n)
-{
-    if(n == "q"|| n == "Q")
-    {
-
-                return true;
-    }
-    return false;
-}
 
 // Asks you to enter whether you want to add data manually or from a file.
 void ConsoleUI::addScientist()
@@ -513,7 +504,7 @@ void ConsoleUI::addScientistManually()
 
     getline(cin,n);
 
-    if(quitAddingPerson(n)==true)
+    if(n == "q" || n == "Q")
     {
         cout << "Adding new scientist cancelled" << endl;
         scientists();
@@ -627,8 +618,15 @@ void ConsoleUI::addScientistsFromFile()
 
     do
     {
+
         cout << "Enter the full path of the file, or the name of the file, if the file is in the same directory: " << endl;
+        cout << "Type q and enter to cancel adding scientists from file \n" ;
         cin >> fileName;
+        if(fileName == "q" || fileName == "Q")
+        {
+            cout << "Adding scientists from file canceled " << endl;
+            scientists();
+        }
         if(serve.addScientistsFromFile(fileName))
         {
             cout << "Success!" << endl;
@@ -810,7 +808,7 @@ void ConsoleUI::computers()
            }
            case 3:
            {
-               addComputerManually();
+               addComputers();
                break;
            }
            case 4:
@@ -1113,6 +1111,52 @@ void ConsoleUI::searchComputerByType()
         }
     }
 }
+// Asks you to enter whether you want to add data manually or from a file.
+void ConsoleUI::addComputers()
+{
+    bool error = false;
+    do
+    {
+        cout << " ================================" << endl;
+        cout << " Press 1 to add manually"          << endl;
+        cout << " Press 2 to add from file"         << endl;
+        cout << " Press 3 to cancel"                << endl;
+        cout << " ================================" << endl;
+
+        char input = '0';
+        cin >> input;
+        onlyTakeOneInput();
+        int choice = input - '0';
+
+        switch (choice)
+        {
+        case 1:
+        {
+            addComputerManually();
+            error = false;
+            break;
+        }
+        case 2:
+        {
+            addComputersFromFile();
+            error = false;
+            break;
+        }
+        case 3:
+        {
+            error = false;
+            break;
+        }
+        default:
+        {
+            cout << "Error! Invalid input" << endl;
+            error = true;
+            break;
+        }
+        }
+    }
+    while (error);
+}
 
 void ConsoleUI::addComputerManually()
 {
@@ -1142,7 +1186,7 @@ void ConsoleUI::addComputerManually()
         cout << "Adding new computer cancelled" << endl;
         computers();
     }
-    cout << "Enter B if the computer was built and any other character if it wasn't";
+    cout << "Enter B if the computer was built and any other character if it wasn't: ";
     cin >> built;
     if(built == "q" || built == "Q")
     {
@@ -1158,13 +1202,20 @@ void ConsoleUI::addComputerManually()
 // Asks user to enter path to file. This WILL overwrite the default file.
 void ConsoleUI::addComputersFromFile()
 {
+
     string fileName = "";
     bool fileOpen = false;
 
     do
     {
         cout << "Enter the full path of the file, or the name of the file, if the file is in the same directory: " << endl;
+        cout << "Type q and enter to cancel \n" << endl;
         cin >> fileName;
+        if(fileName == "q" || fileName == "Q")
+        {
+            cout << "Adding computer from file canceled " << endl;
+            computers();
+        }
         if(serve.addComputersFromFile(fileName))
         {
             cout << "Success!" << endl;
