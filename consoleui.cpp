@@ -779,7 +779,7 @@ void ConsoleUI::computers()
            }
            case 3:
            {
-               //addComputer();
+               addComputerManually();
                break;
            }
            case 4:
