@@ -349,6 +349,7 @@ vector<int> DataLayer::searchScientistByName(const string name)
 vector<int> DataLayer::searchScientistByGender(const char gender)
 {
     vector<int> vSG;
+    vector<int> sIDs = getScientistIDs();
     db.open();
 
     QSqlQuery query(db);
@@ -358,9 +359,9 @@ vector<int> DataLayer::searchScientistByGender(const char gender)
     while (query.next())
     {
         int id = query.value("ID").toUInt();
-        for (unsigned int i = 0; i < getScientistIDs().size(); i++)
+        for (unsigned int i = 0; i < sIDs.size(); i++)
         {
-            if (id == getScientistIDs()[i])
+            if (id == sIDs[i])
             {
                 vSG.push_back(i);
                 break;
@@ -375,6 +376,7 @@ vector<int> DataLayer::searchScientistByGender(const char gender)
 vector<int> DataLayer::searchScientistByBirthYear(const int year)
 {
     vector<int> vSBY;
+    vector<int> sIDs = getScientistIDs();
     db.open();
 
     QSqlQuery query(db);
@@ -384,9 +386,9 @@ vector<int> DataLayer::searchScientistByBirthYear(const int year)
     while (query.next())
     {
         int id = query.value("ID").toUInt();
-        for (unsigned int i = 0; i < getScientistIDs().size(); i++)
+        for (unsigned int i = 0; i < sIDs.size(); i++)
         {
-            if (id == getScientistIDs()[i])
+            if (id == sIDs[i])
             {
                 vSBY.push_back(i);
                 break;
@@ -401,6 +403,7 @@ vector<int> DataLayer::searchScientistByBirthYear(const int year)
 vector<int> DataLayer::searchScientistByYearRange(const int f, const int l)
 {
     vector<int> vSBR;
+    vector<int> sIDs = getScientistIDs();
     db.open();
 
     QSqlQuery query(db);
@@ -410,9 +413,9 @@ vector<int> DataLayer::searchScientistByYearRange(const int f, const int l)
     while (query.next())
     {
         int id = query.value("ID").toUInt();
-        for (unsigned int i = 0; i < getScientistIDs().size(); i++)
+        for (unsigned int i = 0; i < sIDs.size(); i++)
         {
-            if (id == getScientistIDs()[i])
+            if (id == sIDs[i])
             {
                 vSBR.push_back(i);
                 break;
@@ -427,6 +430,7 @@ vector<int> DataLayer::searchScientistByYearRange(const int f, const int l)
 vector<int> DataLayer::searchComputerByName(const string name)
 {
     vector<int> vCBN;
+    vector<int> cIDs = getComputerIDs();
     db.open();
 
     QSqlQuery query(db);
@@ -436,9 +440,9 @@ vector<int> DataLayer::searchComputerByName(const string name)
     while (query.next())
     {
         int id = query.value("ComputerID").toUInt();
-        for (unsigned int i = 0; i < getComputerIDs().size(); i++)
+        for (unsigned int i = 0; i < cIDs.size(); i++)
         {
-            if (id == getComputerIDs()[i])
+            if (id == cIDs[i])
             {
                 vCBN.push_back(i);
                 break;
@@ -453,6 +457,7 @@ vector<int> DataLayer::searchComputerByName(const string name)
 vector<int> DataLayer::searchComputerByYearMade(const int year)
 {
     vector<int> vCYM;
+    vector<int> cIDs = getComputerIDs();
     db.open();
 
     QSqlQuery query(db);
@@ -462,9 +467,9 @@ vector<int> DataLayer::searchComputerByYearMade(const int year)
     while (query.next())
     {
         int id = query.value("ComputerID").toUInt();
-        for (unsigned int i = 0; i < getComputerIDs().size(); i++)
+        for (unsigned int i = 0; i < cIDs.size(); i++)
         {
-            if (id == getComputerIDs()[i])
+            if (id == cIDs[i])
             {
                 vCYM.push_back(i);
                 break;
@@ -479,6 +484,7 @@ vector<int> DataLayer::searchComputerByYearMade(const int year)
 vector<int> DataLayer::searchComputerByYearRange(const int f, const int l)
 {
     vector<int> vCYR;
+    vector<int> cIDs = getComputerIDs();
     db.open();
 
     QSqlQuery query(db);
@@ -488,9 +494,9 @@ vector<int> DataLayer::searchComputerByYearRange(const int f, const int l)
     while (query.next())
     {
         int id = query.value("ComputerID").toUInt();
-        for (unsigned int i = 0; i < getComputerIDs().size(); i++)
+        for (unsigned int i = 0; i < cIDs.size(); i++)
         {
-            if (id == getComputerIDs()[i])
+            if (id == cIDs[i])
             {
                 vCYR.push_back(i);
                 break;
@@ -505,6 +511,7 @@ vector<int> DataLayer::searchComputerByYearRange(const int f, const int l)
 vector<int> DataLayer::searchComputerByType(const string type)
 {
     vector<int> vCBT;
+    vector<int> cIDs = getComputerIDs();
     db.open();
 
     QSqlQuery query(db);
@@ -514,9 +521,9 @@ vector<int> DataLayer::searchComputerByType(const string type)
     while (query.next())
     {
         int id = query.value("ComputerID").toUInt();
-        for (unsigned int i = 0; i < getComputerIDs().size(); i++)
+        for (unsigned int i = 0; i < cIDs.size(); i++)
         {
-            if (id == getComputerIDs()[i])
+            if (id == cIDs[i])
             {
                 vCBT.push_back(i);
                 break;
