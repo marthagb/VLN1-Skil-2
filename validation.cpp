@@ -153,15 +153,22 @@ bool validation::validYear(const string& s, int& year)
     return year >= 0 && year <= currentYear;
 }
 
-void validation::errorCheckGender(char g)
+bool validation::errorCheckGender(char g)
 {
     while(!genderCheck(g))                                  //Error check for gender
     {
         cout << "Wrong input for gender!" << endl;
         cout << "Enter gender (M/F): ";
         cin  >> g;
+        if (g == 'q' || g == 'Q')
+        {
+            cout << "Adding new scientist cancelled" << endl;
+            //scientists();
+            return true;
+        }
         onlyTakeOneInput();
     }
+    return false;
 }
 //If the user entered too many commands, the rest will just be flushed. Fun stuff.
 void validation::onlyTakeOneInput()

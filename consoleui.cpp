@@ -495,6 +495,8 @@ void ConsoleUI::addScientist()
 //If no invalid information is entered, the person is added to the file.
 void ConsoleUI::addScientistManually()
 {
+    cout << "Type 'q' or 'Q' and press enter to cancel at any time\n" << endl;
+
     string n = " ", year;
     char g = ' ';
     int bY = 0, dY = 0;
@@ -502,30 +504,32 @@ void ConsoleUI::addScientistManually()
     cout << "Enter name: ";                                 //Adds the name of a person
     cin >> ws;
     getline(cin,n);
-    //ValidateString(n);
-    //valid.ValidateString(n);
-    /*
-    while(!validName(n))
+
+    if (n == "q" || n == "Q")
     {
-        cout << "Wrong input for name!" << endl;
-        cout << "Enter name: ";
-        cin  >> ws;
-        getline(cin,n);
+        cout << "Adding new scientist cancelled" << endl;
+        scientists();
     }
-    if(!isupper(n[0]))                                      //Converts lower case letter to upper case if first is lower case
+    else
     {
-        n[0] = toupper(n[0]);
-    }*/
+        valid.ValidateString(n);
+    }
 
     cout << "Enter gender: ";                               //Adds the gender of the person
     cin >> g;
     onlyTakeOneInput();
-    while(!genderCheck(g))                                  //Error check for gender
+    if (g == 'q' || g == 'Q')
     {
-        cout << "Wrong input for gender!" << endl;
-        cout << "Enter gender (M/F): ";
-        cin  >> g;
-        onlyTakeOneInput();
+        cout << "Adding new scientist cancelled" << endl;
+        scientists();
+    }
+    else
+    {
+        valid.errorCheckGender(g);
+        if(valid.errorCheckGender(g) == true)
+        {
+            scientists();
+        }
     }
 
     while(!validYear(year, bY) || bY == 0)                  //Adds the birth year and error checks

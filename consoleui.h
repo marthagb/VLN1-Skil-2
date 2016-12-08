@@ -7,7 +7,7 @@
 
 class ConsoleUI
 {
-    //validation valid;
+    validation valid;
     ServiceLayer serve;
     void scientists();
     void listScientistData();
