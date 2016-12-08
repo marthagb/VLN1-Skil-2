@@ -11,21 +11,6 @@ validation::validation()
 
 }
 
-void validation::ValidateString(string& n)
-{
-    while(!validName(n))
-    {
-        cout << "Wrong input for name!" << endl;
-        cout << "Enter name: ";
-        cin  >> ws;
-        getline(cin,n);
-    }
-    if(!isupper(n[0]))                                      //Converts lower case letter to upper case if first is lower case
-    {
-        n[0] = toupper(n[0]);
-    }
-
-}
 
 bool validation::validName(const string& s)                                                     //komið í console
 {
@@ -42,7 +27,7 @@ bool validation::validName(const string& s)                                     
 
 //Errorchecks for whether certain years entered by the user are valid.
 //sadly, it can't be a 300 year old dude. No vampires.
-int validation::birthChecks(int birthYear, int deathYear)
+int validation::birthChecks(int birthYear, int deathYear)                                       //komið í console
 {
     time_t t = time(NULL);
     tm* TimePtr = localtime(&t);
@@ -63,7 +48,7 @@ int validation::birthChecks(int birthYear, int deathYear)
     return 0;
 }
 
-bool validation::genderCheck(char& gender)
+bool validation::genderCheck(char& gender)                                                       //komið í console
 {
     if (gender == 'm' || gender == 'M' || gender == 'f' || gender == 'F')
     {
@@ -108,28 +93,12 @@ void validation::errorCheckSaveToFile(bool& fileOpen)
             cout << "Error! Invalid input" << endl;
             cont = true;
         }
-}
-}
-
-bool validation::check()
-{
-    char continuel;
-    cout << "Do you want to try again? (Y for yes and N for no) " ;
-    cin  >> continuel;
-    if(continuel == 'Y' || continuel == 'y')
-    {
-        //console.addPerson();
-        return true;
-    }
-    else
-    {
-       return false;
     }
 }
 
 //a function which checks whether a certain entered string is a year.
 //And whether it's a valid year (AKA not in the future).
-bool validation::validYear(const string& s, int& year)
+bool validation::validYear(const string& s, int& year)                                                  //komið
 {
     string::const_iterator it = s.begin();
     //Checks if the string 's' is a number
@@ -150,27 +119,4 @@ bool validation::validYear(const string& s, int& year)
     return year >= 0 && year <= currentYear;
 }
 
-bool validation::errorCheckGender(char g)
-{
-    while(!genderCheck(g))                                  //Error check for gender
-    {
-        cout << "Wrong input for gender!" << endl;
-        cout << "Enter gender (M/F): ";
-        cin  >> g;
-        if (g == 'q' || g == 'Q')
-        {
-            cout << "Adding new scientist cancelled" << endl;
-            //scientists();
-            return true;
-        }
-        onlyTakeOneInput();
-    }
-    return false;
-}
-//If the user entered too many commands, the rest will just be flushed. Fun stuff.
-void validation::onlyTakeOneInput()
-{
-    cin.clear();
-    fflush(stdin);
-}
 

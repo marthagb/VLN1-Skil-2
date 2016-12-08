@@ -499,27 +499,27 @@ void ConsoleUI::addScientistManually()
     char g = ' ';
     int bY = 0, dY = 0;
 
-    cout << "Enter name: ";                                 //Adds the name of a person
+    cout << "Enter name: ";                                     //Adds the name of a person
     cin >> ws;
     getline(cin,n);
 
-    while(!valid.validName(n))
+    while(!valid.validName(n))                                  //error checks name through validation layer
     {
         cout << "Wrong input for name!" << endl;
         cout << "Enter name: ";
         cin  >> ws;
         getline(cin,n);
     }
-    if(!isupper(n[0]))                                      //Converts lower case letter to upper case if first is lower case
+    if(!isupper(n[0]))                                          //Converts lower case letter to upper case if first is lower case
     {
         n[0] = toupper(n[0]);
     }
 
-    cout << "Enter gender: ";                               //Adds the gender of the person
+    cout << "Enter gender: ";                                   //Adds the gender of the person through validation layer
     cin >> g;
     onlyTakeOneInput();
 
-    while(!valid.genderCheck(g))                                  //Error check for gender
+    while(!valid.genderCheck(g))                                //Error check for gender through validation layer
     {
         cout << "Wrong input for gender!" << endl;
         cout << "Enter gender (M/F): ";
@@ -527,7 +527,7 @@ void ConsoleUI::addScientistManually()
         onlyTakeOneInput();
     }
 
-    while(!valid.validYear(year, bY) || bY == 0)                  //Adds the birth year and error checks
+    while(!valid.validYear(year, bY) || bY == 0)                //Adds the birth year and error checks through validation layer
     {
         cout << "Enter birth year: ";
         cin >> year;
@@ -539,7 +539,7 @@ void ConsoleUI::addScientistManually()
     }
     year = " ";
 
-    while(!valid.validYear(year, dY))                             //Adds the death year and error checks
+    while(!valid.validYear(year, dY))                             //Adds the death year and error checks through validation layer
     {
         cout << "Enter death year (0 for living person): ";
         cin >> year;
@@ -550,7 +550,7 @@ void ConsoleUI::addScientistManually()
         }
     }
 
-    if(valid.birthChecks(bY, dY) == 1)
+    if(valid.birthChecks(bY, dY) == 1)                                          //error checks in validatioin for correct year input
     {
 
         cout << "The scientist cannot die before they are born!" << endl;
@@ -559,7 +559,7 @@ void ConsoleUI::addScientistManually()
     else if(valid.birthChecks(bY, dY) == 2)
     {
         cout << "That is too old, the oldest woman was 122 years old!" << endl;
-        check();                                                                // Checks if you want to try to input again.
+        check();
     }
     else if (valid.birthChecks(bY,dY) == 3)
     {
@@ -568,7 +568,7 @@ void ConsoleUI::addScientistManually()
     }
     else
     {
-        Persons p(n, g, bY, dY);
+        Persons p(n, g, bY, dY);                                                //adds new scientist to datab
         int a = 0;
         for (unsigned int i = 0; i < serve.listScientists().size(); i++)
         {

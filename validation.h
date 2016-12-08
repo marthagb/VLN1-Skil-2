@@ -14,15 +14,11 @@ class validation
 
 public:
     validation();
-    void ValidateString(string& n);
     bool validName(const string& s);
     int birthChecks(int birthYear, int deathYear);
     bool genderCheck(char& gender);
     void errorCheckSaveToFile(bool &fileOpen);
-    bool check();
     bool validYear(const string& s, int& year);
-    bool errorCheckGender(char g);
-    void onlyTakeOneInput();
 };
 
 
