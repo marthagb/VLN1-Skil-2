@@ -58,6 +58,9 @@ public:
    bool saveScientistsToFile(string input);
    bool saveComputersToFile(string input);
    bool saveAssociationsToFile(string input);
+
+   void updateScientist(int variable, string value, string name);
+   void updateComputer(int variable, string value, string name);
 };
 
 #endif // DATALAYER_H

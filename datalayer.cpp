@@ -1030,7 +1030,6 @@ bool DataLayer::saveComputersToFile(string input)
            return true;
 }
 
-
 bool DataLayer::saveAssociationsToFile(string input)
 {
     if(associations.size() == 0)
@@ -1078,3 +1077,58 @@ bool DataLayer::saveAssociationsToFile(string input)
             return true;
 }
 
+void DataLayer::updateScientist(int variable, string value, string name)
+{
+    db.open();
+
+    QSqlQuery query(db);
+
+
+    if (variable == 1)
+    {
+        query.exec("UPDATE Scientists SET name = " + QString::fromStdString(value) + " WHERE Name = " + QString::fromStdString(name));
+    }
+    else if (variable == 2)
+    {
+        query.exec("UPDATE Scientists SET gender = " + QString::fromStdString(value) + " WHERE ID = " + QString::fromStdString(name));
+    }
+    else if (variable == 3)
+    {
+        query.exec("UPDATE Scientists SET Birthyear = " + QString::fromStdString(value) + " WHERE ID = " + QString::fromStdString(name));
+    }
+    else if (variable == 4)
+    {
+        query.exec("UPDATE Scientists SET Deatyear = " + QString::fromStdString(value) + " WHERE ID = " + QString::fromStdString(name));
+    }
+
+    db.close();
+
+}
+
+void DataLayer::updateComputer(int variable, string value, string name)
+{
+    db.open();
+
+    QSqlQuery query(db);
+
+    if (variable == 1)
+    {
+        query.exec("UPDATE Computers SET name = " + QString::fromStdString(value) + " WHERE ID = " + QString::fromStdString(name));
+    }
+    else if (variable == 2)
+    {
+        query.exec("UPDATE Computers SET gender = " + QString::fromStdString(value) + " WHERE ID = " + QString::fromStdString(name));
+    }
+    else if (variable == 3)
+    {
+        query.exec("UPDATE Computers SET Birthyear = " + QString::fromStdString(value) + " WHERE ID = " + QString::fromStdString(name));
+    }
+    else if (variable == 4)
+    {
+        query.exec("UPDATE Computers SET Deatyear = " + QString::fromStdString(value) + " WHERE ID = " + QString::fromStdString(name));
+    }
+
+
+    db.close();
+
+}
