@@ -29,13 +29,13 @@ public:
     vector<int> searchAssocByYear(const int year);
     vector<int> searchAssocByYearRange(const int f, const int l);
     vector<int> searchAssocByCompType(const string type);
-    void addScientist(const Persons& p);
+    bool addScientist(const Persons& p);
     bool addScientistsFromFile(string input);
     void deleteScientist(string n);
-    void addComputer(const Computer& c);
+    bool addComputer(const Computer& c);
     bool addComputersFromFile(string input);
     void deleteComputer(string n);
-    void addAssociation(const Association& a);
+    bool addAssociation(const Association& a);
     void deleteAssociation(string sN, string cN);
     bool saveScientistsToFile(string input);
     bool saveComputersToFile(string input);

@@ -580,20 +580,13 @@ void ConsoleUI::addScientistManually()
                         else
                         {
                             Persons p(n, g, bY, dY);                                                //adds new scientist to database, if it is not already there
-                            int a = 0;
-                            for (unsigned int i = 0; i < serve.listScientists().size(); i++)
+                            if (serve.addScientist(p))
                             {
-                                if (p == serve.listScientists()[i])
-                                {
-                                    cout << "Scientist already on list!\n";
-                                    a++;
-                                    break;
-                                }
+                                cout << "Scientist added" << endl;
                             }
-                            if (a == 0)
+                            else
                             {
-                                serve.addScientist(p);
-                                cout << "Scientist added\n";
+                                cout << "Scientist already on list!" << endl;
                             }
                         }
                     }
@@ -1225,20 +1218,13 @@ void ConsoleUI::addComputerManually()
                                 b = false;
                             }
                             Computer c(n, yM, t, b);
-                            int a = 0;
-                            for (unsigned int i = 0; i < serve.listComputers().size(); i++)
+                            if (serve.addComputer(c))
                             {
-                                if (c == serve.listComputers()[i])
-                                {
-                                    a++;
-                                    cout << "Computer already on list!\n";
-                                    break;
-                                }
+                                cout << "Computer added" << endl;
                             }
-                            if (a==0)
+                            else
                             {
-                                serve.addComputer(c);
-                                cout << "Computer added!\n";
+                                cout << "Computer already on list!" << endl;
                             }
                         }
                     }
@@ -1550,7 +1536,7 @@ void ConsoleUI::ascOrDescAssoc(int orderBy)
         {
             cout << serve.listAssociations()[i];
         }
-        cout << "_____________________________________________________" << endl;
+        cout << "__________________________________________________________________________________________________________" << endl;
     }
 }
 
@@ -1641,6 +1627,7 @@ void ConsoleUI::searchAssocBySciName()
         {
             cout << serve.listAssociations()[vASN[i]];
         }
+        cout << "__________________________________________________________________________________________________________" << endl;
     }
 }
 
@@ -1663,6 +1650,7 @@ void ConsoleUI::searchAssocByCompName()
         {
             cout << serve.listAssociations()[vACN[i]];
         }
+        cout << "__________________________________________________________________________________________________________" << endl;
     }
 }
 
@@ -1691,6 +1679,7 @@ void ConsoleUI::searchAssocByYear()
         {
             cout << serve.listAssociations()[vAY[i]];
         }
+        cout << "__________________________________________________________________________________________________________" << endl;
     }
 }
 
@@ -1729,6 +1718,7 @@ void ConsoleUI::searchAssocByYearRange()
         {
             cout << serve.listAssociations()[vAR[i]];
         }
+        cout << "__________________________________________________________________________________________________________" << endl;
     }
 }
 
@@ -1751,6 +1741,7 @@ void ConsoleUI::searchAssocByCompType()
         {
             cout << serve.listAssociations()[vACT[i]];
         }
+        cout << "__________________________________________________________________________________________________________" << endl;
     }
 }
 
@@ -1795,20 +1786,13 @@ void ConsoleUI::addAssociation()
         if (choice == 'y' || choice == 'Y')
         {
             Association a(s, c);
-            int x = 0;
-            for (unsigned int i = 0; i < serve.listAssociations().size(); i++)
+            if (serve.addAssociation(a))
             {
-                if(a == serve.listAssociations()[i])
-                {
-                    x++;
-                    cout << "Association already on list!\n";
-                    break;
-                }
-            }
-            if (x == 0)
-            {
-                serve.addAssociation(a);
                 cout << "Association added" << endl;
+            }
+            else
+            {
+                cout << "Association already on list!" << endl;
             }
             error = false;
         }
@@ -1948,11 +1932,11 @@ void ConsoleUI::printAssocLine()
 {
     cout.width(26);
     cout << left << "Scientist\t";
-    cout.width(20);
-    cout << left << "Computer\tYear Made\t";
-    cout.width(12);
-    cout << "Built?\tComputer Type" << endl;
-    cout << "_____________________________________________________" << endl;
+    cout.width(14);
+    cout << left << "Computer\t" << "Year Made\t";
+    cout.width(15);
+    cout << "Built?\t" << "Computer Type" << endl;
+    cout << "__________________________________________________________________________________________________________" << endl;
 }
 
 void ConsoleUI:: clearScreen()

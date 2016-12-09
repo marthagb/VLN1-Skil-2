@@ -308,8 +308,17 @@ void DataLayer::readAssociations(int orderBy, int ascOrDesc)
     associations = A;
 }
 
-void DataLayer::addScientist(const Persons& p)
+bool DataLayer::addScientist(const Persons& p)
 {
+    //if (scientists.size() == 0)
+    for (unsigned int i = 0; i < scientists.size(); i++)
+    {
+        if (scientists[i] == p)
+        {
+            return false;
+        }
+    }
+
     db.open();
 
     QSqlQuery query(db);
@@ -334,10 +343,19 @@ void DataLayer::addScientist(const Persons& p)
     db.close();
 
     scientists.push_back(p);
+    return true;
 }
 
-void DataLayer::addComputer(const Computer& c)
+bool DataLayer::addComputer(const Computer& c)
 {
+    for (unsigned int i = 0; i < computers.size(); i++)
+    {
+        if (computers[i] == c)
+        {
+            return false;
+        }
+    }
+
     db.open();
 
     QSqlQuery query(db);
@@ -360,16 +378,24 @@ void DataLayer::addComputer(const Computer& c)
     db.close();
 
     computers.push_back(c);
+    return true;
 }
 
-void DataLayer::addAssociation(const Association& a)
+bool DataLayer::addAssociation(const Association& a)
 {
+    for (unsigned int i = 0; i < associations.size(); i++)
+    {
+        if (associations[i] == a)
+        {
+            return false;
+        }
+    }
     int sID = 0, cID = 0;
     db.open();
     QSqlQuery query1(db);
 
     query1.exec("SELECT ID FROM Scientists "
-                       "WHERE Name LIKE '" + QString::fromStdString(a.getScientistName()) + "'");
+                           "WHERE Name LIKE '" + QString::fromStdString(a.getScientistName()) + "'");
     while (query1.next())
     {
         sID = query1.value("ID").toUInt();
@@ -378,7 +404,7 @@ void DataLayer::addAssociation(const Association& a)
     QSqlQuery query2(db);
 
     query2.exec("SELECT ComputerID FROM Computers "
-                       "WHERE ComputerName LIKE '" + QString::fromStdString(a.getComputerName()) + "'");
+                           "WHERE ComputerName LIKE '" + QString::fromStdString(a.getComputerName()) + "'");
     while (query2.next())
     {
         cID = query2.value("ComputerID").toUInt();
@@ -387,11 +413,12 @@ void DataLayer::addAssociation(const Association& a)
     QSqlQuery query3(db);
 
     query3.exec("INSERT INTO Associations(ScientistID, ComputerID) "
-                       "VALUES (" + QVariant(sID).toString() + ", " + QVariant(cID).toString() + ")");
+                           "VALUES (" + QVariant(sID).toString() + ", " + QVariant(cID).toString() + ")");
 
     db.close();
 
     associations.push_back(a);
+    return true;
 }
 
 bool DataLayer::addScientistsFromFile(string input)

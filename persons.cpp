@@ -76,6 +76,7 @@ void Persons::operator = (const Persons& p)
     birthYear = p.birthYear;
     deathYear = p.deathYear;
     alive = p.alive;
+    age = p.age;
 }
 
 //Overloads the == and != operators.
