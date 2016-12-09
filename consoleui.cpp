@@ -675,12 +675,13 @@ void ConsoleUI::deleteScientist()
         while (!d)
         {
             cout << endl;
-            cout << "Are you sure you would like to delete the following scientist(s)? (y/n)\n" << endl;
+            cout << "Are you sure you would like to delete the following scientist(s)?" << endl;
             printScientistLine();
             for (int i = 0; i < s; i++)
             {
                 cout << serve.listScientists()[v[i]];
             }
+            cout << "Enter Y for yes or N for no" << endl;
             char a = ' ';
             cin >> a;
             if (a == 'y' || a == 'Y')
@@ -1298,12 +1299,13 @@ void ConsoleUI::deleteComputer()
         while (!d)
         {
             cout << endl;
-            cout << "Are you sure you would like to delete the following computer(s)? (y/n)\n" << endl;
+            cout << "Are you sure you would like to delete the following computer(s)?" << endl;
             printComputerLine();
             for (int i = 0; i < s; i++)
             {
                 cout << serve.listComputers()[v[i]];
             }
+            cout << "Enter Y for yes or N for no" << endl;
             char a = ' ';
             cin >> a;
             if (a == 'y' || a == 'Y')
@@ -1818,7 +1820,7 @@ void ConsoleUI::deleteAssociation()
             getline(cin, sN);
             if (serve.searchScientistByName(sN).size() == 0)
             {
-                cout << "Scientist not found!";
+                cout << "Scientist not found!" << endl;
             }
             else error = false;
         }
@@ -1830,7 +1832,7 @@ void ConsoleUI::deleteAssociation()
             getline(cin, cN);
             if (serve.searchComputerByName(cN).size() == 0)
             {
-                cout << "Computer not found!";
+                cout << "Computer not found!" << endl;
             }
             else error = false;
         }
@@ -1839,10 +1841,12 @@ void ConsoleUI::deleteAssociation()
         serve.sortComputers(1,1);
         Computer c = serve.listComputers()[serve.searchComputerByName(cN)[0]];
         Association a(s, c);
+        int x = 0;
         for (unsigned int i = 0; i < serve.listAssociations().size(); i++)
         {
             if (a == serve.listAssociations()[i])
             {
+                x++;
                 error = true;
                 while (error)
                 {
@@ -1869,6 +1873,10 @@ void ConsoleUI::deleteAssociation()
                     }
                 }
             }
+        }
+        if (x == 0)
+        {
+            cout << "Association not found!" << endl;
         }
     }
 }

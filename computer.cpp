@@ -21,7 +21,7 @@ Computer::Computer(string n, int yM, string t, bool b)
 
 //makes sure that the given year is a number and not letters
 //and that the year is positive and equal to or lower than the current year.
-bool Computer::validYear(const string& s, int& year)
+/*bool Computer::validYear(const string& s, int& year)
 {
     string::const_iterator it = s.begin();
     //Checks if the string 's' is a number
@@ -37,7 +37,7 @@ bool Computer::validYear(const string& s, int& year)
     int currentYear = TimePtr->tm_year + 1900;
 
     return year >= 0 && year <= currentYear;
-}
+}*/
 
 string Computer::getComputerName() const
 {
@@ -102,7 +102,7 @@ istream& operator >> (istream& in, Computer& c)
     in >> ws;
     getline(in, n, ';');
     in >> yM >> t >> b;
-    if (c.validYear(yM, year))
+    if (c.valid.validYear(yM, year))
     {
         if (b == "Built" || b == "built")
         {

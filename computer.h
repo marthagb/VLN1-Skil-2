@@ -2,6 +2,7 @@
 #define COMPUTER_H
 #include <string>
 #include <iostream>
+#include "validation.h"
 
 using namespace std;
 
@@ -11,7 +12,8 @@ class Computer
     int yearMade;
     string type;
     bool builtOrNot;
-    bool validYear(const string& s, int& year);
+    validation valid;
+
 public:
     Computer();
     Computer(string n, int yM, string t, bool b);

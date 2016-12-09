@@ -1,14 +1,12 @@
 #ifndef VALIDATION_H
 #define VALIDATION_H
 
-#include "servicelayer.h"
+#include <string>
+
+using namespace std;
 
 class validation
 {
-
-    //ServiceLayer serve;
-    //ConsoleUI console;
-
 
 public:
     validation();
@@ -18,8 +16,6 @@ public:
     bool errorCheckSaveToFile();
     bool validYear(const string& s, int& year);
 };
-
-
 
 
 #endif // VALIDATION_H

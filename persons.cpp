@@ -15,7 +15,7 @@ Persons::Persons()
     birthYear = 1980;
     deathYear = 0;
     alive = true;
-    age = CURRENT_YEAR - 1980;
+    age = CURRENT_YEAR - birthYear;
 }
 
 //Constructor.
@@ -37,73 +37,6 @@ Persons::Persons(string n, char g, int bY, int dY)
         age = deathYear - birthYear;
     }
 }
-
-//Checks for a valid name by whether the string 's' is empty
-//or contains characters other than letters and spaces
-bool Persons::validName(const string& s)
-{
-    string::const_iterator it = s.begin();
-    while (it != s.end() && (isalpha(*it) || *it == ' '))
-    {
-        ++it;
-    }
-
-    return !s.empty() && it == s.end();
-}
-
-//Checks whether the gender is valid.
-bool Persons::genderCheck(char& gender)
-{
-
-    if (gender == 'm' || gender == 'M' || gender == 'f' || gender == 'F')
-    {
-        if(gender == 'm')
-        {
-            gender = 'M';
-        }
-        if(gender == 'f')
-        {
-            gender = 'F';
-        }
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-//makes sure that the given year is a number and not letters
-//and that the year is positive and equal to or lower than the current year.
-bool Persons::validYear(const string& s, int& year)
-{
-    string::const_iterator it = s.begin();
-    //Checks if the string 's' is a number
-    while (it != s.end() && isdigit(*it)) ++it;
-    if (s.empty() || it != s.end())
-    {
-        return false;
-    }
-    //Checks whether 'year' is positive and lower or equal to the current year
-    year = atoi(s.c_str());
-    time_t t = time(NULL);
-    tm* TimePtr = localtime(&t);
-    int currentYear = TimePtr->tm_year + 1900;
-
-    return year >= 0 && year <= currentYear;
-}
-
-//We compare the birth year and death year and make sure that the person is not too old
-//as in that he/she died before he/she was born and that the person's death year is not before
-//its birth year.
-bool Persons::birthChecks(int birthYear, int deathYear)
-{
-    time_t t = time(NULL);
-    tm* TimePtr = localtime(&t);
-    int currentYear = TimePtr->tm_year + 1900;
-    return ((deathYear - birthYear) >= 0 && (deathYear -birthYear) < 123) ||(deathYear == 0 && (currentYear - birthYear) < 123);
-}
-
 
 string Persons::getName() const
 {
@@ -190,16 +123,16 @@ istream& operator >> (istream& in, Persons& p)
     in >> ws;
     getline(in, n, ';'); //The Name is read in, and we stop at the ';'.
     in >> gdr >> b >> d; //The Gender, birthYear, and either deathYear or "Alive" is read in.
-    if (p.validName(n))
+    if (p.valid.validName(n))
     {
         if (gdr.length() == 1) //checks the length of the gender
         {
             g = gdr.at(0);
-            if (p.genderCheck(g)) //Makes sure that the gender is valid.
+            if (p.valid.genderCheck(g)) //Makes sure that the gender is valid.
             {
-                if (p.validYear(b, bY)) //checks for a valid birth year.
+                if (p.valid.validYear(b, bY)) //checks for a valid birth year.
                 {
-                    if ((d == "Alive" || d == "alive") && p.birthChecks(bY, dY)) //checks whether the person is alive, and whether his age is consistent with human age.
+                    if ((d == "Alive" || d == "alive") && p.valid.birthChecks(bY, dY)) //checks whether the person is alive, and whether his age is consistent with human age.
                     {
                         p.name = n;
                         p.gender = g;
@@ -207,7 +140,7 @@ istream& operator >> (istream& in, Persons& p)
                         p.alive = true;
                         p.deathYear = 0;
                     }
-                    else if(p.validYear(d, dY) && p.birthChecks(bY, dY)) //Checks whether the death year is valid, and whether it's consistent with the birth year.
+                    else if(p.valid.validYear(d, dY) && p.valid.birthChecks(bY, dY)) //Checks whether the death year is valid, and whether it's consistent with the birth year.
                     {
                         p.name = n;
                         p.gender = g;

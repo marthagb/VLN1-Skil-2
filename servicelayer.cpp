@@ -228,10 +228,3 @@ bool ServiceLayer::saveAssociationsToFile(string input)
             out.close();
             return true;
 }
-
-
-
-
-
-
-

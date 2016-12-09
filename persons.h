@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include "validation.h"
 
 using namespace std;
 
@@ -14,11 +15,7 @@ class Persons
     char gender;
     bool alive;
     int age;
-
-    bool validName(const string& s);
-    bool genderCheck(char& gender);
-    bool validYear(const string& s, int& year);
-    bool birthChecks(int birthYear, int deathYear);
+    validation valid;
 
 public:
     Persons();

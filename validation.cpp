@@ -1,9 +1,10 @@
 #include "validation.h"
-#include "consoleui.h"
 
 #include <ctime>
 
 #include <cstdlib>
+
+using namespace std;
 
 validation::validation()
 {
