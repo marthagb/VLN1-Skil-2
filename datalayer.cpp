@@ -7,6 +7,8 @@ DataLayer::DataLayer()
     db.setDatabaseName(dbName);
 }
 
+//Reads scientists from database
+//'orderBy' and 'ascOrDesc' determine how the data is ordered
 void DataLayer::readScientists(int orderBy, int ascOrDesc)
 {
     vector<Persons> S;
@@ -111,6 +113,8 @@ void DataLayer::readScientists(int orderBy, int ascOrDesc)
     scientists = S;
 }
 
+//Reads computers from database
+//'orderBy' and 'ascOrDesc' determine how the data is ordered
 void DataLayer::readComputers(int orderBy, int ascOrDesc)
 {
     db.open();
@@ -193,6 +197,8 @@ void DataLayer::readComputers(int orderBy, int ascOrDesc)
     computers = C;
 }
 
+//Reads associations from database
+//'orderBy' and 'ascOrDesc' determine how the data is ordered
 void DataLayer::readAssociations(int orderBy, int ascOrDesc)
 {
     readScientists(1,1);
@@ -334,47 +340,55 @@ void DataLayer::readAssociations(int orderBy, int ascOrDesc)
     associations = A;
 }
 
-bool DataLayer::addScientist(const Persons& p)
+//Determines whether the scientist 'p' is in the database
+//and adds them if not
+void DataLayer::addScientist(const Persons& p)
 {
     if (scientists.size() == 0)
     {
         readScientists(1,1);
     }
+    int x = 0;
     for (unsigned int i = 0; i < scientists.size(); i++)
     {
         if (scientists[i] == p)
         {
-            return false;
+            x++;
+            break;
         }
     }
-
-    db.open();
-
-    QSqlQuery query(db);
-
-    query.prepare("INSERT INTO Scientists(Name, Gender, Birthyear, Deathyear, Alive) "
-                          "VALUES (:Name, :Gender, :Birthyear, :Deathyear, :Alive)");
-    query.bindValue(0, QString::fromStdString(p.getName()));
-    query.bindValue(1, QVariant(p.getGender()).toChar());
-    query.bindValue(2, QVariant(p.getBirthYear()));
-    query.bindValue(3, QVariant(p.getDeathYear()));
-    if (p.getAlive())
+    if (x == 0)
     {
-        query.bindValue(4, QString::fromStdString("Yes"));
+
+        db.open();
+
+        QSqlQuery query(db);
+
+        query.prepare("INSERT INTO Scientists(Name, Gender, Birthyear, Deathyear, Alive) "
+                              "VALUES (:Name, :Gender, :Birthyear, :Deathyear, :Alive)");
+        query.bindValue(0, QString::fromStdString(p.getName()));
+        query.bindValue(1, QVariant(p.getGender()).toChar());
+        query.bindValue(2, QVariant(p.getBirthYear()));
+        query.bindValue(3, QVariant(p.getDeathYear()));
+        if (p.getAlive())
+        {
+            query.bindValue(4, QString::fromStdString("Yes"));
+        }
+        else
+        {
+            query.bindValue(4, QString::fromStdString("No"));
+        }
+
+        query.exec();
+
+        db.close();
+
+        scientists.push_back(p);
     }
-    else
-    {
-        query.bindValue(4, QString::fromStdString("No"));
-    }
-
-    query.exec();
-
-    db.close();
-
-    scientists.push_back(p);
-    return true;
 }
 
+//Determines whether the computer 'c' is in the database
+//and adds it if not
 bool DataLayer::addComputer(const Computer& c)
 {
     if (computers.size() == 0)
@@ -414,6 +428,8 @@ bool DataLayer::addComputer(const Computer& c)
     return true;
 }
 
+//Determines whether the association 'a' is in the database
+//and adds it if not
 bool DataLayer::addAssociation(const Association& a)
 {
     if (associations.size() == 0)
@@ -458,6 +474,7 @@ bool DataLayer::addAssociation(const Association& a)
     return true;
 }
 
+//Adds scientists to database from file
 bool DataLayer::addScientistsFromFile(string input)
 {
     Persons p;
@@ -1034,11 +1051,12 @@ bool DataLayer::saveScientistsToFile(string input)
 
        for(size_t i = 0; i < scientists.size(); i++)
        {
-           out.width(26);
-           out << left << scientists[i].getName() << ";\t" << scientists[i].getGender() << "\t" << scientists[i].getBirthYear() << "\t";
+           out << left << scientists[i].getName();
+           out.width(26 - scientists[i].getName().length());
+           out << ";" << "\t" << scientists[i].getGender() << "\t" << scientists[i].getBirthYear() << "\t";
            if(scientists[i].getAlive())
            {
-               out << "Alive\n";
+               out << "Alive" << endl;
            }
            else
            {
@@ -1077,17 +1095,19 @@ bool DataLayer::saveComputersToFile(string input)
        out << endl;
        for(size_t i = 0; i < computers.size(); i++)
        {
-            out.width(20);
-            out << left << computers[i].getComputerName() << ";\t" << computers[i].getYearMade() << "\t" ;
-            out.width(25);
-            out << left << computers[i].getType() << ";\t" ;
+            out << left << computers[i].getComputerName();
+            out.width(20 - computers[i].getComputerName().length());
+            out << ";" << "\t" << computers[i].getYearMade() << "\t" ;
+            out << left << computers[i].getType();
+            out.width(25 - computers[i].getType().length());
+            out << ";" << "\t" ;
             if(computers[i].getBuiltOrNot())
             {
-                out << "Built;\n";
+                out << "Built;" << endl;
             }
             else
             {
-                out << "Not built;\n" ;
+                out << "Not built;" << endl;
             }
 
        }

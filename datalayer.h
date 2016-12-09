@@ -42,7 +42,7 @@ public:
    vector<int> searchAssocByYearRange(const int f, const int l);
    vector<int> searchAssocByCompType(const string type);
 
-   bool addScientist(const Persons& p);
+   void addScientist(const Persons& p);
    bool addComputer(const Computer& c);
    bool addAssociation(const Association& a);
    bool addScientistsFromFile(string input);

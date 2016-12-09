@@ -585,8 +585,11 @@ void ConsoleUI::addScientistManually()
                         }
                         else
                         {
+                            int x = serve.listScientists().size();
                             Persons p(n, g, bY, dY);                                                //adds new scientist to database, if it is not already there
-                            if (serve.addScientist(p))
+                            serve.addScientist(p);
+                            int y = serve.listScientists().size();
+                            if (x != y)
                             {
                                 cout << "Scientist added" << endl;
                             }
