@@ -1477,9 +1477,9 @@ void ConsoleUI::updateComputer()
         cout << " What field would you like to update?" << endl;
         cout << " ====================================" << endl;
         cout << " Press 1 to update name"               << endl;
-        cout << " Press 2 to update gender"             << endl;
-        cout << " Press 3 to update birth year"         << endl;
-        cout << " Press 4 to update death year"         << endl;
+        cout << " Press 2 to update year made"             << endl;
+        cout << " Press 3 to update type"         << endl;
+        cout << " Press 4 to update built status"         << endl;
         cout << " Press 5 to cancel"                    << endl;
         cout << " ====================================" << endl;
 
