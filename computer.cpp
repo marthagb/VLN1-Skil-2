@@ -3,6 +3,9 @@
 
 using namespace std;
 
+//Default constructor.
+//If a computer is ever read in as this it will be skipped.
+//(see addComputersFromFile in DataLayer)
 Computer::Computer()
 {
     computerName = "Computer X";
@@ -18,26 +21,6 @@ Computer::Computer(string n, int yM, string t, bool b)
     type = t;
     builtOrNot = b;
 }
-
-//makes sure that the given year is a number and not letters
-//and that the year is positive and equal to or lower than the current year.
-/*bool Computer::validYear(const string& s, int& year)
-{
-    string::const_iterator it = s.begin();
-    //Checks if the string 's' is a number
-    while (it != s.end() && isdigit(*it)) ++it;
-    if (s.empty() || it != s.end())
-    {
-        return false;
-    }
-    //Checks whether 'year' is positive and lower or equal to the current year
-    year = atoi(s.c_str());
-    time_t t = time(NULL);
-    tm* TimePtr = localtime(&t);
-    int currentYear = TimePtr->tm_year + 1900;
-
-    return year >= 0 && year <= currentYear;
-}*/
 
 string Computer::getComputerName() const
 {
@@ -59,6 +42,7 @@ bool Computer::getBuiltOrNot() const
     return builtOrNot;
 }
 
+//Overloads the = operator
 void Computer::operator = (const Computer& c)
 {
     computerName = c.computerName;
@@ -67,6 +51,9 @@ void Computer::operator = (const Computer& c)
     builtOrNot = c.builtOrNot;
 }
 
+//Overloads the == and != operators.
+//Two computers are equal if and only if each
+//parameter is equal.
 bool Computer::operator == (const Computer& c)
 {
     return computerName == c.computerName && yearMade == c.yearMade && type == c.type && builtOrNot == c.builtOrNot;
@@ -77,23 +64,12 @@ bool Computer::operator != (const Computer& c)
     return computerName != c.computerName || yearMade != c.yearMade || type != c.type || builtOrNot != c.builtOrNot;
 }
 
+//Overloads the << (output) operator.
+//Writes out the name, year made and type.
+//Writes "Built" if the computer was built
+//and "Not Built" otherwise
 ostream& operator << (ostream& out, const Computer& c)
 {
-    /*
-    out.width(20);
-    out << left << computers[i].getComputerName() << ";\t" << computers[i].getYearMade() << "\t" ;
-    out.width(25);
-    out << left << computers[i].getType() << ";\t" ;
-    if(computers[i].getBuiltOrNot())
-    {
-        out << "Built;\n";
-    }
-    else
-    {
-        out << "Not built;\n" ;
-    }*/
-
-
     out.width(20);
     out << left << c.getComputerName() << "\t" << c.getYearMade() << "\t\t";
     out.width(25);
@@ -110,6 +86,10 @@ ostream& operator << (ostream& out, const Computer& c)
     return out;
 }
 
+//Overloads the >> (input) operator.
+//Reads the name which we know ends at a semicolon (;)
+//Then reads the year made and type, which also ends at a semicolon.
+//Reads either "Built" or "Not built". This too is expected to be followed by a semicolon.
 istream& operator >> (istream& in, Computer& c)
 {
     string n = " ", yM = " ", t = " ", b = " ";
@@ -124,7 +104,7 @@ istream& operator >> (istream& in, Computer& c)
     in >> ws;
     getline(in, b, ';');
 
-    if (c.valid.validYear(yM, year))
+    if (c.valid.validYear(yM, year))        //checks for a valid year.
     {
         if (b == "Built" || b == "built")
         {
@@ -140,6 +120,8 @@ istream& operator >> (istream& in, Computer& c)
             c.type = t;
             c.builtOrNot = false;
         }
+        //Each of these, if it fails the validity checks, will make c a computer equal to a computer made with
+        //the default constructor, which, when being loaded, will be skipped.
         else c = def;
     }
     else c = def;

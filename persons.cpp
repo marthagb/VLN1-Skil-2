@@ -19,7 +19,9 @@ Persons::Persons()
 }
 
 //Constructor.
-//if deathyear == 0, the person will be alive.
+//If deathyear == 0, the person will be alive.
+//If the person is alive, age is set to their current age.
+//Otherwise, age is set to their age when they died.
 Persons::Persons(string n, char g, int bY, int dY)
 {
     name = n;
@@ -69,7 +71,7 @@ int Persons::getAge() const
     return age;
 }
 
-//Overloads the = operator. Basic stuff.
+//Overloads the = operator.
 void Persons::operator = (const Persons& p)
 {
     name = p.name;
@@ -87,6 +89,7 @@ bool Persons::operator == (const Persons& p)
 {
     return name == p.name && gender == p.gender && birthYear == p.birthYear && deathYear == p.deathYear;
 }
+
 bool Persons::operator != (const Persons& p)
 {
     return name != p.name || gender != p.gender || birthYear != p.birthYear || deathYear != p.deathYear;
@@ -115,7 +118,7 @@ ostream& operator << (ostream& out, const Persons& p)
 }
 
 //Overloads the >> (input) operator.
-//Reads the name which we know ends at a ;
+//Reads the name which we know ends at a semicolon (;)
 //Then reads the gender and birthyear.
 //Reads either "Alive" or the deathyear.
 istream& operator >> (istream& in, Persons& p)
@@ -127,7 +130,7 @@ istream& operator >> (istream& in, Persons& p)
 
     in >> ws;
     getline(in, n, ';'); //The Name is read in, and we stop at the ';'.
-    in >> gdr >> b >> d; //The Gender, birthYear, and either deathYear or "Alive" is read in.
+    in >> gdr >> b >> d; //The Gender, birthYear, and either deathYear or "Alive" are read in.
 
     if (p.valid.validName(n))
     {
@@ -138,7 +141,7 @@ istream& operator >> (istream& in, Persons& p)
             {
                 if (p.valid.validYear(b, bY)) //checks for a valid birth year.
                 {
-                    if ((d == "Alive" || d == "alive") && p.valid.birthChecks(bY, dY) == 0) //checks whether the person is alive, and whether his age is consistent with human age.
+                    if ((d == "Alive" || d == "alive") && p.valid.birthChecks(bY, dY) == 0) //Checks whether the person is alive, and whether their age is consistent with human life expectancy.
                     {
                         p.name = n;
                         p.gender = g;

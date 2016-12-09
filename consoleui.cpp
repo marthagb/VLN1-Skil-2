@@ -613,7 +613,8 @@ void ConsoleUI::addScientistManually()
     }
 }
 
-//This deletes a scientist by entering their full name.
+//This deletes scientists whose names contain a string 'n',
+//entered by the user as a substring.
 //Checks whether the user is sure about deleting the Scientist.
 void ConsoleUI::deleteScientist()
 {
