@@ -104,7 +104,11 @@ istream& operator >> (istream& in, Computer& c)
 
     in >> ws;
     getline(in, n, ';');
-    in >> yM >> t >> b;
+    in >> yM;
+    in >> ws;
+    getline(in, t, ';');
+    in >> ws;
+    getline(in, b, ';');
 
     if (c.valid.validYear(yM, year))
     {

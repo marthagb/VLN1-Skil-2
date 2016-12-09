@@ -57,8 +57,10 @@ ostream& operator << (ostream& out, const Association& a)
     out.width(26);
     out << left << a.getScientistName() << "\t";
     out.width(16);
-    out << left << a.getComputerName() << "\t" << a.getYearMade() << "\t";
-    out.width(12);
+    out << left << a.getComputerName() << "\t";
+    out.width(10);
+    out << a.getYearMade() << "\t";
+    out.width(15);
 
     if (a.getBuiltOrNot())
     {
