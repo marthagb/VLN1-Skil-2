@@ -114,7 +114,7 @@ void ConsoleUI::scientists()
             }
             case 5:
             {
-                //updateScientist();
+                updateScientist();
                 break;
             }
             case 6:
@@ -655,8 +655,114 @@ void ConsoleUI::deleteScientist()
 
 void ConsoleUI::updateScientist()
 {
+    /*cout << "Here you can update individual scientist" << endl;
+    searchScientistByName();
+    cout << endl;
+*/
+    cout << "Enter name of scientist you would like to update: ";
+    string n = " ";
+    cin >> ws;
+    getline(cin, n);
+    serve.sortScientists(1,1);
+    vector<int> v = serve.searchScientistByName(n);
 
+    int s = v.size();
+    if (s > 1)
+    {
+        printScientistLine();
+        for (int i = 0; i < s; i++)
+        {
+            cout << serve.listScientists()[v[i]];
+        }
+        cout << endl;
+        cout << "To many results, please narrow your search!" << endl;
+        updateScientist();
+    }
+    if (s < 1)
+    {
+        cout << "No match for " << n << endl;
+        updateScientist();
+    }
+    else
+    {
+        printScientistLine();
+        for (int i = 0; i < s; i++)
+        {
+            cout << serve.listScientists()[v[i]];
+        }
+        cout << endl;
+
+        bool error = false;
+
+        cout << " What field would you like to update?" << endl;
+        cout << " ====================================" << endl;
+        cout << " Press 1 to update name"               << endl;
+        cout << " Press 2 to update gender"             << endl;
+        cout << " Press 3 to update birth year"         << endl;
+        cout << " Press 4 to update death year"         << endl;
+        cout << " Press 5 to cancel"                    << endl;
+        cout << " ====================================" << endl;
+
+        string input = " ";
+        int choice;
+        cin >> input;
+        stringstream convert(input);
+        convert >> choice;
+        onlyTakeOneInput();
+
+        switch(choice)
+        {
+            case 1:
+            {
+                //updateScientistName();
+                break;
+            }
+            case 2:
+            {
+                //updateScientistGender();
+                break;
+            }
+            case 3:
+            {
+                //updateScientistBirthYear();
+                break;
+            }
+            case 4:
+            {
+                //updateScientistDeathYear();
+                break;
+            }
+            case 5:
+            {
+                error = false;
+                break;
+            }
+            default:
+            {
+                cout << "Error! Invalid input" << endl;
+                error = true;
+            }
+        }
+        while (error);
+    }
 }
+
+void ConsoleUI::updateScientistName()
+{
+    int variable = 1;
+    string value = " ";
+    string name = " ";
+
+    cout << "Enter full name of the scientist you want to update: ";
+    cin >> name;
+    cout << endl;
+    cout << "Enter the new name for this scientist: ";
+    cin >> value;
+    cout << "Scientist updated" << endl;
+
+    serve.updateScientist(variable, value, name);
+}
+
 
 // Asks user to enter path to file. This WILL overwrite the default file.
 void ConsoleUI::addScientistsFromFile()
