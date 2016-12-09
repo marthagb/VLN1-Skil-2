@@ -62,7 +62,7 @@ ostream& operator << (ostream& out, const Association& a)
 {
     out.width(26);
     out << left << a.getScientistName() << "\t";
-    out.width(16);
+    out.width(25);
     out << left << a.getComputerName() << "\t";
     out.width(10);
     out << a.getYearMade() << "\t";

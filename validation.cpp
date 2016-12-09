@@ -25,7 +25,6 @@ bool validation::validName(const string& s)
     return !s.empty() && it == s.end();
 }
 
-
 //Errorchecks for whether certain years entered by the user are valid.
 //Checks for a maximum age.
 int validation::birthChecks(int birthYear, int deathYear)
