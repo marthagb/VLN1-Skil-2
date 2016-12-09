@@ -714,22 +714,22 @@ void ConsoleUI::updateScientist()
             {
                 case 1:
                 {
-                    updateScientistName(serve.listScientists()[v[0]].getName());
+                    updateValue(1, serve.listScientists()[v[0]].getName());
                     break;
                 }
                 case 2:
                 {
-                    updateScientistGender(serve.listScientists()[v[0]].getName());
+                    updateValue(2, serve.listScientists()[v[0]].getName());
                     break;
                 }
                 case 3:
                 {
-                    updateScientistBirthYear(serve.listScientists()[v[0]].getName());
+                    updateValue(3, serve.listScientists()[v[0]].getName());
                     break;
                 }
                 case 4:
                 {
-                    updateScientistDeathYear(serve.listScientists()[v[0]].getName());
+                    updateValue(4, serve.listScientists()[v[0]].getName());
                     break;
                 }
                 case 5:
@@ -748,56 +748,48 @@ void ConsoleUI::updateScientist()
     }
 }
 
-void ConsoleUI::updateScientistName(string name)
+void ConsoleUI::updateValue(int field, string name)
 {
     string value = " ";
 
-    cout << endl;
-    cout << "Enter the new name for this scientist: ";
-    cin >> value;
-    cout << "Scientist updated" << endl;
+    if(field == 1)
+    {
+        cout << endl;
+        cout << "Enter the new name for this scientist: ";
+        cin >> value;
+        cout << "Scientist updated" << endl;
 
-    serve.updateScientist(1, value, name);
-}
+        serve.updateScientist(field, value, name);
+    }
+    else if(field == 2)
+    {
+        cout << endl;
+        cout << "Enter the new gender for this scientist: ";
+        cin >> value;
+        cout << "Scientist updated" << endl;
 
-void ConsoleUI::updateScientistGender(string name)
-{
-    string value = " ";
+        serve.updateScientist(field, value, name);
+    }
+    else if (field == 3)
+    {
+        cout << endl;
+        cout << "Enter the new birth year for this scientist: ";
+        cin >> value;
+        cout << "Scientist updated" << endl;
 
-    cout << endl;
-    cout << "Enter the new gender for this scientist: ";
-    cin >> value;
-    cout << "Scientist updated" << endl;
+        serve.updateScientist(field, value, name);
+    }
+    else if (field == 4)
+    {
+        cout << endl;
+        cout << "Enter the new death year for this scientist: ";
+        cin >> value;
+        cout << "Scientist updated" << endl;
 
-    serve.updateScientist(2, value, name);
-}
-
-void ConsoleUI::updateScientistBirthYear(string name)
-{
-    string value = " ";
-
-    cout << endl;
-    cout << "Enter the new birth year for this scientist: ";
-    cin >> value;
-    cout << "Scientist updated" << endl;
-
-    serve.updateScientist(3, value, name);
-
-}
-
-void ConsoleUI::updateScientistDeathYear(string name)
-{
-    string value = " ";
-
-    cout << endl;
-    cout << "Enter the new death year for this scientist: ";
-    cin >> value;
-    cout << "Scientist updated" << endl;
-
-    serve.updateScientist(4, value, name);
+        serve.updateScientist(field, value, name);
+    }
 
 }
-
 
 // Asks user to enter path to file. This WILL overwrite the default file.
 void ConsoleUI::addScientistsFromFile()
