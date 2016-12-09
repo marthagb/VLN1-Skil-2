@@ -20,6 +20,7 @@ class ConsoleUI
     void addScientistManually();
     void addScientistsFromFile();
     void deleteScientist();
+    void updateScientist();
     void saveScientistsToFile();
     void printScientistLine();
     bool quitAddingPerson(string n);
@@ -37,6 +38,7 @@ class ConsoleUI
     void addComputerManually();
     void addComputersFromFile();
     void deleteComputer();
+    void updateComputer();
     void saveComputersToFile();
     void printComputerLine();
 

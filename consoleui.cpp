@@ -73,15 +73,16 @@ void ConsoleUI::scientists()
 
     while (run)
     {
-       cout << " ================================" << endl;
-       cout << " Press 1 to list the scientists"   << endl;
-       cout << " Press 2 to search scientists"       << endl;
-       cout << " Press 3 to add a scientist"     << endl;
-       cout << " Press 4 to remove a scientist"    << endl;
-       cout << " Press 5 to save to a custom file" << endl;
-       cout << " Press 6 to go back to main menu"  << endl;
-       cout << " Press 7 to quit"                  << endl;
-       cout << " ================================" << endl;
+       cout << " ================================"  << endl;
+       cout << " Press 1 to list the scientists"    << endl;
+       cout << " Press 2 to search scientists"      << endl;
+       cout << " Press 3 to add a scientist"        << endl;
+       cout << " Press 4 to remove a scientist"     << endl;
+       cout << " Press 5 to update scientist"       << endl;
+       cout << " Press 6 to save to a custom file"  << endl;
+       cout << " Press 7 to go back to main menu"   << endl;
+       cout << " Press 8 to quit"                   << endl;
+       cout << " ================================"  << endl;
 
        string input = " ";
        int choice;
@@ -114,15 +115,20 @@ void ConsoleUI::scientists()
             }
             case 5:
             {
-                saveScientistsToFile();
+                //updateScientist();
                 break;
             }
             case 6:
             {
-                run = false;
+                saveScientistsToFile();
                 break;
             }
             case 7:
+            {
+                run = false;
+                break;
+            }
+            case 8:
             {
                 exit(0);
                 break;
@@ -597,7 +603,61 @@ void ConsoleUI::addScientistManually()
     }
 }
 
+//This deletes a scientist. RIP. He/she probably didn't belong on the list anyway.
+void ConsoleUI::deleteScientist()
+{
+    cout << "Enter name of scientist(s) you would like to delete: ";
+    string n = " ";
+    cin >> ws;
+    getline(cin, n);
+    serve.sortScientists(1,1);
+    vector<int> v = serve.searchScientistByName(n);
+    int s = v.size();
+    if (s > 0)
+    {
+        bool d = false;
+        while (!d)
+        {
+            cout << endl;
+            cout << "Are you sure you would like to delete the following scientist(s)?" << endl;
+            printScientistLine();
+            for (int i = 0; i < s; i++)
+            {
+                cout << serve.listScientists()[v[i]];
+            }
+            cout << "Enter Y for yes or N for no" << endl;
+            char a = ' ';
+            cin >> a;
+            if (a == 'y' || a == 'Y')
+            {
+                for (int i = s-1; i >= 0; i--)
+                {
+                    serve.deleteScientist(n);
+                }
+                cout << "Scientist(s) deleted\n";
+                d = true;
+            }
+            else if (a == 'n' || a == 'N')
+            {
+                cout << "Delete cancelled\n";
+                d = true;
+            }
+            else
+            {
+                cout << "Invalid input!\n";
+            }
+        }
+    }
+    else
+    {
+        cout << "No match for " << n << endl;
+    }
+}
 
+void ConsoleUI::updateScientist()
+{
+
+}
 
 // Asks user to enter path to file. This WILL overwrite the default file.
 void ConsoleUI::addScientistsFromFile()
@@ -650,57 +710,6 @@ void ConsoleUI::addScientistsFromFile()
         }
     }
     while (fileOpen);
-}
-
-//This deletes a scientist. RIP. He/she probably didn't belong on the list anyway.
-void ConsoleUI::deleteScientist()
-{
-    cout << "Enter name of scientist(s) you would like to delete: ";
-    string n = " ";
-    cin >> ws;
-    getline(cin, n);
-    serve.sortScientists(1,1);
-    vector<int> v = serve.searchScientistByName(n);
-    int s = v.size();
-    if (s > 0)
-    {
-        bool d = false;
-        while (!d)
-        {
-            cout << endl;
-            cout << "Are you sure you would like to delete the following scientist(s)?" << endl;
-            printScientistLine();
-            for (int i = 0; i < s; i++)
-            {
-                cout << serve.listScientists()[v[i]];
-            }
-            cout << "Enter Y for yes or N for no" << endl;
-            char a = ' ';
-            cin >> a;
-            if (a == 'y' || a == 'Y')
-            {
-                for (int i = s-1; i >= 0; i--)
-                {
-                    serve.deleteScientist(n);
-                }
-                cout << "Scientist(s) deleted\n";
-                d = true;
-            }
-            else if (a == 'n' || a == 'N')
-            {
-                cout << "Delete cancelled\n";
-                d = true;
-            }
-            else
-            {
-                cout << "Invalid input!\n";
-            }
-        }
-    }
-    else
-    {
-        cout << "No match for " << n << endl;
-    }
 }
 
 void ConsoleUI::saveScientistsToFile()
@@ -769,12 +778,13 @@ void ConsoleUI::computers()
     {
         cout << " ================================" << endl;
         cout << " Press 1 to list the computers"    << endl;
-        cout << " Press 2 to search computers"        << endl;
-        cout << " Press 3 to add a computer"       << endl;
-        cout << " Press 4 to remove a computer"    << endl;
-        cout << " Press 5 to save to a custom file" << endl;
-        cout << " Press 6 to go back to main menu"  << endl;
-        cout << " Press 7 to quit"                  << endl;
+        cout << " Press 2 to search computers"      << endl;
+        cout << " Press 3 to add a computer"        << endl;
+        cout << " Press 4 to remove a computer"     << endl;
+        cout << " Press 5 to update a computer"     << endl;
+        cout << " Press 6 to save to a custom file" << endl;
+        cout << " Press 7 to go back to main menu"  << endl;
+        cout << " Press 8 to quit"                  << endl;
         cout << " ================================" << endl;
 
         string input = " ";
@@ -785,48 +795,53 @@ void ConsoleUI::computers()
         onlyTakeOneInput();
 
         switch (choice)
-           {
-           case 1:
-           {
-               listComputerData();
-               break;
-           }
-           case 2:
-           {
-               searchComputer();
-               break;
-           }
-           case 3:
-           {
-               addComputers();
-               break;
-           }
-           case 4:
-           {
-               deleteComputer();
-               break;
-           }
-           case 5:
-           {
-               saveComputersToFile();
-               break;
-           }
-           case 6:
-           {
+        {
+            case 1:
+            {
+                listComputerData();
+                break;
+            }
+            case 2:
+            {
+                searchComputer();
+                break;
+            }
+            case 3:
+            {
+                addComputers();
+                break;
+            }
+            case 4:
+            {
+                deleteComputer();
+                break;
+            }
+            case 5:
+            {
+                //updateComputer();
+                break;
+            }
+            case 6:
+            {
+                saveComputersToFile();
+                break;
+            }
+            case 7:
+            {
                 run = false;
                 break;
-           }
-           case 7:
-           {
+            }
+            case 8:
+            {
                 exit (0);
                 break;
-           }
+            }
 
-           default:
-           {
+            default:
+            {
                cout << "Error! Invalid input" << endl;
-           }
-           }
+            }
+        }
     }
 }
 
@@ -1238,6 +1253,61 @@ void ConsoleUI::addComputerManually()
     }
 }
 
+void ConsoleUI::deleteComputer()
+{
+    cout << "Enter name of computer(s) you would like to delete: ";
+    string n = " ";
+    cin >> ws;
+    getline(cin, n);
+    serve.sortComputers(1,1);
+    vector<int> v = serve.searchComputerByName(n);
+    int s = v.size();
+    if (s > 0)
+    {
+        bool d = false;
+        while (!d)
+        {
+            cout << endl;
+            cout << "Are you sure you would like to delete the following computer(s)?" << endl;
+            printComputerLine();
+            for (int i = 0; i < s; i++)
+            {
+                cout << serve.listComputers()[v[i]];
+            }
+            cout << "Enter Y for yes or N for no" << endl;
+            char a = ' ';
+            cin >> a;
+            if (a == 'y' || a == 'Y')
+            {
+                for (int i = s-1; i >= 0; i--)
+                {
+                    serve.deleteComputer(n);
+                }
+                cout << "Computer(s) deleted\n";
+                d = true;
+            }
+            else if (a == 'n' || a == 'N')
+            {
+                cout << "Delete cancelled\n";
+                d = true;
+            }
+            else
+            {
+                cout << "Invalid input!\n";
+            }
+        }
+    }
+    else
+    {
+        cout << "No match for " << n << endl;
+    }
+}
+
+void ConsoleUI::updateComputer()
+{
+
+}
+
 // Asks user to enter path to file. This WILL overwrite the default file.
 void ConsoleUI::addComputersFromFile()
 {
@@ -1290,55 +1360,6 @@ void ConsoleUI::addComputersFromFile()
     while (fileOpen);
 }
 
-void ConsoleUI::deleteComputer()
-{
-    cout << "Enter name of computer(s) you would like to delete: ";
-    string n = " ";
-    cin >> ws;
-    getline(cin, n);
-    serve.sortComputers(1,1);
-    vector<int> v = serve.searchComputerByName(n);
-    int s = v.size();
-    if (s > 0)
-    {
-        bool d = false;
-        while (!d)
-        {
-            cout << endl;
-            cout << "Are you sure you would like to delete the following computer(s)?" << endl;
-            printComputerLine();
-            for (int i = 0; i < s; i++)
-            {
-                cout << serve.listComputers()[v[i]];
-            }
-            cout << "Enter Y for yes or N for no" << endl;
-            char a = ' ';
-            cin >> a;
-            if (a == 'y' || a == 'Y')
-            {
-                for (int i = s-1; i >= 0; i--)
-                {
-                    serve.deleteComputer(n);
-                }
-                cout << "Computer(s) deleted\n";
-                d = true;
-            }
-            else if (a == 'n' || a == 'N')
-            {
-                cout << "Delete cancelled\n";
-                d = true;
-            }
-            else
-            {
-                cout << "Invalid input!\n";
-            }
-        }
-    }
-    else
-    {
-        cout << "No match for " << n << endl;
-    }
-}
 
 void ConsoleUI::saveComputersToFile()
 {
@@ -1405,10 +1426,10 @@ void ConsoleUI::associations()
     while (run)
     {
         cout << " ================================" << endl;
-        cout << " Press 1 to list the associations"    << endl;
-        cout << " Press 2 to search associations"        << endl;
-        cout << " Press 3 to add an association"       << endl;
-        cout << " Press 4 to remove an association"    << endl;
+        cout << " Press 1 to list the associations" << endl;
+        cout << " Press 2 to search associations"   << endl;
+        cout << " Press 3 to add an association"    << endl;
+        cout << " Press 4 to remove an association" << endl;
         cout << " Press 5 to save to a custom file" << endl;
         cout << " Press 6 to go back to main menu"  << endl;
         cout << " Press 7 to quit"                  << endl;
