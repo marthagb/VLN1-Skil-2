@@ -1458,6 +1458,7 @@ void ConsoleUI::addComputerManually()
                             cout << "Enter type: ";
                             cin >> ws;
                             getline(cin , t);
+
                             if(t == "q" || t == "Q")
                             {
                                 cout << "Adding new computer cancelled" << endl;
@@ -1465,10 +1466,11 @@ void ConsoleUI::addComputerManually()
                             }
 
                         }
-                        if(!isupper(n[0]))                                          //Converts lower case letter to upper case if first is lower case
+                        if(!isupper(t[0]))                                          //Converts lower case letter to upper case if first is lower case
                          {
-                            n[0] = toupper(n[0]);
+                            t[0] = toupper(t[0]);
                          }
+
                     }
 
                     if (valid.validName(t))
