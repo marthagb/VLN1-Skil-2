@@ -1477,7 +1477,7 @@ void ConsoleUI::updateComputer()
     else // s == 1
     {
 
-        cout << serve.listScientists()[v[0]];
+        cout << serve.listComputers()[v[0]];
         cout << endl;
 
         bool error = false;
@@ -1928,6 +1928,7 @@ void ConsoleUI::ascOrDescAssoc(int orderBy)
         {
             cout << serve.listAssociations()[i];
         }
+        cout << serve.listAssociations().size() << "Associations." << endl;
         cout << "______________________________________________________________________________________________________________________" << endl;
     }
 }
