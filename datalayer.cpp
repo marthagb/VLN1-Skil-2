@@ -1077,7 +1077,7 @@ bool DataLayer::saveComputersToFile(string input)
        out << endl;
        for(size_t i = 0; i < computers.size(); i++)
        {
-            out.width(20);
+            out.width(30);
             out << left << computers[i].getComputerName() << ";\t" << computers[i].getYearMade() << "\t" ;
             out.width(25);
             out << left << computers[i].getType() << ";\t" ;
