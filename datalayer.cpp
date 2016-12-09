@@ -342,49 +342,45 @@ void DataLayer::readAssociations(int orderBy, int ascOrDesc)
 
 //Determines whether the scientist 'p' is in the database
 //and adds them if not.
-void DataLayer::addScientist(const Persons& p)
+bool DataLayer::addScientist(const Persons& p)
 {
     if (scientists.size() == 0)
     {
         readScientists(1,1);
     }
-    int x = 0;
     for (unsigned int i = 0; i < scientists.size(); i++)
     {
         if (scientists[i] == p)
         {
-            x++;
-            break;
+            return false;
         }
     }
-    if (x == 0)
-    {
 
-        db.open();
+    db.open();
 
-        QSqlQuery query(db);
+    QSqlQuery query(db);
 
-        query.prepare("INSERT INTO Scientists(Name, Gender, Birthyear, Deathyear, Alive) "
+    query.prepare("INSERT INTO Scientists(Name, Gender, Birthyear, Deathyear, Alive) "
                               "VALUES (:Name, :Gender, :Birthyear, :Deathyear, :Alive)");
-        query.bindValue(0, QString::fromStdString(p.getName()));
-        query.bindValue(1, QVariant(p.getGender()).toChar());
-        query.bindValue(2, QVariant(p.getBirthYear()));
-        query.bindValue(3, QVariant(p.getDeathYear()));
-        if (p.getAlive())
-        {
-            query.bindValue(4, QString::fromStdString("Yes"));
-        }
-        else
-        {
-            query.bindValue(4, QString::fromStdString("No"));
-        }
-
-        query.exec();
-
-        db.close();
-
-        scientists.push_back(p);
+    query.bindValue(0, QString::fromStdString(p.getName()));
+    query.bindValue(1, QVariant(p.getGender()).toChar());
+    query.bindValue(2, QVariant(p.getBirthYear()));
+    query.bindValue(3, QVariant(p.getDeathYear()));
+    if (p.getAlive())
+    {
+        query.bindValue(4, QString::fromStdString("Yes"));
     }
+    else
+    {
+        query.bindValue(4, QString::fromStdString("No"));
+    }
+
+    query.exec();
+
+    db.close();
+
+    scientists.push_back(p);
+    return true;
 }
 
 //Determines whether the computer 'c' is in the database

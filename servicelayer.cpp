@@ -102,9 +102,9 @@ vector<int> ServiceLayer::searchAssocByCompType(const string type)
     return dl.searchAssocByCompType(type);
 }
 
-void ServiceLayer::addScientist(const Persons &p)
+bool ServiceLayer::addScientist(const Persons &p)
 {
-    dl.addScientist(p);
+    return dl.addScientist(p);
 }
 
 bool ServiceLayer::addScientistsFromFile(string input)
