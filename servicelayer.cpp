@@ -102,9 +102,9 @@ vector<int> ServiceLayer::searchAssocByCompType(const string type)
     return dl.searchAssocByCompType(type);
 }
 
-void ServiceLayer::addScientist(const Persons &p)
+bool ServiceLayer::addScientist(const Persons &p)
 {
-    dl.addScientist(p);
+    return dl.addScientist(p);
 }
 
 bool ServiceLayer::addScientistsFromFile(string input)
@@ -117,9 +117,9 @@ void ServiceLayer::deleteScientist(string n)
     dl.deleteScientist(n);
 }
 
-void ServiceLayer::addComputer(const Computer &c)
+bool ServiceLayer::addComputer(const Computer &c)
 {
-    dl.addComputer(c);
+    return dl.addComputer(c);
 }
 
 bool ServiceLayer::addComputersFromFile(string input)
@@ -132,9 +132,9 @@ void ServiceLayer::deleteComputer(string n)
     dl.deleteComputer(n);
 }
 
-void ServiceLayer::addAssociation(const Association& a)
+bool ServiceLayer::addAssociation(const Association& a)
 {
-    dl.addAssociation(a);
+    return dl.addAssociation(a);
 }
 
 void ServiceLayer::deleteAssociation(string sN, string cN)
