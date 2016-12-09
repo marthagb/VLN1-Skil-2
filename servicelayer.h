@@ -40,6 +40,7 @@ public:
     bool saveScientistsToFile(string input);
     bool saveComputersToFile(string input);
     bool saveAssociationsToFile(string input);
+
 };
 
 #endif // SERVICELAYER_H

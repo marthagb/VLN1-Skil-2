@@ -1,6 +1,7 @@
 #include "consoleui.h"
 #include <ctime>
 #include <cstdlib>
+#include <sstream>
 
 using namespace std;
 
@@ -27,10 +28,12 @@ void ConsoleUI::run()
         cout << " Press 4 for exit"                 << endl;
         cout << " ================================" << endl;
 
-        char input = '0';
+        string input = " ";
+        int choice;
         cin >> input;
+        stringstream convert(input);
+        convert >> choice;
         onlyTakeOneInput();
-        int choice = input - '0';
 
             switch (choice)
             {
@@ -80,12 +83,12 @@ void ConsoleUI::scientists()
        cout << " Press 7 to quit"                  << endl;
        cout << " ================================" << endl;
 
-       char input = '0';
+       string input = " ";
+       int choice;
        cin >> input;
-       clearScreen();
-
-       onlyTakeOneInput();                                                  // Takes only one letter and flushes the rest.
-       int choice = input - '0';
+       stringstream convert(input);
+       convert >> choice;
+       onlyTakeOneInput();
 
             switch (choice)
             {
@@ -137,8 +140,6 @@ void ConsoleUI::scientists()
 //uses the printLine() function, which gives us a nice header.
 void ConsoleUI::listScientistData()
 {
-    char input = '0';
-    int choice = 0;
     bool error = false;
 
     do
@@ -152,13 +153,12 @@ void ConsoleUI::listScientistData()
         cout << " Press 5 to Cancel"                   << endl;
         cout << " ================================"    << endl;
 
+        string input = " ";
+        int choice;
         cin >> input;
+        stringstream convert(input);
+        convert >> choice;
         onlyTakeOneInput();
-        clearScreen();
-        choice = input - '0';
-        input = '1';
-
-
 
         if (choice >= 1 && choice <= 4)
         {
@@ -230,10 +230,12 @@ void ConsoleUI::searchScientist()
         cout << " Press 5 to cancel"                      << endl;
         cout << " ======================================" << endl;
 
-        char input = '0';
+        string input = " ";
+        int choice;
         cin >> input;
+        stringstream convert(input);
+        convert >> choice;
         onlyTakeOneInput();
-        int choice = input - '0';
 
         switch(choice)
         {
@@ -429,10 +431,12 @@ void ConsoleUI::addScientist()
         cout << " Press 3 to cancel"                << endl;
         cout << " ================================" << endl;
 
-        char input = '0';
+        string input = " ";
+        int choice;
         cin >> input;
+        stringstream convert(input);
+        convert >> choice;
         onlyTakeOneInput();
-        int choice = input - '0';
 
         switch (choice)
         {
@@ -779,12 +783,12 @@ void ConsoleUI::computers()
         cout << " Press 7 to quit"                  << endl;
         cout << " ================================" << endl;
 
-        char input = '0';
+        string input = " ";
+        int choice;
         cin >> input;
-        clearScreen();
-
-        onlyTakeOneInput();                                                  // Takes only one letter and flushes the rest.
-        int choice = input - '0';
+        stringstream convert(input);
+        convert >> choice;
+        onlyTakeOneInput();
 
         switch (choice)
            {
@@ -834,8 +838,6 @@ void ConsoleUI::computers()
 
 void ConsoleUI::listComputerData()
 {
-    char input = '0';
-    int choice = 0;
     bool error = false;
 
     do
@@ -849,13 +851,12 @@ void ConsoleUI::listComputerData()
         cout << " Press 5 to Cancel"                     << endl;
         cout << " =================================="    << endl;
 
+        string input = " ";
+        int choice;
         cin >> input;
+        stringstream convert(input);
+        convert >> choice;
         onlyTakeOneInput();
-        clearScreen();
-        choice = input - '0';
-        input = '1';
-
-
 
         if (choice >= 1 && choice <= 4)
         {
@@ -925,10 +926,12 @@ void ConsoleUI::searchComputer()
         cout << " Press 5 to cancel"                      << endl;
         cout << " ======================================" << endl;
 
-        char input = '0';
+        string input = " ";
+        int choice;
         cin >> input;
+        stringstream convert(input);
+        convert >> choice;
         onlyTakeOneInput();
-        int choice = input - '0';
 
         switch(choice)
         {
@@ -1091,10 +1094,12 @@ void ConsoleUI::addComputers()
         cout << " Press 3 to cancel"                << endl;
         cout << " ================================" << endl;
 
-        char input = '0';
+        string input = " ";
+        int choice;
         cin >> input;
+        stringstream convert(input);
+        convert >> choice;
         onlyTakeOneInput();
-        int choice = input - '0';
 
         switch (choice)
         {
@@ -1403,12 +1408,12 @@ void ConsoleUI::associations()
         cout << " Press 7 to quit"                  << endl;
         cout << " ================================" << endl;
 
-        char input = '0';
+        string input = " ";
+        int choice;
         cin >> input;
-        clearScreen();
-
-        onlyTakeOneInput();                                                  // Takes only one letter and flushes the rest.
-        int choice = input - '0';
+        stringstream convert(input);
+        convert >> choice;
+        onlyTakeOneInput();
 
         switch (choice)
            {
@@ -1458,27 +1463,26 @@ void ConsoleUI::associations()
 
 void ConsoleUI::listAssociationData()
 {
-    char input = '0';
-    int choice = 0;
     bool error = false;
 
     do
     {
-        cout << "How would you like to sort the list?"   << endl;
-        cout << " =================================="    << endl;
-        cout << " Press 1 to sort by scientist name"               << endl;
+        cout << "How would you like to sort the list?"      << endl;
+        cout << " =================================="       << endl;
+        cout << " Press 1 to sort by scientist name"        << endl;
         cout << " Press 2 to sort by computer name"         << endl;
-        cout << " Press 3 to sort by year made"  << endl;
-        cout << " Press 4 to sort by whether it was built"               << endl;
-        cout << " Press 5 to sort by computer type" << endl;
-        cout << " Press 6 to Cancel"                     << endl;
-        cout << " =================================="    << endl;
+        cout << " Press 3 to sort by year made"             << endl;
+        cout << " Press 4 to sort by whether it was built"  << endl;
+        cout << " Press 5 to sort by computer type"         << endl;
+        cout << " Press 6 to Cancel"                        << endl;
+        cout << " =================================="       << endl;
 
+        string input = " ";
+        int choice;
         cin >> input;
+        stringstream convert(input);
+        convert >> choice;
         onlyTakeOneInput();
-        clearScreen();
-        choice = input - '0';
-        input = '1';
 
         if (choice >= 1 && choice <= 5)
         {
@@ -1539,20 +1543,22 @@ void ConsoleUI::searchAssociation()
     bool error = false;
     do
     {
-        cout << "How would you like to search the data?"  << endl;
-        cout << " ====================================="  << endl;
-        cout << " Press 1 to search by scientist name"              << endl;
-        cout << " Press 2 to search by computer name" << endl;
-        cout << " Press 3 to search by year made"            << endl;
-        cout << " Press 4 to search by year range" << endl;
-        cout << " Press 5 to search by type"        << endl;
-        cout << " Press 6 to cancel"                      << endl;
-        cout << " ======================================" << endl;
+        cout << "How would you like to search the data?"    << endl;
+        cout << " ====================================="    << endl;
+        cout << " Press 1 to search by scientist name"      << endl;
+        cout << " Press 2 to search by computer name"       << endl;
+        cout << " Press 3 to search by year made"           << endl;
+        cout << " Press 4 to search by year range"          << endl;
+        cout << " Press 5 to search by type"                << endl;
+        cout << " Press 6 to cancel"                        << endl;
+        cout << " ======================================"   << endl;
 
-        char input = '0';
+        string input = " ";
+        int choice;
         cin >> input;
+        stringstream convert(input);
+        convert >> choice;
         onlyTakeOneInput();
-        int choice = input - '0';
 
         switch(choice)
         {

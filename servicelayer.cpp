@@ -144,6 +144,54 @@ void ServiceLayer::deleteAssociation(string sN, string cN)
 
 bool ServiceLayer::saveScientistsToFile(string input)
 {
+    return dl.saveScientistsToFile(input);
+}
+
+
+bool ServiceLayer::saveComputersToFile(string input)
+{
+    return dl.saveScientistsToFile(input);
+}
+
+bool ServiceLayer::saveAssociationsToFile(string input)
+{
+    return dl.saveAssociationsToFile(input);
+}
+
+/*
+bool ServiceLayer::saveAssociationsToFile(string input)
+{
+    ofstream out;
+    out.open(input);
+
+    if(out.fail())
+    {
+          return false;
+    }
+     else
+    {
+        out.width(26);
+        out << left << "Scientist\t";
+        out.width(20);
+        out << left << "Computer\tYear Made\tBuilt?\tComputer Type" << endl;
+        out << "______________________________________________________________________" << endl;
+
+        out.seekp(100);
+        out << endl;
+        for(size_t i = 0; i < dl.getAssociationVector().size(); i++)
+        {
+             out << dl.getAssociationVector()[i];
+        }
+
+     }
+            out.close();
+            return true;
+}*/
+
+
+/*
+ * bool ServiceLayer::saveScientistsToFile(string input)
+{
    ofstream out;
    out.open(input);
 
@@ -199,32 +247,5 @@ bool ServiceLayer::saveComputersToFile(string input)
            out.close();
            return true;
 }
+*/
 
-bool ServiceLayer::saveAssociationsToFile(string input)
-{
-    ofstream out;
-    out.open(input);
-
-    if(out.fail())
-    {
-          return false;
-    }
-     else
-    {
-        out.width(26);
-        out << left << "Scientist\t";
-        out.width(20);
-        out << left << "Computer\tYear Made\tBuilt?\tComputer Type" << endl;
-        out << "______________________________________________________________________" << endl;
-
-        out.seekp(100);
-        out << endl;
-        for(size_t i = 0; i < dl.getAssociationVector().size(); i++)
-        {
-             out << dl.getAssociationVector()[i];
-        }
-
-     }
-            out.close();
-            return true;
-}
