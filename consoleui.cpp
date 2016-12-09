@@ -2283,56 +2283,72 @@ void ConsoleUI::addAssociation()
         cout << "Enter scientist name: ";
         cin >> ws;
         getline(cin, sN);
-        if (serve.searchScientistByName(sN).size() == 0)
+        if (sN == "Q" || sN == "q")
+        {
+            break;
+        }
+        else if (serve.searchScientistByName(sN).size() == 0)
         {
             cout << "Scientist not found!\n";
         }
         else error = false;
     }
-    error = true;
-    while (error)
+
+    if (sN != "Q" && sN != "q")
     {
-        cout << "Enter computer name: ";
-        cin >> ws;
-        getline(cin, cN);
-        if (serve.searchComputerByName(cN).size() == 0)
+        error = true;
+        while (error)
         {
-            cout << "Computer not found!\n";
-        }
-        else error = false;
-    }
-    serve.sortScientists(1,1);
-    Persons s = serve.listScientists()[serve.searchScientistByName(sN)[0]];
-    serve.sortComputers(1,1);
-    Computer c = serve.listComputers()[serve.searchComputerByName(cN)[0]];
-    error = true;
-    while (error)
-    {
-        cout << "Are you sure you want to associate " << s.getName() << " and " << c.getComputerName() << "? (Y/N)" << endl;
-        char choice = ' ';
-        cin >> choice;
-        onlyTakeOneInput();
-        if (choice == 'y' || choice == 'Y')
-        {
-            Association a(s, c);
-            if (serve.addAssociation(a))
+            cout << "Enter computer name: ";
+            cin >> ws;
+            getline(cin, cN);
+            if (cN == "Q" || cN == "q")
             {
-                cout << "Association added" << endl;
+                break;
             }
-            else
+            else if (serve.searchComputerByName(cN).size() == 0)
             {
-                cout << "Association already on list!" << endl;
+                cout << "Computer not found!\n";
             }
-            error = false;
+            else error = false;
         }
-        else if (choice == 'n' || choice == 'N')
+
+        if (cN != "Q" && cN != "q")
         {
-            cout << "Association cancelled" << endl;
-            error = false;
-        }
-        else
-        {
-            cout << "Invalid input!" << endl;
+            serve.sortScientists(1,1);
+            Persons s = serve.listScientists()[serve.searchScientistByName(sN)[0]];
+            serve.sortComputers(1,1);
+            Computer c = serve.listComputers()[serve.searchComputerByName(cN)[0]];
+            error = true;
+            while (error)
+            {
+                cout << "Are you sure you want to associate " << s.getName() << " and " << c.getComputerName() << "? (Y/N)" << endl;
+                char choice = ' ';
+                cin >> choice;
+                onlyTakeOneInput();
+                if (choice == 'y' || choice == 'Y')
+                {
+                    Association a(s, c);
+                    if (serve.addAssociation(a))
+                    {
+                        cout << "Association added" << endl;
+                    }
+                    else
+                    {
+                        cout << "Association already on list!" << endl;
+                    }
+                    error = false;
+                }
+                else if (choice == 'n' || choice == 'N')
+                {
+                    cout << "Association cancelled" << endl;
+                    error = false;
+                }
+                else
+                {
+                    cout << "Invalid input!" << endl;
+                }
+            }
         }
     }
 }
