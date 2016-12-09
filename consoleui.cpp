@@ -499,7 +499,7 @@ void ConsoleUI::addScientistManually()
             if(n == "q" || n == "Q")
             {
                 cout << "Adding new scientist cancelled" << endl;
-                break;
+                scientists();
             }
         }
         if(!isupper(n[0]))                                          //Converts lower case letter to upper case if first is lower case
@@ -514,6 +514,7 @@ void ConsoleUI::addScientistManually()
         if(g == 'q' || g == 'Q')
         {
                 cout << "Adding new scientist cancelled" << endl;
+                scientists();
         }
         else
         {
@@ -526,7 +527,7 @@ void ConsoleUI::addScientistManually()
                 if(g == 'q' || g == 'Q')
                 {
                         cout << "Adding new scientist cancelled" << endl;
-                        break;
+                        scientists();
                 }
             }
             if (valid.genderCheck(g))
@@ -539,7 +540,7 @@ void ConsoleUI::addScientistManually()
                     if(year == "q" || year == "Q")
                     {
                         cout << "Adding new scientist cancelled" << endl;
-                        break;
+                        scientists();
                     }
                     if (!valid.validYear(year, bY) || bY == 0)
                     {
@@ -556,7 +557,7 @@ void ConsoleUI::addScientistManually()
                         if(year == "q" || year == "Q")
                         {
                             cout << "Adding new scientist cancelled" << endl;
-                            break;
+                            scientists();
                         }
                         onlyTakeOneInput();
                         if(!valid.validYear(year, dY))
@@ -1148,7 +1149,7 @@ void ConsoleUI::addComputerManually()
             if (n == "q" || n == "Q")
             {
                 cout << "Adding new computer cancelled" << endl;
-                break;
+                computers();
             }
         }
         if (valid.validComputerName(n))
@@ -1159,6 +1160,7 @@ void ConsoleUI::addComputerManually()
             if (y == "q" || y == "Q")
             {
                 cout << "Adding new computer cancelled" << endl;
+                computers();
             }
             else
             {
@@ -1171,7 +1173,7 @@ void ConsoleUI::addComputerManually()
                     if (y == "q" || y == "Q")
                     {
                         cout << "Adding new computer cancelled" << endl;
-                        break;
+                        computers();
                     }
                 }
                 if (valid.validYear(y, yM))
@@ -1182,6 +1184,7 @@ void ConsoleUI::addComputerManually()
                     if(t == "q" || t == "Q")
                     {
                         cout << "Adding new computer cancelled" << endl;
+                        computers();
                     }
                     else
                     {
@@ -1194,7 +1197,7 @@ void ConsoleUI::addComputerManually()
                             if(t == "q" || t == "Q")
                             {
                                 cout << "Adding new computer cancelled" << endl;
-                                break;
+                                computers();
                             }
                         }
                     }
@@ -1206,6 +1209,7 @@ void ConsoleUI::addComputerManually()
                         if(built == "q" || built == "Q")
                         {
                             cout << "Adding new computer cancelled" << endl;
+                            computers();
                         }
                         else
                         {
