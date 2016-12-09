@@ -1113,19 +1113,19 @@ void DataLayer::updateScientist(int variable, string value, string name)
 
     if (variable == 1)
     {
-        query.exec("UPDATE Scientists SET name = " + QString::fromStdString(value) + " WHERE Name = " + QString::fromStdString(name));
+        query.exec("UPDATE Scientists SET Name = '" + QString::fromStdString(value) + "' WHERE Name = '" + QString::fromStdString(name) + "'");
     }
     else if (variable == 2)
     {
-        query.exec("UPDATE Scientists SET gender = " + QString::fromStdString(value) + " WHERE ID = " + QString::fromStdString(name));
+        query.exec("UPDATE Scientists SET Gender = '" + QString::fromStdString(value) + "' WHERE Name = '" + QString::fromStdString(name) + "'");
     }
     else if (variable == 3)
     {
-        query.exec("UPDATE Scientists SET Birthyear = " + QString::fromStdString(value) + " WHERE ID = " + QString::fromStdString(name));
+        query.exec("UPDATE Scientists SET Birthyear = '" + QString::fromStdString(value) + "' WHERE Name = '" + QString::fromStdString(name) + "'");
     }
     else if (variable == 4)
     {
-        query.exec("UPDATE Scientists SET Deatyear = " + QString::fromStdString(value) + " WHERE ID = " + QString::fromStdString(name));
+        query.exec("UPDATE Scientists SET Deatyear = '" + QString::fromStdString(value) + "' WHERE Name = '" + QString::fromStdString(name) + "'");
     }
 
     db.close();
@@ -1140,19 +1140,19 @@ void DataLayer::updateComputer(int variable, string value, string name)
 
     if (variable == 1)
     {
-        query.exec("UPDATE Computers SET name = " + QString::fromStdString(value) + " WHERE ID = " + QString::fromStdString(name));
+        query.exec("UPDATE Computers SET ComputerName = '" + QString::fromStdString(value) + "' WHERE Name = '" + QString::fromStdString(name) + "'\"'");
     }
     else if (variable == 2)
     {
-        query.exec("UPDATE Computers SET gender = " + QString::fromStdString(value) + " WHERE ID = " + QString::fromStdString(name));
+        query.exec("UPDATE Computers SET YearMade = '" + QString::fromStdString(value) + "'WHERE Name = '" + QString::fromStdString(name) + "'\"'");
     }
     else if (variable == 3)
     {
-        query.exec("UPDATE Computers SET Birthyear = " + QString::fromStdString(value) + " WHERE ID = " + QString::fromStdString(name));
+        query.exec("UPDATE Computers SET Type = '" + QString::fromStdString(value) + "' WHERE Name = '" + QString::fromStdString(name) + "''");
     }
     else if (variable == 4)
     {
-        query.exec("UPDATE Computers SET Deatyear = " + QString::fromStdString(value) + " WHERE ID = " + QString::fromStdString(name));
+        query.exec("UPDATE Computers SET BuiltOrNot = '" + QString::fromStdString(value) + "' WHERE Name = '" + QString::fromStdString(name) + "'");
     }
 
 
