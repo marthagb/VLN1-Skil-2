@@ -307,7 +307,7 @@ void ConsoleUI::searchScientistByName()
         {
             cout << serve.listScientists()[vSN[i]];
         }
-        cout << endl << serve.listScientists().size() << "Scientists found." << endl;
+       // cout << endl << serve.listScientists().size() << "Scientists found." << endl;
         cout << "___________________________________________________________" << endl;
     }
 
@@ -343,7 +343,7 @@ void ConsoleUI::searchScientistByGender()
                 {
                     cout << serve.listScientists()[vG[i]];
                 }
-                cout << endl << serve.listScientists().size() << "Scientists found." << endl;
+               // cout << endl << serve.listScientists().size() << "Scientists found." << endl;
                 cout << "___________________________________________________________" << endl;
             }
         }
@@ -381,7 +381,7 @@ void ConsoleUI::searchScientistByBirthYear()
         {
             cout << serve.listScientists()[vY[i]];
         }
-        cout << endl << serve.listScientists().size() << "Scientists found." << endl;
+       // cout << endl << serve.listScientists().size() << "Scientists found." << endl;
         cout << "___________________________________________________________" << endl;
     }
 
@@ -424,7 +424,7 @@ void ConsoleUI::searchScientistByYearRange()
         {
             cout << serve.listScientists()[vR[i]];
         }
-        cout << endl << serve.listScientists().size() << "Scientists found." << endl;
+      //  cout << endl << serve.listScientists().size() << "Scientists found." << endl;
         cout << "___________________________________________________________" << endl;
     }
 
@@ -665,6 +665,7 @@ void ConsoleUI::deleteScientist()
 //if He gets only one result, he may choose an attribute to update.
 void ConsoleUI::updateScientist()
 {
+    cout << "Type q or Q and press enter at any time to cancel" << endl;
     cout << "Enter name of scientist you would like to update: ";
     string n = " ";
     cin >> ws;
@@ -672,91 +673,98 @@ void ConsoleUI::updateScientist()
     serve.sortScientists(1,1);
     vector<int> v = serve.searchScientistByName(n);
 
-    int s = v.size();
-    if (s > 1)
+    if (n == "Q" || n == "q")
     {
-        printScientistLine();
-        for (int i = 0; i < s; i++)
-        {
-            cout << serve.listScientists()[v[i]];
-        }
-
-        cout << endl;
-        cout << "Too many results, please narrow your search!" << endl;
-        updateScientist();
-    }
-    if (s < 1)
-    {
-        cout << "No match for " << n << endl;
-        updateScientist();
+        cout << "Update cancelled" << endl;
     }
     else
     {
-        printScientistLine();
-        cout << serve.listScientists()[v[0]];
-        cout << endl;
-
-        bool error = false;
-
-        cout << " What field would you like to update?" << endl;
-        cout << " ====================================" << endl;
-        cout << " Press 1 to update name"               << endl;
-        cout << " Press 2 to update gender"             << endl;
-        cout << " Press 3 to update birth year"         << endl;
-        cout << " Press 4 to update death year"         << endl;
-        cout << " Press 5 to cancel"                    << endl;
-        cout << " ====================================" << endl;
-
-        string input = " ";
-        int choice;
-        cin >> input;
-        stringstream convert(input);
-        convert >> choice;
-        onlyTakeOneInput();
-
-        do
+        int s = v.size();
+        if (s > 1)
         {
-            switch(choice)
+            printScientistLine();
+            for (int i = 0; i < s; i++)
             {
-                case 1:
+                cout << serve.listScientists()[v[i]];
+            }
+
+            cout << endl;
+            cout << "Too many results, please narrow your search!" << endl;
+            updateScientist();
+        }
+        if (s < 1)
+        {
+            cout << "No match for " << n << endl << endl;
+            updateScientist();
+        }
+        else
+        {
+            printScientistLine();
+            cout << serve.listScientists()[v[0]];
+            cout << endl;
+
+            bool error = false;
+
+            do
+            {
+                cout << " What field would you like to update?" << endl;
+                cout << " ====================================" << endl;
+                cout << " Press 1 to update name"               << endl;
+                cout << " Press 2 to update gender"             << endl;
+                cout << " Press 3 to update birth year"         << endl;
+                cout << " Press 4 to update death year"         << endl;
+                cout << " Press 5 to cancel"                    << endl;
+                cout << " ====================================" << endl;
+
+                string input = " ";
+                int choice;
+                cin >> input;
+                stringstream convert(input);
+                convert >> choice;
+                onlyTakeOneInput();
+
+                switch(choice)
                 {
-                    updateValue(1, serve.listScientists()[v[0]].getName());
-                    break;
-                }
-                case 2:
-                {
-                    updateValue(2, serve.listScientists()[v[0]].getName());
-                    break;
-                }
-                case 3:
-                {
-                    updateValue(3, serve.listScientists()[v[0]].getName());
-                    break;
-                }
-                case 4:
-                {
-                    updateValue(4, serve.listScientists()[v[0]].getName());
-                    break;
-                }
-                case 5:
-                {
-                    error = false;
-                    break;
-                }
-                default:
-                {
-                    cout << "Error! Invalid input" << endl;
-                    error = true;
+                    case 1:
+                    {
+                        updateScientistValue(1, serve.listScientists()[v[0]].getName());
+                        break;
+                    }
+                    case 2:
+                    {
+                        updateScientistValue(2, serve.listScientists()[v[0]].getName());
+                        break;
+                    }
+                    case 3:
+                    {
+                        updateScientistValue(3, serve.listScientists()[v[0]].getName());
+                        break;
+                    }
+                    case 4:
+                    {
+                        updateScientistValue(4, serve.listScientists()[v[0]].getName());
+                        break;
+                    }
+                    case 5:
+                    {
+                        error = false;
+                        break;
+                    }
+                    default:
+                    {
+                        cout << "Error! Invalid input" << endl;
+                        error = true;
+                    }
                 }
             }
+            while (error);
         }
-        while (error);
     }
 }
 
 //depending on the before chosen attribute (here the field variable)
 //the user may change it and errorchecks it.
-void ConsoleUI::updateValue(int field, string name)
+void ConsoleUI::updateScientistValue(int field, string name)
 {
     string value = " ";
     bool run = true;
@@ -766,27 +774,37 @@ void ConsoleUI::updateValue(int field, string name)
         while (run)
         {
             cout << endl;
+            cout << "Type q or Q and press enter to cancel update!" << endl;
             cout << "Enter the new name for this scientist: ";
             cin >> ws;
             getline(cin, value);
 
-            if (valid.validName(value))
+            if(value == "q" || value == "Q")
             {
-                serve.updateScientist(field, value, name);
-                cout << "Scientist updated" << endl;
+                cout << "Update cancelled!" << endl << endl;
                 run = false;
             }
             else
             {
-                cout << "Invalid input!" << endl;
-                cout << "Try again? (Y/N)";
-                char input;
-                cin >> input;
-                onlyTakeOneInput();
-                if (input != 'Y' && input != 'y')
+                if (valid.validName(value))
                 {
+                    serve.updateScientist(field, value, name);
+                    cout << "Scientist updated!" << endl;
                     run = false;
                 }
+                else
+                {
+                    cout << "Invalid input!" << endl;
+                    cout << "Try again? (Y/N)";
+                    char input;
+                    cin >> input;
+                    onlyTakeOneInput();
+                    if (input != 'Y' && input != 'y')
+                    {
+                        run = false;
+                    }
+                }
+
             }
         }
     }
@@ -796,27 +814,38 @@ void ConsoleUI::updateValue(int field, string name)
         {
             char input = ' ';
             cout << endl;
+            cout << "Type q or Q and press enter to cancel update!" << endl;
             cout << "Enter the new gender for this scientist: ";
             cin >> input;
             onlyTakeOneInput();
 
-            if (valid.genderCheck(input))
+            if(input == 'q' || input == 'Q')
             {
-                value = input;
-                serve.updateScientist(field, value, name);
-                cout << "Scientist updated" << endl;
+                cout << "Update cancelled!" << endl << endl;
+                run = false;
             }
             else
             {
-                cout << "Invalid input!" << endl;
-                cout << "Try again? (Y/N)";
-                cin >> input;
-                onlyTakeOneInput();
-                if (input != 'Y' && input != 'y')
+                if (valid.genderCheck(input))
                 {
+                    value = input;
+                    serve.updateScientist(field, value, name);
+                    cout << "Scientist updated" << endl;
                     run = false;
                 }
+                else
+                {
+                    cout << "Invalid input!" << endl;
+                    cout << "Try again? (Y/N)";
+                    cin >> input;
+                    onlyTakeOneInput();
+                    if (input != 'Y' && input != 'y')
+                    {
+                        run = false;
+                    }
+                }
             }
+
         }
     }
     else if (field == 3)
@@ -825,27 +854,38 @@ void ConsoleUI::updateValue(int field, string name)
         {
             int year = 0;
             cout << endl;
+            cout << "Type q or Q and press enter to cancel update!" << endl;
             cout << "Enter the new birth year for this scientist: ";
             cin >> value;
             onlyTakeOneInput();
 
-            if (valid.validYear(value, year))
+            if(value == "q" || value == "Q")
             {
-                serve.updateScientist(field, value, name);
-                cout << "Scientist updated" << endl;
+                cout << "Update cancelled!" << endl << endl;
+                run = false;
             }
             else
             {
-                cout << "Invalid input!" << endl;
-                cout << "Try again? (Y/N)";
-                char input;
-                cin >> input;
-                onlyTakeOneInput();
-                if (input != 'Y' && input != 'y')
+                if (valid.validYear(value, year))
                 {
+                    serve.updateScientist(field, value, name);
+                    cout << "Scientist updated" << endl;
                     run = false;
                 }
+                else
+                {
+                    cout << "Invalid input!" << endl;
+                    cout << "Try again? (Y/N)";
+                    char input;
+                    cin >> input;
+                    onlyTakeOneInput();
+                    if (input != 'Y' && input != 'y')
+                    {
+                        run = false;
+                    }
+                }
             }
+
         }
     }
     else if (field == 4)
@@ -854,27 +894,38 @@ void ConsoleUI::updateValue(int field, string name)
         {
             int year = 0;
             cout << endl;
+            cout << "Type q or Q and press enter to cancel update!" << endl;
             cout << "Enter the new death year for this scientist: ";
             cin >> value;
             onlyTakeOneInput();
 
-            if (valid.validYear(value, year))
+            if(value == "q" || value == "Q")
             {
-                serve.updateScientist(field, value, name);
-                cout << "Scientist updated" << endl;
+                cout << "Update cancelled!" << endl << endl;
+                run = false;
             }
             else
             {
-                cout << "Invalid input!" << endl;
-                cout << "Try again? (Y/N)";
-                char input;
-                cin >> input;
-                onlyTakeOneInput();
-                if (input != 'Y' && input != 'y')
+                if (valid.validYear(value, year))
                 {
+                    serve.updateScientist(field, value, name);
+                    cout << "Scientist updated" << endl;
                     run = false;
                 }
+                else
+                {
+                    cout << "Invalid input!" << endl;
+                    cout << "Try again? (Y/N)";
+                    char input;
+                    cin >> input;
+                    onlyTakeOneInput();
+                    if (input != 'Y' && input != 'y')
+                    {
+                        run = false;
+                    }
+                }
             }
+
         }
     }
 
@@ -1231,7 +1282,6 @@ void ConsoleUI::searchComputerByName()
         {
             cout << serve.listComputers()[vCN[i]];
         }
-        cout << endl << serve.listComputers().size() << " Computers found." << endl;
         cout << "___________________________________________________________________________________" << endl;
     }
 }
@@ -1262,7 +1312,6 @@ void ConsoleUI::searchComputerByYearMade()
         {
             cout << serve.listComputers()[vY[i]];
         }
-        cout << endl << serve.listComputers().size() << " Computers found." << endl;
         cout << "___________________________________________________________________________________" << endl;
     }
 }
@@ -1303,7 +1352,7 @@ void ConsoleUI::searchComputerByYearRange()
         {
             cout << serve.listComputers()[vR[i]];
         }
-        cout << endl << serve.listComputers().size() << " Computers found." << endl;
+
         cout << "___________________________________________________________________________________" << endl;
 
     }
@@ -1329,7 +1378,7 @@ void ConsoleUI::searchComputerByType()
         {
             cout << serve.listComputers()[vCT[i]];
         }
-        cout << endl << serve.listComputers().size() << " Computers found." << endl;
+
         cout << "___________________________________________________________________________________" << endl;
 
     }
@@ -1536,7 +1585,7 @@ void ConsoleUI::deleteComputer()
             {
                 cout << serve.listComputers()[v[i]];
             }
-            cout << "Enter Y for yes or N for no" << endl;
+            cout << endl << "Enter Y for yes or N for no" << endl;
             char a = ' ';
             cin >> a;
             if (a == 'y' || a == 'Y')
@@ -1569,6 +1618,7 @@ void ConsoleUI::deleteComputer()
 //part to update, but only if he gets exactly 1 result.
 void ConsoleUI::updateComputer()
 {
+    cout << "Type q or Q and press enter to cancel at any time" << endl;
     cout << "Enter name of computer you would like to update: ";
     string n = " ";
     cin >> ws;
@@ -1576,226 +1626,266 @@ void ConsoleUI::updateComputer()
     serve.sortComputers(1,1);
     vector<int> v = serve.searchComputerByName(n);
 
-    int s = v.size();
-    if (s > 1)
+    if (n == "Q" || n == "q")
     {
-        printComputerLine();
-        for (int i = 0; i < s; i++)
-        {
-            cout << serve.listComputers()[v[i]];
-        }
-        cout << endl;
-        cout << "Too many results, please narrow your search!" << endl;
-        updateComputer();
+        cout << "Update computer cancelled" << endl;
     }
-    else if (s < 1)
+    else
     {
-        cout << "No match for " << n << endl;
-        updateComputer();
-    }
-    else // s == 1
-    {
-
-        cout << serve.listComputers()[v[0]];
-        cout << endl;
-
-        bool error = false;
-
-        cout << " What field would you like to update?" << endl;
-        cout << " ====================================" << endl;
-        cout << " Press 1 to update name"               << endl;
-        cout << " Press 2 to update year made"          << endl;
-        cout << " Press 3 to update type"               << endl;
-        cout << " Press 4 to update built status"       << endl;
-        cout << " Press 5 to cancel"                    << endl;
-        cout << " ====================================" << endl;
-
-        string input = " ";
-        int choice;
-        cin >> input;
-        stringstream convert(input);
-        convert >> choice;
-        onlyTakeOneInput();
-
-        do
+        int s = v.size();
+        if (s > 1)
         {
-            switch(choice)
+            printComputerLine();
+            for (int i = 0; i < s; i++)
             {
-                case 1:
+                cout << serve.listComputers()[v[i]];
+            }
+            cout << endl;
+            cout << "Too many results, please narrow your search!" << endl;
+            updateComputer();
+        }
+        else if (s < 1)
+        {
+            cout << "No match for " << n << endl;
+            updateComputer();
+        }
+        else // s == 1
+        {
+            printComputerLine();
+            cout << serve.listComputers()[v[0]];
+            cout << endl;
+
+            bool error = false;
+
+            cout << " What field would you like to update?" << endl;
+            cout << " ====================================" << endl;
+            cout << " Press 1 to update name"               << endl;
+            cout << " Press 2 to update year made"          << endl;
+            cout << " Press 3 to update type"               << endl;
+            cout << " Press 4 to update built status"       << endl;
+            cout << " Press 5 to cancel"                    << endl;
+            cout << " ====================================" << endl;
+
+            string input = " ";
+            int choice;
+            cin >> input;
+            stringstream convert(input);
+            convert >> choice;
+            onlyTakeOneInput();
+
+            do
+            {
+                switch(choice)
                 {
-                    updateComputerName(serve.listComputers()[v[0]].getComputerName());
-                    break;
+                    case 1:
+                    {
+                        updateComputerValue(1, serve.listComputers()[v[0]].getComputerName());
+                        break;
+                    }
+                    case 2:
+                    {
+                        updateComputerValue(2, serve.listComputers()[v[0]].getComputerName());
+                        break;
+                    }
+                    case 3:
+                    {
+                        updateComputerValue(3, serve.listComputers()[v[0]].getComputerName());
+                        break;
+                    }
+                    case 4:
+                    {
+                        updateComputerValue(4, serve.listComputers()[v[0]].getComputerName());
+                        break;
+                    }
+                    case 5:
+                    {
+                        error = false;
+                        break;
+                    }
+                    default:
+                    {
+                        cout << "Error! Invalid input" << endl;
+                        error = true;
+                    }
                 }
-                case 2:
+            }
+            while (error);
+        }
+    }
+
+}
+
+void ConsoleUI::updateComputerValue(int variable, string name)
+{
+    string value = " ";
+    bool run = true;
+
+    if(variable == 1) //update name
+    {
+        while(run)
+        {
+            cout << "Type q or Q and press enter to cancel at any time!" << endl;
+            cout << "Enter the new name for this computer: ";
+            cin >> ws;
+            getline(cin, value);
+
+            if (value == "q" || value == "Q")
+            {
+                cout << "Update cancelled!" << endl << endl;
+                run = false;
+            }
+            else
+            {
+                while (!valid.validComputerName(value))
                 {
-                    updateComputerYear(serve.listComputers()[v[0]].getComputerName());
-                    break;
+                    cout << "Invalid name!" << endl;
+                    cout << "Try again? (Y/N)";
+                    char input = ' ';
+                    cin >> input;
+                    onlyTakeOneInput();
+
+                    if (input == 'y' || input == 'Y')
+                    {
+                        cout << "Enter the new name for this computer: ";
+                        cin >> ws;
+                        getline(cin, value);
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
-                case 3:
+                if (valid.validComputerName(value))
                 {
-                    updateComputerType(serve.listComputers()[v[0]].getComputerName());
-                    break;
-                }
-                case 4:
-                {
-                    updateComputerBuilt(serve.listComputers()[v[0]].getComputerName());
-                    break;
-                }
-                case 5:
-                {
-                    error = false;
-                    break;
-                }
-                default:
-                {
-                    cout << "Error! Invalid input" << endl;
-                    error = true;
+                    serve.updateComputer(variable, value, name);
+
+                    cout << "Computer updated" << endl;
                 }
             }
         }
-        while (error);
     }
-}
-
-//Where the user updates the computer name.
-void ConsoleUI::updateComputerName(string name)
-{
-    const int variable = 1;
-    string value = " ";
-
-    cout << "Enter the new name for this computer: ";
-    cin >> ws;
-    getline(cin, value);
-
-    while (!valid.validComputerName(value))
+    else if(variable == 2) //update year
     {
-        cout << "Invalid name!" << endl;
-        cout << "Try again? (Y/N)";
-        char input = ' ';
-        cin >> input;
-        onlyTakeOneInput();
-
-        if (input == 'y' || input == 'Y')
+        while (run)
         {
-        cout << "Enter the new name for this computer: ";
-        cin >> ws;
-        getline(cin, value);
-        }
-        else
-        {
-            break;
-        }
+            int year = 0;
+            cout << "Type q or Q and press enter to cancel at any time!" << endl;
+            cout << "Enter the new build year for this computer: ";
+            cin >> value;
+            onlyTakeOneInput();
 
+            if (value == "q" || value == "Q")
+            {
+                cout << "Update cancelled!" << endl << endl;
+                run = false;
+            }
+            else
+            {
+                while (!valid.validYear(value, year))
+                {
+                    cout << "Invalid name!" << endl;
+                    cout << "Try again? (Y/N)";
+                    char input = ' ';
+                    cin >> input;
+                    onlyTakeOneInput();
+
+                    if (input == 'y' || input == 'Y')
+                    {
+                        cout << "Enter the new build year for this computer: ";
+                        cin >> value;
+                        onlyTakeOneInput();
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                }
+
+                if (valid.validYear(value, year))
+                {
+                    serve.updateComputer(variable, value, name);
+
+                    cout << "Computer updated" << endl;
+                }
+            }
+        }
     }
-
-    if (valid.validComputerName(value))
+    else if(variable == 3) //update type
     {
-        serve.updateComputer(variable, value, name);
+        while(run)
+        {
+            cout << "Type q or Q and press enter to cancel at any time!" << endl;
+            cout << "Enter the new type for this computer: ";
+            cin >> ws;
+            getline(cin, value);
 
-        cout << "Computer updated" << endl;
+            if (value == "q" || value == "Q")
+            {
+                cout << "Update cancelled!" << endl << endl;
+                run = false;
+            }
+            else
+            {
+                while (!valid.validComputerType(value))
+                {
+                    cout << "Invalid name!" << endl;
+                    cout << "Try again? (Y/N)";
+                    char input = ' ';
+                    cin >> input;
+                    onlyTakeOneInput();
+
+                    if (input == 'y' || input == 'Y')
+                    {
+                        cout << "Enter the new type for this computer: ";
+                        cin >> ws;
+                        getline(cin, value);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                if (valid.validComputerType(value))
+                {
+                    serve.updateComputer(variable, value, name);
+                    cout << "Computer updated" << endl;
+                }
+            }
+        }
     }
-}
-
-//Where the user updates the build year.
-void ConsoleUI::updateComputerYear(string name)
-{
-    const int variable = 2;
-    string value = " ";
-    int year = 0;
-
-    cout << "Enter the new build year for this computer: ";
-    cin >> value;
-    onlyTakeOneInput();
-
-    while (!valid.validYear(value, year))
+    else if(variable == 4) //update built
     {
-        cout << "Invalid name!" << endl;
-        cout << "Try again? (Y/N)";
-        char input = ' ';
-        cin >> input;
-        onlyTakeOneInput();
-
-        if (input == 'y' || input == 'Y')
+        while(run)
         {
-        cout << "Enter the new build year for this computer: ";
-        cin >> value;
-        onlyTakeOneInput();
-        }
-        else
-        {
-            break;
-        }
+            cout << "Type q or Q and press enter to cancel at any time!" << endl;
+            cout << "Enter B if the computer was built, and anything else if not: ";
+            cin >> value;
+            onlyTakeOneInput();
 
+            if (value == "Q" || value == "q")
+            {
+                cout << "Update cancelled!" << endl << endl;
+                run = false;
+            }
+            else
+            {
+                if (value == "B" || value == "b")
+                {
+                    value = "Built";
+                    serve.updateComputer(variable, value, name);
+                    cout << "Computer updated" << endl;
+                }
+                else
+                {
+                    value = "Not Built";
+                    serve.updateComputer(variable, value, name);
+                    cout << "Computer updated" << endl;
+                }
+            }
+
+        }
     }
-
-    if (valid.validYear(value, year))
-    {
-        serve.updateComputer(variable, value, name);
-
-        cout << "Computer updated" << endl;
-    }
-}
-
-//Where the user updates the computer type.
-void ConsoleUI::updateComputerType(string name)
-{
-    const int variable = 3;
-    string value = " ";
-
-    cout << "Enter the new type for this computer: ";
-    cin >> ws;
-    getline(cin, value);
-
-    while (!valid.validComputerType(value))
-    {
-        cout << "Invalid name!" << endl;
-        cout << "Try again? (Y/N)";
-        char input = ' ';
-        cin >> input;
-        onlyTakeOneInput();
-        if (input == 'y' || input == 'Y')
-        {
-        cout << "Enter the new type for this computer: ";
-        cin >> ws;
-        getline(cin, value);
-        }
-        else
-        {
-            break;
-        }
-
-    }
-
-    if (valid.validComputerType(value))
-    {
-        serve.updateComputer(variable, value, name);
-
-        cout << "Computer updated" << endl;
-    }
-}
-
-//Where the user updates whether the computer was built.
-void ConsoleUI::updateComputerBuilt(string name)
-{
-    const int variable = 4;
-    string value = " ";
-
-    cout << "Enter B if the computer was built, and anything else if not: ";
-    cin >> value;
-    onlyTakeOneInput();
-
-        if (value == "B" || value == "b")
-        {
-           value = "Built";
-        }
-        else
-        {
-            value = "Not Built";
-        }
-
-        serve.updateComputer(variable, value, name);
-
-        cout << "Computer updated" << endl;
 }
 
 // Asks user to enter path to file and will add computers from it to the database.

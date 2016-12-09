@@ -22,7 +22,7 @@ class ConsoleUI
     void addScientistsFromFile();
     void deleteScientist();
     void updateScientist();
-    void updateValue(int field, string name);
+    void updateScientistValue(int field, string name);
     void saveScientistsToFile();
     void printScientistLine();
     bool quitAddingPerson(string n);
@@ -41,10 +41,7 @@ class ConsoleUI
     void addComputersFromFile();
     void deleteComputer();
     void updateComputer();
-    void updateComputerName(string name);
-    void updateComputerYear(string name);
-    void updateComputerType(string name);
-    void updateComputerBuilt(string name);
+    void updateComputerValue(int variable, string name);
     void saveComputersToFile();
     void printComputerLine();
 
