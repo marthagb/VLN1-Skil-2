@@ -150,7 +150,7 @@ bool ServiceLayer::saveScientistsToFile(string input)
 
 bool ServiceLayer::saveComputersToFile(string input)
 {
-    return dl.saveScientistsToFile(input);
+    return dl.saveComputersToFile(input);
 }
 
 bool ServiceLayer::saveAssociationsToFile(string input)
