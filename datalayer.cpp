@@ -1158,7 +1158,7 @@ void DataLayer::updateScientist(int variable, string value, string name)
     }
     else if (variable == 4)
     {
-        query.exec("UPDATE Scientists SET Deatyear = '" + QString::fromStdString(value) + "' WHERE Name = '" + QString::fromStdString(name) + "'");
+        query.exec("UPDATE Scientists SET Deathyear = '" + QString::fromStdString(value) + "' WHERE Name = '" + QString::fromStdString(name) + "'");
     }
 
     db.close();

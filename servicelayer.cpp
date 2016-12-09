@@ -163,3 +163,8 @@ void ServiceLayer::updateScientist(int variable, string value, string name)
     dl.updateScientist(variable, value, name);
 }
 
+void ServiceLayer::updateComputer(int variable, string value, string name)
+{
+    dl.updateComputer(variable, value, name);
+}
+

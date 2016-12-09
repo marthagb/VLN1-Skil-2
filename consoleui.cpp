@@ -674,6 +674,7 @@ void ConsoleUI::updateScientist()
         {
             cout << serve.listScientists()[v[i]];
         }
+
         cout << endl;
         cout << "Too many results, please narrow your search!" << endl;
         updateScientist();
@@ -685,7 +686,7 @@ void ConsoleUI::updateScientist()
     }
     else
     {
-
+        printScientistLine();
         cout << serve.listScientists()[v[0]];
         cout << endl;
 
@@ -718,17 +719,17 @@ void ConsoleUI::updateScientist()
                 }
                 case 2:
                 {
-                    //updateScientistGender();
+                    updateScientistGender(serve.listScientists()[v[0]].getName());
                     break;
                 }
                 case 3:
                 {
-                    //updateScientistBirthYear();
+                    updateScientistBirthYear(serve.listScientists()[v[0]].getName());
                     break;
                 }
                 case 4:
                 {
-                    //updateScientistDeathYear();
+                    updateScientistDeathYear(serve.listScientists()[v[0]].getName());
                     break;
                 }
                 case 5:
@@ -749,17 +750,52 @@ void ConsoleUI::updateScientist()
 
 void ConsoleUI::updateScientistName(string name)
 {
-    int variable = 1;
     string value = " ";
 
-    cout << "Enter full name of the scientist you want to update: ";
-    cin >> name;
     cout << endl;
     cout << "Enter the new name for this scientist: ";
     cin >> value;
     cout << "Scientist updated" << endl;
 
-    serve.updateScientist(variable, value, name);
+    serve.updateScientist(1, value, name);
+}
+
+void ConsoleUI::updateScientistGender(string name)
+{
+    string value = " ";
+
+    cout << endl;
+    cout << "Enter the new gender for this scientist: ";
+    cin >> value;
+    cout << "Scientist updated" << endl;
+
+    serve.updateScientist(2, value, name);
+}
+
+void ConsoleUI::updateScientistBirthYear(string name)
+{
+    string value = " ";
+
+    cout << endl;
+    cout << "Enter the new birth year for this scientist: ";
+    cin >> value;
+    cout << "Scientist updated" << endl;
+
+    serve.updateScientist(3, value, name);
+
+}
+
+void ConsoleUI::updateScientistDeathYear(string name)
+{
+    string value = " ";
+
+    cout << endl;
+    cout << "Enter the new death year for this scientist: ";
+    cin >> value;
+    cout << "Scientist updated" << endl;
+
+    serve.updateScientist(4, value, name);
+
 }
 
 
@@ -922,7 +958,7 @@ void ConsoleUI::computers()
             }
             case 5:
             {
-                //updateComputer();
+                updateComputer();
                 break;
             }
             case 6:
@@ -1021,7 +1057,7 @@ void ConsoleUI::ascOrDescComputers(int orderBy)
         {
             cout << serve.listComputers()[i];
         }
-        cout << "__________________________________________________________________________" << endl;
+        cout << "___________________________________________________________________________________" << endl;
     }
 }
 
@@ -1325,6 +1361,7 @@ void ConsoleUI::addComputerManually()
                     {
                         cout << "Enter B if the computer was built and any other character (except for Q) if it wasn't: ";
                         cin >> built;
+                        onlyTakeOneInput();
                         if(built == "q" || built == "Q")
                         {
                             cout << "Adding new computer cancelled" << endl;
@@ -1409,7 +1446,233 @@ void ConsoleUI::deleteComputer()
 
 void ConsoleUI::updateComputer()
 {
+    /*cout << "Here you can update individual scientist" << endl;
+    searchScientistByName();
+    cout << endl;
+*/
+    cout << "Enter name of computer you would like to update: ";
+    string n = " ";
+    cin >> ws;
+    getline(cin, n);
+    serve.sortComputers(1,1);
+    vector<int> v = serve.searchComputerByName(n);
 
+    int s = v.size();
+    if (s > 1)
+    {
+        printComputerLine();
+        for (int i = 0; i < s; i++)
+        {
+            cout << serve.listComputers()[v[i]];
+        }
+        cout << endl;
+        cout << "To many results, please narrow your search!" << endl;
+        updateComputer();
+    }
+    else if (s < 1)
+    {
+        cout << "No match for " << n << endl;
+        updateComputer();
+    }
+    else // s == 1
+    {
+
+        cout << serve.listScientists()[v[0]];
+        cout << endl;
+
+        bool error = false;
+
+        cout << " What field would you like to update?" << endl;
+        cout << " ====================================" << endl;
+        cout << " Press 1 to update name"               << endl;
+        cout << " Press 2 to update gender"             << endl;
+        cout << " Press 3 to update birth year"         << endl;
+        cout << " Press 4 to update death year"         << endl;
+        cout << " Press 5 to cancel"                    << endl;
+        cout << " ====================================" << endl;
+
+        string input = " ";
+        int choice;
+        cin >> input;
+        stringstream convert(input);
+        convert >> choice;
+        onlyTakeOneInput();
+
+        do
+        {
+            switch(choice)
+            {
+                case 1:
+                {
+                    updateComputerName(serve.listComputers()[v[0]].getComputerName());
+                    break;
+                }
+                case 2:
+                {
+                    updateComputerYear(serve.listComputers()[v[0]].getComputerName());
+                    break;
+                }
+                case 3:
+                {
+                    updateComputerType(serve.listComputers()[v[0]].getComputerName());
+                    break;
+                }
+                case 4:
+                {
+                    updateComputerBuilt(serve.listComputers()[v[0]].getComputerName());
+                    break;
+                }
+                case 5:
+                {
+                    error = false;
+                    break;
+                }
+                default:
+                {
+                    cout << "Error! Invalid input" << endl;
+                    error = true;
+                }
+            }
+        }
+        while (error);
+    }
+}
+
+void ConsoleUI::updateComputerName(string name)
+{
+    const int variable = 1;
+    string value = " ";
+
+    cout << "Enter the new name for this computer: ";
+    cin >> ws;
+    getline(cin, value);
+
+    while (!valid.validComputerName(value))
+    {
+        cout << "Invalid name!" << endl;
+        cout << "Try again? (Y/N)";
+        char input = ' ';
+        cin >> input;
+        onlyTakeOneInput();
+
+        if (input == 'y' || input == 'Y')
+        {
+        cout << "Enter the new name for this computer: ";
+        cin >> ws;
+        getline(cin, value);
+        }
+        else
+        {
+            break;
+        }
+
+    }
+
+    if (valid.validComputerName(value))
+    {
+        serve.updateComputer(variable, value, name);
+
+        cout << "Computer updated" << endl;
+    }
+}
+
+void ConsoleUI::updateComputerYear(string name)
+{
+    const int variable = 2;
+    string value = " ";
+    int year = 0;
+
+    cout << "Enter the new build year for this computer: ";
+    cin >> value;
+    onlyTakeOneInput();
+
+    while (!valid.validYear(value, year))
+    {
+        cout << "Invalid name!" << endl;
+        cout << "Try again? (Y/N)";
+        char input = ' ';
+        cin >> input;
+        onlyTakeOneInput();
+
+        if (input == 'y' || input == 'Y')
+        {
+        cout << "Enter the new build year for this computer: ";
+        cin >> value;
+        onlyTakeOneInput();
+        }
+        else
+        {
+            break;
+        }
+
+    }
+
+    if (valid.validYear(value, year))
+    {
+        serve.updateComputer(variable, value, name);
+
+        cout << "Computer updated" << endl;
+    }
+}
+
+void ConsoleUI::updateComputerType(string name)
+{
+    const int variable = 3;
+    string value = " ";
+
+    cout << "Enter the new type for this computer: ";
+    cin >> ws;
+    getline(cin, value);
+
+    while (!valid.validComputerType(value))
+    {
+        cout << "Invalid name!" << endl;
+        cout << "Try again? (Y/N)";
+        char input = ' ';
+        cin >> input;
+        onlyTakeOneInput();
+        if (input == 'y' || input == 'Y')
+        {
+        cout << "Enter the new type for this computer: ";
+        cin >> ws;
+        getline(cin, value);
+        }
+        else
+        {
+            break;
+        }
+
+    }
+
+    if (valid.validComputerType(value))
+    {
+        serve.updateComputer(variable, value, name);
+
+        cout << "Computer updated" << endl;
+    }
+}
+
+void ConsoleUI::updateComputerBuilt(string name)
+{
+    const int variable = 4;
+    string value = " ";
+
+    cout << "Enter B if the computer was built, and anything else if not: ";
+    cin >> value;
+    onlyTakeOneInput();
+
+        if (value == "B" || value == "b")
+        {
+           value = "Built";
+        }
+        else
+        {
+            value = "Not Built";
+        }
+
+        serve.updateComputer(variable, value, name);
+
+        cout << "Computer updated" << endl;
 }
 
 // Asks user to enter path to file. This WILL overwrite the default file.
@@ -1426,7 +1689,7 @@ void ConsoleUI::addComputersFromFile()
         cin >> fileName;
         if(fileName == "q" || fileName == "Q")
         {
-            cout << "Adding computer from file canceled " << endl;
+            cout << "Adding computer from file cancelled " << endl;
             computers();
         }
         if(serve.addComputersFromFile(fileName))
@@ -1516,8 +1779,8 @@ void ConsoleUI::printComputerLine()
 {
     cout.width(23);
     cout << left << "Name";
-    cout << "Year Made\tComputer Type\tBuilt?" << endl;
-    cout << "__________________________________________________________________________" << endl;
+    cout << "Year Made\tComputer Type\t\t\tBuilt?" << endl;
+    cout << "___________________________________________________________________________________" << endl;
 }
 
 

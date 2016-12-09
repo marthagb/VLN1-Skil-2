@@ -23,7 +23,7 @@ public:
     vector<int> searchScientistByBirthYear(const int year);
     vector<int> searchScientistByYearRange(const int f, const int l);
     vector<int> searchComputerByName(const string name);
-    vector <int> searchComputerByYearMade(const int year);
+    vector<int> searchComputerByYearMade(const int year);
     vector<int> searchComputerByYearRange(const int f, const int l);
     vector<int> searchComputerByType(const string type);
     vector<int> searchAssocBySciName(const string sN);
@@ -48,6 +48,7 @@ public:
     bool saveAssociationsToFile(string input);
 
     void updateScientist(int variable, string value, string name);
+    void updateComputer(int variable, string value, string name);
 };
 
 #endif // SERVICELAYER_H
