@@ -674,6 +674,7 @@ void ConsoleUI::updateScientist()
         {
             cout << serve.listScientists()[v[i]];
         }
+
         cout << endl;
         cout << "To many results, please narrow your search!" << endl;
         updateScientist();
