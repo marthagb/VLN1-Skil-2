@@ -1139,7 +1139,7 @@ void ConsoleUI::addComputerManually()
     }
     else
     {
-        while(!valid.validName(n))                           //error checks name through validation layer
+        while(!valid.validComputerName(n))                           //error checks name through validation layer
         {
             cout << "Wrong input for name!" << endl;
             cout << "Enter name: ";
@@ -1151,7 +1151,7 @@ void ConsoleUI::addComputerManually()
                 break;
             }
         }
-        if (valid.validName(n))
+        if (valid.validComputerName(n))
         {
             cout << "Enter build year: ";
             cin >> y;
@@ -1184,6 +1184,22 @@ void ConsoleUI::addComputerManually()
                         cout << "Adding new computer cancelled" << endl;
                     }
                     else
+                    {
+                        while (!valid.validComputerType(t))
+                        {
+                            cout << "Invalid input!" << endl;
+                            cout << "Enter type: ";
+                            cin >> ws;
+                            getline(cin , t);
+                            if(t == "q" || t == "Q")
+                            {
+                                cout << "Adding new computer cancelled" << endl;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (valid.validName(t))
                     {
                         cout << "Enter B if the computer was built and any other character (except for Q) if it wasn't: ";
                         cin >> built;

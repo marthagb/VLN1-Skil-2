@@ -976,6 +976,11 @@ vector<Association> DataLayer::getAssociationVector()
 
 bool DataLayer::saveScientistsToFile(string input)
 {
+    if(scientists.size() == 0)
+    {
+        readScientists(1,1);
+    }
+
    ofstream out;
    out.open(input);
 
@@ -993,9 +998,15 @@ bool DataLayer::saveScientistsToFile(string input)
        out.seekp(100);
        for(size_t i = 0; i < getScientistVector().size(); i++)
        {
-
-       out << getScientistVector()[i];
-
+           out << left << scientists[i].getName() << ";\t" << scientists[i].getGender() << "\t" << scientists[i].getBirthYear() << "\t";
+           if(scientists[i].getAlive())
+           {
+               out << "Alive\n";
+           }
+           else
+           {
+               out << scientists[i].getDeathYear() << endl;
+           }
        }
 
     }
@@ -1005,6 +1016,10 @@ bool DataLayer::saveScientistsToFile(string input)
 
 bool DataLayer::saveComputersToFile(string input)
 {
+    if(computers.size() == 0)
+    {
+        readComputers(1,1);
+    }
    ofstream out;
    out.open(input);
 
@@ -1016,14 +1031,25 @@ bool DataLayer::saveComputersToFile(string input)
    {
        out.width(20);
        out << left << "Name";
-       out << "\tYear\tComputer type\t\tBuilt?" << endl;
-       out << "______________________________________________________________________" << endl;
+       out << "\tYear\tComputer type\t\t\tBuilt?" << endl;
+       out << "___________________________________________________________________________________" << endl;
 
        out.seekp(100);
        out << endl;
        for(size_t i = 0; i < getComputerVector().size(); i++)
        {
-            out << getComputerVector()[i];
+           // out << getComputerVector()[i];
+           out.width(20);
+            out << left << computers[i].getComputerName() << ";\t" << computers[i].getYearMade() << "\t" << computers[i].getType() <<  "\t\t";
+            if(computers[i].getBuiltOrNot())
+            {
+                out << "Built\n";
+            }
+            else
+            {
+                out << "Not built\n" ;
+            }
+
        }
 
     }
@@ -1034,6 +1060,10 @@ bool DataLayer::saveComputersToFile(string input)
 
 bool DataLayer::saveAssociationsToFile(string input)
 {
+    if(associations.size() == 0)
+    {
+        readAssociations(1,1);
+    }
     ofstream out;
     out.open(input);
 
@@ -1053,7 +1083,21 @@ bool DataLayer::saveAssociationsToFile(string input)
         out << endl;
         for(size_t i = 0; i < getAssociationVector().size(); i++)
         {
-             out << getAssociationVector()[i];
+
+
+
+             out.width(20);
+              out << left << associations[i].getScientistName() << ";\t" << associations[i].getComputerName() << "\t" << associations[i].getYearMade() <<  "\t\t";
+              if(associations[i].getBuiltOrNot())
+              {
+                  out << "Built\t";
+              }
+              else
+              {
+                  out << "Not built\t" ;
+              }
+              out << associations[i].getComputerType() << endl;
+
         }
 
      }
