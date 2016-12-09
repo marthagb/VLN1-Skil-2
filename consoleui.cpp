@@ -1298,7 +1298,13 @@ void ConsoleUI::addComputerManually()
                 cout << "Adding new computer cancelled" << endl;
                 computers();
             }
+
+
         }
+        if(!isupper(n[0]))                                          //Converts lower case letter to upper case if first is lower case
+         {
+            n[0] = toupper(n[0]);
+         }
         if (valid.validComputerName(n))
         {
             cout << "Enter build year: ";
@@ -1346,7 +1352,12 @@ void ConsoleUI::addComputerManually()
                                 cout << "Adding new computer cancelled" << endl;
                                 computers();
                             }
+
                         }
+                        if(!isupper(n[0]))                                          //Converts lower case letter to upper case if first is lower case
+                         {
+                            n[0] = toupper(n[0]);
+                         }
                     }
 
                     if (valid.validName(t))
