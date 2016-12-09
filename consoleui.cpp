@@ -686,11 +686,8 @@ void ConsoleUI::updateScientist()
     }
     else
     {
-        printScientistLine();
-        for (int i = 0; i < s; i++)
-        {
-            cout << serve.listScientists()[v[i]];
-        }
+
+        cout << serve.listScientists()[v[0]];
         cout << endl;
 
         bool error = false;
@@ -711,48 +708,50 @@ void ConsoleUI::updateScientist()
         convert >> choice;
         onlyTakeOneInput();
 
-        switch(choice)
+        do
         {
-            case 1:
+            switch(choice)
             {
-                //updateScientistName();
-                break;
-            }
-            case 2:
-            {
-                //updateScientistGender();
-                break;
-            }
-            case 3:
-            {
-                //updateScientistBirthYear();
-                break;
-            }
-            case 4:
-            {
-                //updateScientistDeathYear();
-                break;
-            }
-            case 5:
-            {
-                error = false;
-                break;
-            }
-            default:
-            {
-                cout << "Error! Invalid input" << endl;
-                error = true;
+                case 1:
+                {
+                    updateScientistName(serve.listScientists()[v[0]].getName());
+                    break;
+                }
+                case 2:
+                {
+                    //updateScientistGender();
+                    break;
+                }
+                case 3:
+                {
+                    //updateScientistBirthYear();
+                    break;
+                }
+                case 4:
+                {
+                    //updateScientistDeathYear();
+                    break;
+                }
+                case 5:
+                {
+                    error = false;
+                    break;
+                }
+                default:
+                {
+                    cout << "Error! Invalid input" << endl;
+                    error = true;
+                }
             }
         }
         while (error);
     }
 }
 
-void ConsoleUI::updateScientistName()
+void ConsoleUI::updateScientistName(string name)
 {
     int variable = 1;
     string value = " ";
-    string name = " ";
 
     cout << "Enter full name of the scientist you want to update: ";
     cin >> name;
