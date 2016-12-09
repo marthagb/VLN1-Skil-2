@@ -341,7 +341,7 @@ void DataLayer::readAssociations(int orderBy, int ascOrDesc)
 }
 
 //Determines whether the scientist 'p' is in the database
-//and adds them if not
+//and adds them if not.
 void DataLayer::addScientist(const Persons& p)
 {
     if (scientists.size() == 0)
@@ -388,7 +388,7 @@ void DataLayer::addScientist(const Persons& p)
 }
 
 //Determines whether the computer 'c' is in the database
-//and adds it if not
+//and adds it if not.
 bool DataLayer::addComputer(const Computer& c)
 {
     if (computers.size() == 0)
@@ -429,7 +429,7 @@ bool DataLayer::addComputer(const Computer& c)
 }
 
 //Determines whether the association 'a' is in the database
-//and adds it if not
+//and adds it if not.
 bool DataLayer::addAssociation(const Association& a)
 {
     if (associations.size() == 0)
@@ -474,7 +474,7 @@ bool DataLayer::addAssociation(const Association& a)
     return true;
 }
 
-//Adds scientists to database from file
+//Adds scientists to the database from the file 'input'
 bool DataLayer::addScientistsFromFile(string input)
 {
     Persons p;
@@ -507,6 +507,7 @@ bool DataLayer::addScientistsFromFile(string input)
     }
 }
 
+//Adds computers to the database from the file 'input'
 bool DataLayer::addComputersFromFile(string input)
 {
     Computer c;
@@ -539,6 +540,9 @@ bool DataLayer::addComputersFromFile(string input)
     }
 }
 
+//Returns a vector containing scientists' IDs from the database.
+//A scientist's ID's place in this vector corresponds to their place in the 'scientists' vector,
+//if the 'scientists' vector is ordered alphabetically.
 vector<int> DataLayer::getScientistIDs()
 {
     vector<int> sID;
@@ -558,6 +562,9 @@ vector<int> DataLayer::getScientistIDs()
     return sID;
 }
 
+//Returns a vector containing computers' IDs from the database.
+//A computer's ID's place in this vector corresponds to its place in the 'computers' vector,
+//if the 'computers' vector is ordered alphabetically.
 vector<int> DataLayer::getComputerIDs()
 {
     vector<int> cID;
@@ -577,6 +584,9 @@ vector<int> DataLayer::getComputerIDs()
     return cID;
 }
 
+//Returns a vector containing association's IDs from the database.
+//An association's ID's place in this vector corresponds to its place in the 'associations' vector,
+//if the 'associations' vector is ordered by ID.
 vector<int> DataLayer::getAssociationIDs()
 {
     vector<int> aID;
@@ -595,6 +605,8 @@ vector<int> DataLayer::getAssociationIDs()
     return aID;
 }
 
+//Returns a vector containing the places in the 'scientists' vector
+//of people whose names contain 'name' as a substring.
 vector<int> DataLayer::searchScientistByName(const string name)
 {
     vector<int> vSN;
@@ -622,6 +634,8 @@ vector<int> DataLayer::searchScientistByName(const string name)
     return vSN;
 }
 
+//Returns a vector containing the places in the 'scientists' vector
+//of people of the given gender.
 vector<int> DataLayer::searchScientistByGender(const char gender)
 {
     vector<int> vSG;
@@ -649,6 +663,8 @@ vector<int> DataLayer::searchScientistByGender(const char gender)
     return vSG;
 }
 
+//Returns a vector containing the places in the 'scientists' vector
+//of people born in the given year.
 vector<int> DataLayer::searchScientistByBirthYear(const int year)
 {
     vector<int> vSBY;
@@ -676,6 +692,8 @@ vector<int> DataLayer::searchScientistByBirthYear(const int year)
     return vSBY;
 }
 
+//Returns a vector containing the places in the 'scientists' vector
+//of people born in the given year range.
 vector<int> DataLayer::searchScientistByYearRange(const int f, const int l)
 {
     vector<int> vSBR;
@@ -703,6 +721,8 @@ vector<int> DataLayer::searchScientistByYearRange(const int f, const int l)
     return vSBR;
 }
 
+//Returns a vector containing the places in the 'computers' vector
+//of computers with names that contain 'name' as a substring.
 vector<int> DataLayer::searchComputerByName(const string name)
 {
     vector<int> vCBN;
@@ -730,6 +750,8 @@ vector<int> DataLayer::searchComputerByName(const string name)
     return vCBN;
 }
 
+//Returns a vector of places in the 'computers' vector
+//of computers made in the given year.
 vector<int> DataLayer::searchComputerByYearMade(const int year)
 {
     vector<int> vCYM;
@@ -757,6 +779,8 @@ vector<int> DataLayer::searchComputerByYearMade(const int year)
     return vCYM;
 }
 
+//Returns a vector of places in the 'computers' vector
+//of computers made in the given year range.
 vector<int> DataLayer::searchComputerByYearRange(const int f, const int l)
 {
     vector<int> vCYR;
@@ -784,6 +808,8 @@ vector<int> DataLayer::searchComputerByYearRange(const int f, const int l)
     return vCYR;
 }
 
+//Returns a vector of places in the 'computers' vector
+//of computers of types that have 'type' as a substring.
 vector<int> DataLayer::searchComputerByType(const string type)
 {
     vector<int> vCBT;
@@ -811,6 +837,8 @@ vector<int> DataLayer::searchComputerByType(const string type)
     return vCBT;
 }
 
+//Returns a vector of places in the 'associations' vector
+//of associations with scientists whose names contain 'sN' as a substring.
 vector<int> DataLayer::searchAssocBySciName(const string sN)
 {
     vector<int> vASN;
@@ -840,6 +868,8 @@ vector<int> DataLayer::searchAssocBySciName(const string sN)
     return vASN;
 }
 
+//Returns a vector of places in the 'associations' vector
+//of associations with computers with names that contain 'cN' as a substring.
 vector<int> DataLayer::searchAssocByCompName(const string cN)
 {
     vector<int> vACN;
@@ -869,6 +899,8 @@ vector<int> DataLayer::searchAssocByCompName(const string cN)
     return vACN;
 }
 
+//Returns a vector of places in the 'associations' vector
+//of associations with computers made in the given year.
 vector<int> DataLayer::searchAssocByYear(const int year)
 {
     vector<int> vAY;
@@ -898,6 +930,8 @@ vector<int> DataLayer::searchAssocByYear(const int year)
     return vAY;
 }
 
+//Returns a vector of places in the 'associations' vector
+//of associations with computers made in the given year range.
 vector<int> DataLayer::searchAssocByYearRange(const int f, const int l)
 {
     vector<int> vAYR;
@@ -927,6 +961,8 @@ vector<int> DataLayer::searchAssocByYearRange(const int f, const int l)
     return vAYR;
 }
 
+//Returns a vector of places in the 'associations' vector
+//of associations with computers of types that have 'type' as a substring.
 vector<int> DataLayer::searchAssocByCompType(const string type)
 {
     vector<int> vACT;
@@ -956,6 +992,7 @@ vector<int> DataLayer::searchAssocByCompType(const string type)
     return vACT;
 }
 
+//Deletes scientists whose names contain 'n' as a substring.
 void DataLayer::deleteScientist(string n)
 {
     db.open();
@@ -969,6 +1006,7 @@ void DataLayer::deleteScientist(string n)
     readScientists(1,1);
 }
 
+//Deletes computers with names that contain 'n' as a substring.
 void DataLayer::deleteComputer(string n)
 {
     db.open();
@@ -982,6 +1020,7 @@ void DataLayer::deleteComputer(string n)
     readComputers(1,1);
 }
 
+//Deletes the association of the scientist 'sN' and the computer 'cN'.
 void DataLayer::deleteAssociation(string sN, string cN)
 {
     int sID = 0, cID = 0;
@@ -1028,6 +1067,7 @@ vector<Association> DataLayer::getAssociationVector()
     return associations;
 }
 
+//Saves a list of the scientists in the database to the file 'input'.
 bool DataLayer::saveScientistsToFile(string input)
 {
     if(scientists.size() == 0)
@@ -1070,6 +1110,7 @@ bool DataLayer::saveScientistsToFile(string input)
            return true;
 }
 
+//Saves a list of the computers in the database to the file 'input'.
 bool DataLayer::saveComputersToFile(string input)
 {
     if(computers.size() == 0)
@@ -1118,6 +1159,7 @@ bool DataLayer::saveComputersToFile(string input)
            return true;
 }
 
+//Saves a list of the associations in the database to the file 'input'.
 bool DataLayer::saveAssociationsToFile(string input)
 {
     if(associations.size() == 0)
@@ -1157,6 +1199,9 @@ bool DataLayer::saveAssociationsToFile(string input)
 }
 
 
+//Updates the scientist whose name is 'name'
+//'variable' determines what field of information is updated
+//and 'value' is the new value for that field.
 void DataLayer::updateScientist(int variable, string value, string name)
 {
     db.open();
@@ -1185,6 +1230,9 @@ void DataLayer::updateScientist(int variable, string value, string name)
 
 }
 
+//Updates the computer of the name 'name'
+//'variable' determines what field of information is updated
+//and 'value' is the new value for that field.
 void DataLayer::updateComputer(int variable, string value, string name)
 {
     db.open();
