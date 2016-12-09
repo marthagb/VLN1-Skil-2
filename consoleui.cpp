@@ -917,7 +917,7 @@ void ConsoleUI::ascOrDescComputers(int orderBy)
         {
             cout << serve.listComputers()[i];
         }
-        cout << "_____________________________________________________" << endl;
+        cout << "__________________________________________________________________________" << endl;
     }
 }
 
@@ -1410,10 +1410,10 @@ void ConsoleUI::saveComputersToFile()
 //The header used when we list computers.
 void ConsoleUI::printComputerLine()
 {
-    cout.width(30);
+    cout.width(23);
     cout << left << "Name";
-    cout << "\tYear Made\tComputer Type\tBuilt?" << endl;
-    cout << "_____________________________________________________" << endl;
+    cout << "Year Made\tComputer Type\tBuilt?" << endl;
+    cout << "__________________________________________________________________________" << endl;
 }
 
 
