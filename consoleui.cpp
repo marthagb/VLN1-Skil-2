@@ -77,7 +77,7 @@ void ConsoleUI::scientists()
        cout << " Press 2 to search scientists"      << endl;
        cout << " Press 3 to add a scientist"        << endl;
        cout << " Press 4 to remove a scientist"     << endl;
-       cout << " Press 5 to update scientist"       << endl;
+       cout << " Press 5 to update a scientist"       << endl;
        cout << " Press 6 to save to a custom file"  << endl;
        cout << " Press 7 to go back to main menu"   << endl;
        cout << " Press 8 to quit"                   << endl;
@@ -495,7 +495,7 @@ void ConsoleUI::addScientistManually()
     }
     else
     {
-        while(!valid.maxLengtOfScientistName(n))                                  //error checks name through validation layer
+        while(!valid.maxLengthOfScientistName(n))                                  //error checks name through validation layer
         {
             cout << "Wrong input for name!" << endl;
             cout << "Enter name: ";
@@ -675,7 +675,7 @@ void ConsoleUI::updateScientist()
             cout << serve.listScientists()[v[i]];
         }
         cout << endl;
-        cout << "To many results, please narrow your search!" << endl;
+        cout << "Too many results, please narrow your search!" << endl;
         updateScientist();
     }
     if (s < 1)
