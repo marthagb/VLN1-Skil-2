@@ -63,7 +63,6 @@ void ConsoleUI::run()
                     cout << "Error! Invalid input" << endl;
                 }
             }
-
     }
 }
 
@@ -95,51 +94,50 @@ void ConsoleUI::scientists()
 
             switch (choice)
             {
-            case 1:
-            {
-                listScientistData();
-                break;
-            }
-            case 2:
-            {
-                searchScientist();
-                break;
-            }
-            case 3:
-            {
-                addScientist();
-                break;
-            }
-            case 4:
-            {
-                deleteScientist();
-                break;
-            }
-            case 5:
-            {
-                updateScientist();
-                break;
-            }
-            case 6:
-            {
-                saveScientistsToFile();
-                break;
-            }
-            case 7:
-            {
-                run = false;
-                break;
-            }
-            case 8:
-            {
-                exit(0);
-                break;
-            }
-
-            default:
-            {
-                cout << "Error! Invalid input" << endl;
-            }
+                case 1:
+                {
+                    listScientistData();
+                    break;
+                }
+                case 2:
+                {
+                    searchScientist();
+                    break;
+                }
+                case 3:
+                {
+                    addScientist();
+                    break;
+                }
+                case 4:
+                {
+                    deleteScientist();
+                    break;
+                }
+                case 5:
+                {
+                    updateScientist();
+                    break;
+                }
+                case 6:
+                {
+                    saveScientistsToFile();
+                    break;
+                }
+                case 7:
+                {
+                    run = false;
+                    break;
+                }
+                case 8:
+                {
+                    exit(0);
+                    break;
+                }
+                default:
+                {
+                    cout << "Error! Invalid input" << endl;
+                }
             }
     }
 }
@@ -302,6 +300,7 @@ void ConsoleUI::searchScientistByName()
     getline(cin, n);
     serve.sortScientists(1, 1);
     vector<int> vSN = serve.searchScientistByName(n);
+
     if (vSN.size() == 0)
     {
         cout << "No results found\n";
@@ -313,7 +312,6 @@ void ConsoleUI::searchScientistByName()
         {
             cout << serve.listScientists()[vSN[i]];
         }
-       // cout << endl << serve.listScientists().size() << "Scientists found." << endl;
         cout << "___________________________________________________________" << endl;
     }
 
@@ -349,7 +347,6 @@ void ConsoleUI::searchScientistByGender()
                 {
                     cout << serve.listScientists()[vG[i]];
                 }
-               // cout << endl << serve.listScientists().size() << "Scientists found." << endl;
                 cout << "___________________________________________________________" << endl;
             }
         }
@@ -366,16 +363,20 @@ void ConsoleUI::searchScientistByBirthYear()
 {
     int y = 0;
     string s = " ";
+
     while (!valid.validYear(s, y) || y == 0)
     {
         cout << "Enter year: ";
         cin >> s;
-        if(!valid.validYear(s, y) || y == 0) {
+        if (!valid.validYear(s, y) || y == 0)
+        {
             cout << "Invalid input!\n";
         }
     }
+
     serve.sortScientists(1,1);
     vector<int> vY = serve.searchScientistByBirthYear(y);
+
     if (vY.size() == 0)
     {
         cout << "No results found\n";
@@ -387,7 +388,6 @@ void ConsoleUI::searchScientistByBirthYear()
         {
             cout << serve.listScientists()[vY[i]];
         }
-       // cout << endl << serve.listScientists().size() << "Scientists found." << endl;
         cout << "___________________________________________________________" << endl;
     }
 
@@ -399,15 +399,19 @@ void ConsoleUI::searchScientistByYearRange()
 {
     int f = 0, l = 0;
     string s = " ";
+
     while(!valid.validYear(s, f))
     {
         cout << "Enter first year in range: ";
         cin >> s;
-        if (!valid.validYear(s, f)) {
+        if (!valid.validYear(s, f))
+        {
             cout << "Invalid input!\n";
         }
     }
+
     s = " ";
+
     while(!valid.validYear(s, l) || l < f)
     {
         cout << "Enter last year in range: ";
@@ -417,8 +421,10 @@ void ConsoleUI::searchScientistByYearRange()
             cout << "Invalid input!\n";
         }
     }
+
     serve.sortScientists(1,1);
     vector<int> vR = serve.searchScientistByYearRange(f,l);
+
     if (vR.size() == 0)
     {
         cout << "No results found" << endl;
@@ -430,7 +436,6 @@ void ConsoleUI::searchScientistByYearRange()
         {
             cout << serve.listScientists()[vR[i]];
         }
-      //  cout << endl << serve.listScientists().size() << "Scientists found." << endl;
         cout << "___________________________________________________________" << endl;
     }
 
@@ -458,29 +463,29 @@ void ConsoleUI::addScientist()
 
         switch (choice)
         {
-        case 1:
-        {
-            addScientistManually();
-            error = false;
-            break;
-        }
-        case 2:
-        {
-            addScientistsFromFile();
-            error = false;
-            break;
-        }
-        case 3:
-        {
-            error = false;
-            break;
-        }
-        default:
-        {
-            cout << "Error! Invalid input" << endl;
-            error = true;
-            break;
-        }
+            case 1:
+            {
+                addScientistManually();
+                error = false;
+                break;
+            }
+            case 2:
+            {
+                addScientistsFromFile();
+                error = false;
+                break;
+            }
+            case 3:
+            {
+                error = false;
+                break;
+            }
+            default:
+            {
+                cout << "Error! Invalid input" << endl;
+                error = true;
+                break;
+            }
         }
     }
     while (error);
@@ -534,7 +539,7 @@ void ConsoleUI::addScientistManually()
         }
         else
         {
-            while(!valid.genderCheck(g))                                //Error check for gender through validation layer
+            while(!valid.genderCheck(g))                            //Error check for gender through validation layer
             {
                 cout << "Wrong input for gender!" << endl;
                 cout << "Enter gender (M/F): ";
@@ -548,7 +553,7 @@ void ConsoleUI::addScientistManually()
             }
             if (valid.genderCheck(g))
             {
-                while(!valid.validYear(year, bY) || bY == 0)                //Adds the birth year and error checks through validation layer
+                while(!valid.validYear(year, bY) || bY == 0)        //Adds the birth year and error checks through validation layer
                 {
                     cout << "Enter birth year: ";
                     cin >> year;
@@ -566,7 +571,7 @@ void ConsoleUI::addScientistManually()
                 if (valid.validYear(year, bY))
                 {
                     year = " ";
-                    while(!valid.validYear(year, dY))                             //Adds the death year and error checks through validation layer
+                    while(!valid.validYear(year, dY))               //Adds the death year and error checks through validation layer
                     {
                         cout << "Enter death year (0 for living person): ";
                         cin >> year;
@@ -625,6 +630,7 @@ void ConsoleUI::deleteScientist()
     serve.sortScientists(1,1);
     vector<int> v = serve.searchScientistByName(n);
     int s = v.size();
+
     if (s > 0)
     {
         bool d = false;
@@ -638,8 +644,10 @@ void ConsoleUI::deleteScientist()
                 cout << serve.listScientists()[v[i]];
             }
             cout << "Enter Y for yes or N for no" << endl;
+
             char a = ' ';
             cin >> a;
+
             if (a == 'y' || a == 'Y')
             {
                 for (int i = s-1; i >= 0; i--)
@@ -697,7 +705,7 @@ void ConsoleUI::updateScientist()
             cout << "Too many results, please narrow your search!" << endl;
             updateScientist();
         }
-        if (s < 1)
+        else if (s < 1)
         {
             cout << "No match for " << n << endl << endl;
             updateScientist();
@@ -775,7 +783,7 @@ void ConsoleUI::updateScientistValue(int field, string name)
     string value = " ";
     bool run = true;
 
-    if(field == 1)
+    if(field == 1)      //update name
     {
         while (run)
         {
@@ -814,7 +822,7 @@ void ConsoleUI::updateScientistValue(int field, string name)
             }
         }
     }
-    else if(field == 2)
+    else if(field == 2)     //update gender
     {
         while (run)
         {
@@ -854,7 +862,7 @@ void ConsoleUI::updateScientistValue(int field, string name)
 
         }
     }
-    else if (field == 3)
+    else if (field == 3)    //update birth year
     {
         while (run)
         {
@@ -894,7 +902,7 @@ void ConsoleUI::updateScientistValue(int field, string name)
 
         }
     }
-    else if (field == 4)
+    else if (field == 4)    //update death year
     {
         while (run)
         {
@@ -950,6 +958,7 @@ void ConsoleUI::addScientistsFromFile()
         cout << "Enter the full path of the file, or the name of the file, if the file is in the same directory: " << endl;
         cout << "Type q and enter to cancel adding scientists from file \n" ;
         cin >> fileName;
+
         if(fileName == "q" || fileName == "Q")
         {
             cout << "Adding scientists from file canceled " << endl;
@@ -1726,7 +1735,8 @@ void ConsoleUI::updateComputer()
     }
 
 }
-
+//Here the user can update the information he has chosen to.
+//4 variables based on choice.
 void ConsoleUI::updateComputerValue(int variable, string name)
 {
     string value = " ";
