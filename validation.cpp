@@ -127,7 +127,7 @@ bool validation::validComputerType(const string& s)
     return validName(s) && s.size() <= MAX;
 }
 
-bool validation::maxLengtOfScientistName(const string& s)
+bool validation::maxLengthOfScientistName(const string& s)
 {
     return validName(s) && s.size() <= 50;
 }
