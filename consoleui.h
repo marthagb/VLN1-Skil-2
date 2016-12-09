@@ -40,6 +40,10 @@ class ConsoleUI
     void addComputersFromFile();
     void deleteComputer();
     void updateComputer();
+    void updateComputerName(string name);
+    void updateComputerYear(string name);
+    void updateComputerType(string name);
+    void updateComputerBuilt(string name);
     void saveComputersToFile();
     void printComputerLine();
 
