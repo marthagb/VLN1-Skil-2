@@ -695,24 +695,24 @@ void ConsoleUI::updateScientist()
 
         bool error = false;
 
-        cout << " What field would you like to update?" << endl;
-        cout << " ====================================" << endl;
-        cout << " Press 1 to update name"               << endl;
-        cout << " Press 2 to update gender"             << endl;
-        cout << " Press 3 to update birth year"         << endl;
-        cout << " Press 4 to update death year"         << endl;
-        cout << " Press 5 to cancel"                    << endl;
-        cout << " ====================================" << endl;
-
-        string input = " ";
-        int choice;
-        cin >> input;
-        stringstream convert(input);
-        convert >> choice;
-        onlyTakeOneInput();
-
         do
         {
+            cout << " What field would you like to update?" << endl;
+            cout << " ====================================" << endl;
+            cout << " Press 1 to update name"               << endl;
+            cout << " Press 2 to update gender"             << endl;
+            cout << " Press 3 to update birth year"         << endl;
+            cout << " Press 4 to update death year"         << endl;
+            cout << " Press 5 to cancel"                    << endl;
+            cout << " ====================================" << endl;
+
+            string input = " ";
+            int choice;
+            cin >> input;
+            stringstream convert(input);
+            convert >> choice;
+            onlyTakeOneInput();
+
             switch(choice)
             {
                 case 1:
@@ -802,6 +802,7 @@ void ConsoleUI::updateValue(int field, string name)
                 value = input;
                 serve.updateScientist(field, value, name);
                 cout << "Scientist updated" << endl;
+                run = false;
             }
             else
             {
@@ -830,6 +831,7 @@ void ConsoleUI::updateValue(int field, string name)
             {
                 serve.updateScientist(field, value, name);
                 cout << "Scientist updated" << endl;
+                run = false;
             }
             else
             {
@@ -859,6 +861,7 @@ void ConsoleUI::updateValue(int field, string name)
             {
                 serve.updateScientist(field, value, name);
                 cout << "Scientist updated" << endl;
+                run = false;
             }
             else
             {
