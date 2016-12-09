@@ -26,6 +26,7 @@ Persons::Persons(string n, char g, int bY, int dY)
     gender = g;
     birthYear = bY;
     deathYear = dY;
+
     if (dY == 0)
     {
         alive = true;
@@ -99,6 +100,7 @@ ostream& operator << (ostream& out, const Persons& p)
 {
     out.width(26);
     out << left << p.getName() << "\t" << p.getGender() << "\t" << p.getBirthYear()  << "\t";
+
     if (!p.getAlive())
     {
         out << p.getDeathYear() << "\t";
@@ -108,6 +110,7 @@ ostream& operator << (ostream& out, const Persons& p)
         out << "Alive " << "\t";
     }
     out << p.getAge() << endl;
+
     return out;
 }
 
@@ -121,9 +124,11 @@ istream& operator >> (istream& in, Persons& p)
     char g = ' ';
     int bY = 0, dY =0;
     Persons def;
+
     in >> ws;
     getline(in, n, ';'); //The Name is read in, and we stop at the ';'.
     in >> gdr >> b >> d; //The Gender, birthYear, and either deathYear or "Alive" is read in.
+
     if (p.valid.validName(n))
     {
         if (gdr.length() == 1) //checks the length of the gender

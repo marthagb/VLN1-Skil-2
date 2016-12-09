@@ -83,6 +83,7 @@ ostream& operator << (ostream& out, const Computer& c)
     out << left << c.getComputerName() << "\t" << c.getYearMade() << "\t";
     out.width(25);
     out << left << c.getType()  << "\t";
+
     if (!c.getBuiltOrNot())
     {
         out << "Not Built" << endl;
@@ -91,6 +92,7 @@ ostream& operator << (ostream& out, const Computer& c)
     {
         out << "Built" << endl;
     }
+
     return out;
 }
 
@@ -99,9 +101,11 @@ istream& operator >> (istream& in, Computer& c)
     string n = " ", yM = " ", t = " ", b = " ";
     int year = 0;
     Computer def;
+
     in >> ws;
     getline(in, n, ';');
     in >> yM >> t >> b;
+
     if (c.valid.validYear(yM, year))
     {
         if (b == "Built" || b == "built")

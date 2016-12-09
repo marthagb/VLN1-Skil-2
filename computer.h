@@ -1,5 +1,6 @@
 #ifndef COMPUTER_H
 #define COMPUTER_H
+
 #include <string>
 #include <iostream>
 #include "validation.h"
@@ -21,6 +22,7 @@ public:
     int getYearMade() const;
     string getType() const;
     bool getBuiltOrNot() const;
+
     void operator = (const Computer& c);
     bool operator == (const Computer& c);
     bool operator != (const Computer& C);
