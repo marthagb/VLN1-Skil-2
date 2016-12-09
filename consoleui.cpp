@@ -1021,7 +1021,7 @@ void ConsoleUI::ascOrDescComputers(int orderBy)
         {
             cout << serve.listComputers()[i];
         }
-        cout << "__________________________________________________________________________" << endl;
+        cout << "___________________________________________________________________________________" << endl;
     }
 }
 
@@ -1516,8 +1516,8 @@ void ConsoleUI::printComputerLine()
 {
     cout.width(23);
     cout << left << "Name";
-    cout << "Year Made\tComputer Type\tBuilt?" << endl;
-    cout << "__________________________________________________________________________" << endl;
+    cout << "Year Made\tComputer Type\t\t\tBuilt?" << endl;
+    cout << "___________________________________________________________________________________" << endl;
 }
 
 
