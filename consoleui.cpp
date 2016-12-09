@@ -307,7 +307,7 @@ void ConsoleUI::searchScientistByName()
         {
             cout << serve.listScientists()[vSN[i]];
         }
-        cout << endl << serve.listScientists().size() << "Scientists found." << endl;
+       // cout << endl << serve.listScientists().size() << "Scientists found." << endl;
         cout << "___________________________________________________________" << endl;
     }
 
@@ -343,7 +343,7 @@ void ConsoleUI::searchScientistByGender()
                 {
                     cout << serve.listScientists()[vG[i]];
                 }
-                cout << endl << serve.listScientists().size() << "Scientists found." << endl;
+               // cout << endl << serve.listScientists().size() << "Scientists found." << endl;
                 cout << "___________________________________________________________" << endl;
             }
         }
@@ -381,7 +381,7 @@ void ConsoleUI::searchScientistByBirthYear()
         {
             cout << serve.listScientists()[vY[i]];
         }
-        cout << endl << serve.listScientists().size() << "Scientists found." << endl;
+       // cout << endl << serve.listScientists().size() << "Scientists found." << endl;
         cout << "___________________________________________________________" << endl;
     }
 
@@ -424,7 +424,7 @@ void ConsoleUI::searchScientistByYearRange()
         {
             cout << serve.listScientists()[vR[i]];
         }
-        cout << endl << serve.listScientists().size() << "Scientists found." << endl;
+      //  cout << endl << serve.listScientists().size() << "Scientists found." << endl;
         cout << "___________________________________________________________" << endl;
     }
 
@@ -1274,7 +1274,6 @@ void ConsoleUI::searchComputerByName()
         {
             cout << serve.listComputers()[vCN[i]];
         }
-        cout << endl << serve.listComputers().size() << " Computers found." << endl;
         cout << "___________________________________________________________________________________" << endl;
     }
 }
@@ -1305,7 +1304,6 @@ void ConsoleUI::searchComputerByYearMade()
         {
             cout << serve.listComputers()[vY[i]];
         }
-        cout << endl << serve.listComputers().size() << " Computers found." << endl;
         cout << "___________________________________________________________________________________" << endl;
     }
 }
@@ -1346,7 +1344,7 @@ void ConsoleUI::searchComputerByYearRange()
         {
             cout << serve.listComputers()[vR[i]];
         }
-        cout << endl << serve.listComputers().size() << " Computers found." << endl;
+
         cout << "___________________________________________________________________________________" << endl;
 
     }
@@ -1372,7 +1370,7 @@ void ConsoleUI::searchComputerByType()
         {
             cout << serve.listComputers()[vCT[i]];
         }
-        cout << endl << serve.listComputers().size() << " Computers found." << endl;
+
         cout << "___________________________________________________________________________________" << endl;
 
     }
