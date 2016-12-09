@@ -21,6 +21,7 @@ class ConsoleUI
     void addScientistsFromFile();
     void deleteScientist();
     void updateScientist();
+    void updateScientistName(string name);
     void saveScientistsToFile();
     void printScientistLine();
     bool quitAddingPerson(string n);

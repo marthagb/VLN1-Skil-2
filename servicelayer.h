@@ -47,6 +47,7 @@ public:
     bool saveComputersToFile(string input);
     bool saveAssociationsToFile(string input);
 
+    void updateScientist(int variable, string value, string name);
 };
 
 #endif // SERVICELAYER_H

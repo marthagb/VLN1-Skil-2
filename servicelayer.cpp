@@ -158,3 +158,8 @@ bool ServiceLayer::saveAssociationsToFile(string input)
     return dl.saveAssociationsToFile(input);
 }
 
+void ServiceLayer::updateScientist(int variable, string value, string name)
+{
+    dl.updateScientist(variable, value, name);
+}
+

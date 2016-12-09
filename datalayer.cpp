@@ -9,6 +9,8 @@ DataLayer::DataLayer()
 
 void DataLayer::readScientists(int orderBy, int ascOrDesc)
 {
+    vector<Persons> S;
+
     db.open();
 
     QSqlQuery query(db);
@@ -61,15 +63,39 @@ void DataLayer::readScientists(int orderBy, int ascOrDesc)
     {
         if (ascOrDesc == 1)
         {
-            query.exec("SELECT Name, Gender, Birthyear, Deathyear FROM Scientists ORDER BY Deathyear");
+            query.exec("SELECT Name, Gender, Birthyear, Deathyear FROM Scientists WHERE Deathyear > 0 ORDER BY Deathyear");
+            while(query.next())
+            {
+                string name = query.value("Name").toString().toStdString();
+                string gdr = query.value("Gender").toString().toStdString();
+                char g = gdr[0];
+                int bY = query.value("Birthyear").toUInt();
+                int dY = query.value("Deathyear").toUInt();
+
+                Persons p(name, g, bY, dY);
+                S.push_back(p);
+            }
+            query.exec("SELECT Name, Gender, Birthyear, Deathyear FROM Scientists WHERE Deathyear = 0 ORDER BY ID");
         }
         else if (ascOrDesc == 2)
         {
-            query.exec("SELECT Name, Gender, Birthyear, Deathyear FROM Scientists ORDER BY Deathyear DESC");
+            query.exec("SELECT Name, Gender, Birthyear, Deathyear FROM Scientists WHERE Deathyear = 0 ORDER BY ID");
+
+            while(query.next())
+            {
+                string name = query.value("Name").toString().toStdString();
+                string gdr = query.value("Gender").toString().toStdString();
+                char g = gdr[0];
+                int bY = query.value("Birthyear").toUInt();
+                int dY = query.value("Deathyear").toUInt();
+
+                Persons p(name, g, bY, dY);
+                S.push_back(p);
+            }
+            query.exec("SELECT Name, Gender, Birthyear, Deathyear FROM Scientists WHERE Deathyear > 0 ORDER BY Deathyear DESC");
         }
     }
 
-    vector<Persons> S;
     while(query.next())
     {
         string name = query.value("Name").toString().toStdString();
