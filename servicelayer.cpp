@@ -62,6 +62,7 @@ bool ServiceLayer::saveScientistsToFile(string input)
     return dl.saveScientistsToFile(input);
 }
 
+
 vector<Computer> ServiceLayer::listComputers()
 {
     return dl.getComputerVector();
@@ -116,6 +117,7 @@ bool ServiceLayer::saveComputersToFile(string input)
 {
     return dl.saveComputersToFile(input);
 }
+
 
 vector<Association> ServiceLayer::listAssociations()
 {

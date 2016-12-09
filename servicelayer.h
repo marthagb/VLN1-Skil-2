@@ -11,9 +11,6 @@ class ServiceLayer
 public:
     ServiceLayer();
 
-
-
-
     vector<Persons> listScientists();
     void sortScientists(int orderBy, int ascOrDesc);
     vector<int> searchScientistByName(const string name);
@@ -48,22 +45,6 @@ public:
     bool addAssociation(const Association& a);
     void deleteAssociation(string sN, string cN);
     bool saveAssociationsToFile(string input);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 };
 
