@@ -674,6 +674,7 @@ void ConsoleUI::updateScientist()
         {
             cout << serve.listScientists()[v[i]];
         }
+
         cout << endl;
         cout << "To many results, please narrow your search!" << endl;
         updateScientist();
@@ -685,7 +686,7 @@ void ConsoleUI::updateScientist()
     }
     else
     {
-
+        printScientistLine();
         cout << serve.listScientists()[v[0]];
         cout << endl;
 
@@ -718,17 +719,17 @@ void ConsoleUI::updateScientist()
                 }
                 case 2:
                 {
-                    //updateScientistGender();
+                    updateScientistGender(serve.listScientists()[v[0]].getName());
                     break;
                 }
                 case 3:
                 {
-                    //updateScientistBirthYear();
+                    updateScientistBirthYear(serve.listScientists()[v[0]].getName());
                     break;
                 }
                 case 4:
                 {
-                    //updateScientistDeathYear();
+                    updateScientistDeathYear(serve.listScientists()[v[0]].getName());
                     break;
                 }
                 case 5:
@@ -749,17 +750,52 @@ void ConsoleUI::updateScientist()
 
 void ConsoleUI::updateScientistName(string name)
 {
-    int variable = 1;
     string value = " ";
 
-    cout << "Enter full name of the scientist you want to update: ";
-    cin >> name;
     cout << endl;
     cout << "Enter the new name for this scientist: ";
     cin >> value;
     cout << "Scientist updated" << endl;
 
-    serve.updateScientist(variable, value, name);
+    serve.updateScientist(1, value, name);
+}
+
+void ConsoleUI::updateScientistGender(string name)
+{
+    string value = " ";
+
+    cout << endl;
+    cout << "Enter the new gender for this scientist: ";
+    cin >> value;
+    cout << "Scientist updated" << endl;
+
+    serve.updateScientist(2, value, name);
+}
+
+void ConsoleUI::updateScientistBirthYear(string name)
+{
+    string value = " ";
+
+    cout << endl;
+    cout << "Enter the new birth year for this scientist: ";
+    cin >> value;
+    cout << "Scientist updated" << endl;
+
+    serve.updateScientist(3, value, name);
+
+}
+
+void ConsoleUI::updateScientistDeathYear(string name)
+{
+    string value = " ";
+
+    cout << endl;
+    cout << "Enter the new death year for this scientist: ";
+    cin >> value;
+    cout << "Scientist updated" << endl;
+
+    serve.updateScientist(4, value, name);
+
 }
 
 
@@ -1021,7 +1057,7 @@ void ConsoleUI::ascOrDescComputers(int orderBy)
         {
             cout << serve.listComputers()[i];
         }
-        cout << "__________________________________________________________________________" << endl;
+        cout << "___________________________________________________________________________________" << endl;
     }
 }
 
@@ -1743,8 +1779,8 @@ void ConsoleUI::printComputerLine()
 {
     cout.width(23);
     cout << left << "Name";
-    cout << "Year Made\tComputer Type\tBuilt?" << endl;
-    cout << "__________________________________________________________________________" << endl;
+    cout << "Year Made\tComputer Type\t\t\tBuilt?" << endl;
+    cout << "___________________________________________________________________________________" << endl;
 }
 
 
