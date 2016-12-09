@@ -1,6 +1,4 @@
 #include "persons.h"
-#include <iomanip>
-#include <QtSql>
 
 time_t t = time(NULL);
 tm* TimePtr = localtime(&t);

@@ -2,8 +2,6 @@
 #define VALIDATION_H
 
 #include "servicelayer.h"
-#include "validation.h"
-//#include "consoleui.h"
 
 class validation
 {

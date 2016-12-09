@@ -1,7 +1,6 @@
 #include "validation.h"
 #include "consoleui.h"
 
-#include "consoleui.h"
 #include <ctime>
 
 #include <cstdlib>

@@ -1,5 +1,4 @@
 #include "datalayer.h"
-#include <fstream>
 
 DataLayer::DataLayer()
 {
@@ -365,18 +364,25 @@ void DataLayer::addComputer(const Computer& c)
 
 void DataLayer::addAssociation(const Association& a)
 {
+    int sID = 0, cID = 0;
     db.open();
     QSqlQuery query1(db);
 
     query1.exec("SELECT ID FROM Scientists "
                        "WHERE Name LIKE '" + QString::fromStdString(a.getScientistName()) + "'");
-    int sID = query1.value("ID").toUInt();
+    while (query1.next())
+    {
+        sID = query1.value("ID").toUInt();
+    }
 
     QSqlQuery query2(db);
 
     query2.exec("SELECT ComputerID FROM Computers "
                        "WHERE ComputerName LIKE '" + QString::fromStdString(a.getComputerName()) + "'");
-    int cID = query2.value("ComputerID").toUInt();
+    while (query2.next())
+    {
+        cID = query2.value("ComputerID").toUInt();
+    }
 
     QSqlQuery query3(db);
 
@@ -897,18 +903,25 @@ void DataLayer::deleteComputer(string n)
 
 void DataLayer::deleteAssociation(string sN, string cN)
 {
+    int sID = 0, cID = 0;
     db.open();
     QSqlQuery query1(db);
 
     query1.exec("SELECT ID FROM Scientists "
                        "WHERE Name LIKE '" + QString::fromStdString(sN) + "'");
-    int sID = query1.value("ID").toUInt();
+    while (query1.next())
+    {
+        sID = query1.value("ID").toUInt();
+    }
 
     QSqlQuery query2(db);
 
     query2.exec("SELECT ComputerID FROM Computers "
                        "WHERE ComputerName LIKE '" + QString::fromStdString(cN) + "'");
-    int cID = query2.value("ComputerID").toUInt();
+    while (query2.next())
+    {
+        cID = query2.value("ComputerID").toUInt();
+    }
 
     QSqlQuery query3(db);
 

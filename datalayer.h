@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <fstream>
 #include <QtSql>
 #include "persons.h"
 #include "computer.h"

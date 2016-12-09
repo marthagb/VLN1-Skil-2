@@ -1,5 +1,4 @@
 #include "servicelayer.h"
-#include <fstream>
 
 
 
@@ -133,7 +132,7 @@ void ServiceLayer::deleteComputer(string n)
     dl.deleteComputer(n);
 }
 
-void ServiceLayer::addAssociation(const Association &a)
+void ServiceLayer::addAssociation(const Association& a)
 {
     dl.addAssociation(a);
 }

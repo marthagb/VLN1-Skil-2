@@ -1,10 +1,6 @@
 #include "consoleui.h"
 #include <ctime>
-#include "consoleui.h"
 #include <cstdlib>
-
-#include "servicelayer.h"
-#include "validation.h"
 
 using namespace std;
 
@@ -27,7 +23,7 @@ void ConsoleUI::run()
         cout << " ================================" << endl;
         cout << " Press 1 for scientists"           << endl;
         cout << " Press 2 for computers"            << endl;
-        cout << " Press 3 for both"                 << endl;
+        cout << " Press 3 for associations"                 << endl;
         cout << " Press 4 for exit"                 << endl;
         cout << " ================================" << endl;
 
@@ -1750,7 +1746,7 @@ void ConsoleUI::addAssociation()
         getline(cin, sN);
         if (serve.searchScientistByName(sN).size() == 0)
         {
-            cout << "Scientist not found!";
+            cout << "Scientist not found!\n";
         }
         else error = false;
     }
@@ -1762,7 +1758,7 @@ void ConsoleUI::addAssociation()
         getline(cin, cN);
         if (serve.searchComputerByName(cN).size() == 0)
         {
-            cout << "Computer not found!";
+            cout << "Computer not found!\n";
         }
         else error = false;
     }
