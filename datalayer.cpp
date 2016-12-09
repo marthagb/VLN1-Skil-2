@@ -7,6 +7,21 @@ DataLayer::DataLayer()
     db.setDatabaseName(dbName);
 }
 
+vector<Persons> DataLayer::getScientistVector()
+{
+    return scientists;
+}
+
+vector<Computer> DataLayer::getComputerVector()
+{
+    return computers;
+}
+
+vector<Association> DataLayer::getAssociationVector()
+{
+    return associations;
+}
+
 //Reads scientists from database
 //'orderBy' and 'ascOrDesc' determine how the data is ordered
 void DataLayer::readScientists(int orderBy, int ascOrDesc)
@@ -113,6 +128,307 @@ void DataLayer::readScientists(int orderBy, int ascOrDesc)
     scientists = S;
 }
 
+//Determines whether the scientist 'p' is in the database
+//and adds them if not.
+bool DataLayer::addScientist(const Persons& p)
+{
+    if (scientists.size() == 0)
+    {
+        readScientists(1,1);
+    }
+    for (unsigned int i = 0; i < scientists.size(); i++)
+    {
+        if (scientists[i] == p)
+        {
+            return false;
+        }
+    }
+
+    db.open();
+
+    QSqlQuery query(db);
+
+    query.prepare("INSERT INTO Scientists(Name, Gender, Birthyear, Deathyear, Alive) "
+                              "VALUES (:Name, :Gender, :Birthyear, :Deathyear, :Alive)");
+    query.bindValue(0, QString::fromStdString(p.getName()));
+    query.bindValue(1, QVariant(p.getGender()).toChar());
+    query.bindValue(2, QVariant(p.getBirthYear()));
+    query.bindValue(3, QVariant(p.getDeathYear()));
+    if (p.getAlive())
+    {
+        query.bindValue(4, QString::fromStdString("Yes"));
+    }
+    else
+    {
+        query.bindValue(4, QString::fromStdString("No"));
+    }
+
+    query.exec();
+
+    db.close();
+
+    scientists.push_back(p);
+    return true;
+}
+
+//Adds scientists to the database from the file 'input'
+bool DataLayer::addScientistsFromFile(string input)
+{
+    Persons p;
+    ifstream in;
+
+    in.open(input);
+
+    if (in.fail())
+    {
+        in.close();
+        return false;
+    }
+    else
+    {
+        in.seekg(100);
+
+        while(in >> p)
+        {
+            //Checks if person is valid, i.e. has a valid name, gender, birthyear and deathyear.
+            //An invalid person will not be added.
+            Persons compare;
+            if (p != compare)
+            {
+                addScientist(p);
+            }
+        }
+        in.close();
+
+        return true;
+    }
+}
+
+//Returns a vector containing scientists' IDs from the database.
+//A scientist's ID's place in this vector corresponds to their place in the 'scientists' vector,
+//if the 'scientists' vector is ordered alphabetically.
+vector<int> DataLayer::getScientistIDs()
+{
+    vector<int> sID;
+    db.open();
+
+    QSqlQuery query(db);
+
+    query.exec("SELECT ID FROM Scientists ORDER BY Name");
+
+    while (query.next())
+    {
+        int id = query.value("ID").toUInt();
+        sID.push_back(id);
+    }
+
+    db.close();
+    return sID;
+}
+
+//Returns a vector containing the places in the 'scientists' vector
+//of people whose names contain 'name' as a substring.
+vector<int> DataLayer::searchScientistByName(const string name)
+{
+    vector<int> vSN;
+    vector<int> sIDs = getScientistIDs();
+    db.open();
+
+    QSqlQuery query(db);
+
+    query.exec("SELECT ID FROM Scientists WHERE Name LIKE '%" + QString::fromStdString(name) + "%' ORDER BY Name");
+
+    while (query.next())
+    {
+        int id = query.value("ID").toUInt();
+        for (unsigned int i = 0; i < sIDs.size(); i++)
+        {
+            if (id == sIDs[i])
+            {
+                vSN.push_back(i);
+                break;
+            }
+        }
+    }
+
+    db.close();
+    return vSN;
+}
+
+//Returns a vector containing the places in the 'scientists' vector
+//of people of the given gender.
+vector<int> DataLayer::searchScientistByGender(const char gender)
+{
+    vector<int> vSG;
+    vector<int> sIDs = getScientistIDs();
+    db.open();
+
+    QSqlQuery query(db);
+
+    query.exec("SELECT ID FROM Scientists WHERE Gender = '" + QString(QVariant(gender).toChar()) + "' ORDER BY Name");
+
+    while (query.next())
+    {
+        int id = query.value("ID").toUInt();
+        for (unsigned int i = 0; i < sIDs.size(); i++)
+        {
+            if (id == sIDs[i])
+            {
+                vSG.push_back(i);
+                break;
+            }
+        }
+    }
+
+    db.close();
+    return vSG;
+}
+
+//Returns a vector containing the places in the 'scientists' vector
+//of people born in the given year.
+vector<int> DataLayer::searchScientistByBirthYear(const int year)
+{
+    vector<int> vSBY;
+    vector<int> sIDs = getScientistIDs();
+    db.open();
+
+    QSqlQuery query(db);
+
+    query.exec("SELECT ID FROM Scientists WHERE birthYear = " + QVariant(year).toString() + " ORDER BY Name");
+
+    while (query.next())
+    {
+        int id = query.value("ID").toUInt();
+        for (unsigned int i = 0; i < sIDs.size(); i++)
+        {
+            if (id == sIDs[i])
+            {
+                vSBY.push_back(i);
+                break;
+            }
+        }
+    }
+
+    db.close();
+    return vSBY;
+}
+
+//Returns a vector containing the places in the 'scientists' vector
+//of people born in the given year range.
+vector<int> DataLayer::searchScientistByYearRange(const int f, const int l)
+{
+    vector<int> vSBR;
+    vector<int> sIDs = getScientistIDs();
+    db.open();
+
+    QSqlQuery query(db);
+
+    query.exec("SELECT ID FROM Scientists WHERE birthYear >= " + QVariant(f).toString() + " AND birthYear <= " + QVariant(l).toString() + " ORDER BY Name");
+
+    while (query.next())
+    {
+        int id = query.value("ID").toUInt();
+        for (unsigned int i = 0; i < sIDs.size(); i++)
+        {
+            if (id == sIDs[i])
+            {
+                vSBR.push_back(i);
+                break;
+            }
+        }
+    }
+
+    db.close();
+    return vSBR;
+}
+
+//Deletes scientists whose names contain 'n' as a substring.
+void DataLayer::deleteScientist(string n)
+{
+    db.open();
+
+    QSqlQuery query(db);
+
+    query.exec("DELETE FROM Scientists WHERE Name LIKE '%" + QString::fromStdString(n) + "%'");
+
+    db.close();
+
+    readScientists(1,1);
+}
+
+//Saves a list of the scientists in the database to the file 'input'.
+bool DataLayer::saveScientistsToFile(string input)
+{
+    if(scientists.size() == 0)
+    {
+        readScientists(1,1);
+    }
+
+   ofstream out;
+   out.open(input);
+
+   if(out.fail())
+   {
+               return false;
+   }
+    else
+   {
+       out.width(26);
+       out << left << "Name";
+       out << "\tGender\tBorn\tDied" << endl;
+       out << "_____________________________________________________" << endl;
+
+       for(size_t i = 0; i < scientists.size(); i++)
+       {
+           out << left << scientists[i].getName();
+           out.width(26 - scientists[i].getName().length());
+           out << ";" << "\t" << scientists[i].getGender() << "\t" << scientists[i].getBirthYear() << "\t";
+           if(scientists[i].getAlive())
+           {
+               out << "Alive" << endl;
+           }
+           else
+           {
+               out << scientists[i].getDeathYear() << endl;
+           }
+       }
+       out << "_____________________________________________________" << endl;
+
+    }
+           out.close();
+           return true;
+}
+
+//Updates the scientist whose name is 'name'
+//'variable' determines what field of information is updated
+//and 'value' is the new value for that field.
+void DataLayer::updateScientist(int variable, string value, string name)
+{
+    db.open();
+
+    QSqlQuery query(db);
+
+
+    if (variable == 1)
+    {
+        query.exec("UPDATE Scientists SET Name = '" + QString::fromStdString(value) + "' WHERE Name = '" + QString::fromStdString(name) + "'");
+    }
+    else if (variable == 2)
+    {
+        query.exec("UPDATE Scientists SET Gender = '" + QString::fromStdString(value) + "' WHERE Name = '" + QString::fromStdString(name) + "'");
+    }
+    else if (variable == 3)
+    {
+        query.exec("UPDATE Scientists SET Birthyear = '" + QString::fromStdString(value) + "' WHERE Name = '" + QString::fromStdString(name) + "'");
+    }
+    else if (variable == 4)
+    {
+        query.exec("UPDATE Scientists SET Deathyear = '" + QString::fromStdString(value) + "' WHERE Name = '" + QString::fromStdString(name) + "'");
+    }
+
+    db.close();
+}
+
 //Reads computers from database
 //'orderBy' and 'ascOrDesc' determine how the data is ordered
 void DataLayer::readComputers(int orderBy, int ascOrDesc)
@@ -195,6 +511,310 @@ void DataLayer::readComputers(int orderBy, int ascOrDesc)
     }
     db.close();
     computers = C;
+}
+
+//Determines whether the computer 'c' is in the database
+//and adds it if not.
+bool DataLayer::addComputer(const Computer& c)
+{
+    if (computers.size() == 0)
+    {
+        readComputers(1,1);
+    }
+    for (unsigned int i = 0; i < computers.size(); i++)
+    {
+        if (computers[i] == c)
+        {
+            return false;
+        }
+    }
+
+    db.open();
+
+    QSqlQuery query(db);
+
+    query.prepare("INSERT INTO Computers(ComputerName, YearMade, Type, BuiltOrNot) "
+                          "VALUES (:ComputerName, :YearMade, :Type, :BuiltOrNot)");
+    query.bindValue(0, QString::fromStdString(c.getComputerName()));
+    query.bindValue(1, QVariant(c.getYearMade()));
+    query.bindValue(2, QString::fromStdString(c.getType()));
+    if (c.getBuiltOrNot())
+    {
+        query.bindValue(3, QString::fromStdString("Built"));
+    }
+    else
+    {
+        query.bindValue(3, QString::fromStdString("Not Built"));
+    }
+    query.exec();
+
+    db.close();
+
+    computers.push_back(c);
+    return true;
+}
+
+//Adds computers to the database from the file 'input'
+bool DataLayer::addComputersFromFile(string input)
+{
+    Computer c;
+    ifstream in;
+
+    in.open(input);
+
+    if (in.fail())
+    {
+        in.close();
+        return false;
+    }
+    else
+    {
+        in.seekg(150);
+
+        while(in >> c)
+        {
+            //Checks if person is valid, i.e. has a valid name, gender, birthyear and deathyear.
+            //An invalid person will not be added.
+            Computer compare;
+            if (c != compare)
+            {
+                addComputer(c);
+            }
+        }
+        in.close();
+
+        return true;
+    }
+}
+
+//Returns a vector containing computers' IDs from the database.
+//A computer's ID's place in this vector corresponds to its place in the 'computers' vector,
+//if the 'computers' vector is ordered alphabetically.
+vector<int> DataLayer::getComputerIDs()
+{
+    vector<int> cID;
+    db.open();
+
+    QSqlQuery query(db);
+
+    query.exec("SELECT ComputerID FROM Computers ORDER BY ComputerName");
+
+    while (query.next())
+    {
+        int id = query.value("ComputerID").toUInt();
+        cID.push_back(id);
+    }
+
+    db.close();
+    return cID;
+}
+
+//Returns a vector containing the places in the 'computers' vector
+//of computers with names that contain 'name' as a substring.
+vector<int> DataLayer::searchComputerByName(const string name)
+{
+    vector<int> vCBN;
+    vector<int> cIDs = getComputerIDs();
+    db.open();
+
+    QSqlQuery query(db);
+
+    query.exec("SELECT ComputerID FROM Computers WHERE ComputerName LIKE '%" + QString::fromStdString(name) + "%' ORDER BY ComputerName");
+
+    while (query.next())
+    {
+        int id = query.value("ComputerID").toUInt();
+        for (unsigned int i = 0; i < cIDs.size(); i++)
+        {
+            if (id == cIDs[i])
+            {
+                vCBN.push_back(i);
+                break;
+            }
+        }
+    }
+
+    db.close();
+    return vCBN;
+}
+
+//Returns a vector of places in the 'computers' vector
+//of computers made in the given year.
+vector<int> DataLayer::searchComputerByYearMade(const int year)
+{
+    vector<int> vCYM;
+    vector<int> cIDs = getComputerIDs();
+    db.open();
+
+    QSqlQuery query(db);
+
+    query.exec("SELECT ComputerID FROM Computers WHERE YearMade = " + QVariant(year).toString() + " ORDER BY ComputerName");
+
+    while (query.next())
+    {
+        int id = query.value("ComputerID").toUInt();
+        for (unsigned int i = 0; i < cIDs.size(); i++)
+        {
+            if (id == cIDs[i])
+            {
+                vCYM.push_back(i);
+                break;
+            }
+        }
+    }
+
+    db.close();
+    return vCYM;
+}
+
+//Returns a vector of places in the 'computers' vector
+//of computers made in the given year range.
+vector<int> DataLayer::searchComputerByYearRange(const int f, const int l)
+{
+    vector<int> vCYR;
+    vector<int> cIDs = getComputerIDs();
+    db.open();
+
+    QSqlQuery query(db);
+
+    query.exec("SELECT ComputerID FROM Computers WHERE YearMade >= " + QVariant(f).toString() + " AND YearMade <= " + QVariant(l).toString() + " ORDER BY ComputerName");
+
+    while (query.next())
+    {
+        int id = query.value("ComputerID").toUInt();
+        for (unsigned int i = 0; i < cIDs.size(); i++)
+        {
+            if (id == cIDs[i])
+            {
+                vCYR.push_back(i);
+                break;
+            }
+        }
+    }
+
+    db.close();
+    return vCYR;
+}
+
+//Returns a vector of places in the 'computers' vector
+//of computers of types that have 'type' as a substring.
+vector<int> DataLayer::searchComputerByType(const string type)
+{
+    vector<int> vCBT;
+    vector<int> cIDs = getComputerIDs();
+    db.open();
+
+    QSqlQuery query(db);
+
+    query.exec("SELECT ComputerID FROM Computers WHERE Type LIKE '%" + QString::fromStdString(type) + "%' ORDER BY ComputerName");
+
+    while (query.next())
+    {
+        int id = query.value("ComputerID").toUInt();
+        for (unsigned int i = 0; i < cIDs.size(); i++)
+        {
+            if (id == cIDs[i])
+            {
+                vCBT.push_back(i);
+                break;
+            }
+        }
+    }
+
+    db.close();
+    return vCBT;
+}
+
+//Deletes computers with names that contain 'n' as a substring.
+void DataLayer::deleteComputer(string n)
+{
+    db.open();
+
+    QSqlQuery query(db);
+
+    query.exec("DELETE FROM Computers WHERE ComputerName LIKE '%" + QString::fromStdString(n) + "%'");
+
+    db.close();
+
+    readComputers(1,1);
+}
+
+//Saves a list of the computers in the database to the file 'input'.
+bool DataLayer::saveComputersToFile(string input)
+{
+    if(computers.size() == 0)
+    {
+        readComputers(1,1);
+    }
+
+   ofstream out;
+   out.open(input);
+
+   if(out.fail())
+   {
+         return false;
+   }
+    else
+   {
+       out.width(20);
+       out << left << "Name";
+       out << "\tYear\t";
+       out.width(30);
+       out << "Computer type\t" << "Built?" << endl;
+       out << "___________________________________________________________________________________" << endl;
+       out << endl;
+       for(size_t i = 0; i < computers.size(); i++)
+       {
+            out << left << computers[i].getComputerName();
+            out.width(20 - computers[i].getComputerName().length());
+            out << ";" << "\t" << computers[i].getYearMade() << "\t" ;
+            out << left << computers[i].getType();
+            out.width(25 - computers[i].getType().length());
+            out << ";" << "\t" ;
+            if(computers[i].getBuiltOrNot())
+            {
+                out << "Built;" << endl;
+            }
+            else
+            {
+                out << "Not built;" << endl;
+            }
+
+       }
+       out << "___________________________________________________________________________________" << endl;
+
+    }
+           out.close();
+           return true;
+}
+
+//Updates the computer of the name 'name'
+//'variable' determines what field of information is updated
+//and 'value' is the new value for that field.
+void DataLayer::updateComputer(int variable, string value, string name)
+{
+    db.open();
+
+    QSqlQuery query(db);
+
+    if (variable == 1)
+    {
+        query.exec("UPDATE Computers SET ComputerName = '" + QString::fromStdString(value) + "' WHERE ComputerName = '" + QString::fromStdString(name) + "'");
+    }
+    else if (variable == 2)
+    {
+        query.exec("UPDATE Computers SET YearMade = '" + QString::fromStdString(value) + "'WHERE ComputerName = '" + QString::fromStdString(name) + "'");
+    }
+    else if (variable == 3)
+    {
+        query.exec("UPDATE Computers SET Type = '" + QString::fromStdString(value) + "' WHERE ComputerName = '" + QString::fromStdString(name) + "'");
+    }
+    else if (variable == 4)
+    {
+        query.exec("UPDATE Computers SET BuiltOrNot = '" + QString::fromStdString(value) + "' WHERE ComputerName = '" + QString::fromStdString(name) + "'");
+    }
+
+    db.close();
 }
 
 //Reads associations from database
@@ -340,90 +960,6 @@ void DataLayer::readAssociations(int orderBy, int ascOrDesc)
     associations = A;
 }
 
-//Determines whether the scientist 'p' is in the database
-//and adds them if not.
-bool DataLayer::addScientist(const Persons& p)
-{
-    if (scientists.size() == 0)
-    {
-        readScientists(1,1);
-    }
-    for (unsigned int i = 0; i < scientists.size(); i++)
-    {
-        if (scientists[i] == p)
-        {
-            return false;
-        }
-    }
-
-    db.open();
-
-    QSqlQuery query(db);
-
-    query.prepare("INSERT INTO Scientists(Name, Gender, Birthyear, Deathyear, Alive) "
-                              "VALUES (:Name, :Gender, :Birthyear, :Deathyear, :Alive)");
-    query.bindValue(0, QString::fromStdString(p.getName()));
-    query.bindValue(1, QVariant(p.getGender()).toChar());
-    query.bindValue(2, QVariant(p.getBirthYear()));
-    query.bindValue(3, QVariant(p.getDeathYear()));
-    if (p.getAlive())
-    {
-        query.bindValue(4, QString::fromStdString("Yes"));
-    }
-    else
-    {
-        query.bindValue(4, QString::fromStdString("No"));
-    }
-
-    query.exec();
-
-    db.close();
-
-    scientists.push_back(p);
-    return true;
-}
-
-//Determines whether the computer 'c' is in the database
-//and adds it if not.
-bool DataLayer::addComputer(const Computer& c)
-{
-    if (computers.size() == 0)
-    {
-        readComputers(1,1);
-    }
-    for (unsigned int i = 0; i < computers.size(); i++)
-    {
-        if (computers[i] == c)
-        {
-            return false;
-        }
-    }
-
-    db.open();
-
-    QSqlQuery query(db);
-
-    query.prepare("INSERT INTO Computers(ComputerName, YearMade, Type, BuiltOrNot) "
-                          "VALUES (:ComputerName, :YearMade, :Type, :BuiltOrNot)");
-    query.bindValue(0, QString::fromStdString(c.getComputerName()));
-    query.bindValue(1, QVariant(c.getYearMade()));
-    query.bindValue(2, QString::fromStdString(c.getType()));
-    if (c.getBuiltOrNot())
-    {
-        query.bindValue(3, QString::fromStdString("Built"));
-    }
-    else
-    {
-        query.bindValue(3, QString::fromStdString("Not Built"));
-    }
-    query.exec();
-
-    db.close();
-
-    computers.push_back(c);
-    return true;
-}
-
 //Determines whether the association 'a' is in the database
 //and adds it if not.
 bool DataLayer::addAssociation(const Association& a)
@@ -470,116 +1006,6 @@ bool DataLayer::addAssociation(const Association& a)
     return true;
 }
 
-//Adds scientists to the database from the file 'input'
-bool DataLayer::addScientistsFromFile(string input)
-{
-    Persons p;
-    ifstream in;
-
-    in.open(input);
-
-    if (in.fail())
-    {
-        in.close();
-        return false;
-    }
-    else
-    {
-        in.seekg(100);
-
-        while(in >> p)
-        {
-            //Checks if person is valid, i.e. has a valid name, gender, birthyear and deathyear.
-            //An invalid person will not be added.
-            Persons compare;
-            if (p != compare)
-            {
-                addScientist(p);
-            }
-        }
-        in.close();
-
-        return true;
-    }
-}
-
-//Adds computers to the database from the file 'input'
-bool DataLayer::addComputersFromFile(string input)
-{
-    Computer c;
-    ifstream in;
-
-    in.open(input);
-
-    if (in.fail())
-    {
-        in.close();
-        return false;
-    }
-    else
-    {
-        in.seekg(150);
-
-        while(in >> c)
-        {
-            //Checks if person is valid, i.e. has a valid name, gender, birthyear and deathyear.
-            //An invalid person will not be added.
-            Computer compare;
-            if (c != compare)
-            {
-                addComputer(c);
-            }
-        }
-        in.close();
-
-        return true;
-    }
-}
-
-//Returns a vector containing scientists' IDs from the database.
-//A scientist's ID's place in this vector corresponds to their place in the 'scientists' vector,
-//if the 'scientists' vector is ordered alphabetically.
-vector<int> DataLayer::getScientistIDs()
-{
-    vector<int> sID;
-    db.open();
-
-    QSqlQuery query(db);
-
-    query.exec("SELECT ID FROM Scientists ORDER BY Name");
-
-    while (query.next())
-    {
-        int id = query.value("ID").toUInt();
-        sID.push_back(id);
-    }
-
-    db.close();
-    return sID;
-}
-
-//Returns a vector containing computers' IDs from the database.
-//A computer's ID's place in this vector corresponds to its place in the 'computers' vector,
-//if the 'computers' vector is ordered alphabetically.
-vector<int> DataLayer::getComputerIDs()
-{
-    vector<int> cID;
-    db.open();
-
-    QSqlQuery query(db);
-
-    query.exec("SELECT ComputerID FROM Computers ORDER BY ComputerName");
-
-    while (query.next())
-    {
-        int id = query.value("ComputerID").toUInt();
-        cID.push_back(id);
-    }
-
-    db.close();
-    return cID;
-}
-
 //Returns a vector containing association's IDs from the database.
 //An association's ID's place in this vector corresponds to its place in the 'associations' vector,
 //if the 'associations' vector is ordered by ID.
@@ -601,237 +1027,6 @@ vector<int> DataLayer::getAssociationIDs()
     return aID;
 }
 
-//Returns a vector containing the places in the 'scientists' vector
-//of people whose names contain 'name' as a substring.
-vector<int> DataLayer::searchScientistByName(const string name)
-{
-    vector<int> vSN;
-    vector<int> sIDs = getScientistIDs();
-    db.open();
-
-    QSqlQuery query(db);
-
-    query.exec("SELECT ID FROM Scientists WHERE Name LIKE '%" + QString::fromStdString(name) + "%' ORDER BY Name");
-
-    while (query.next())
-    {
-        int id = query.value("ID").toUInt();
-        for (unsigned int i = 0; i < sIDs.size(); i++)
-        {
-            if (id == sIDs[i])
-            {
-                vSN.push_back(i);
-                break;
-            }
-        }
-    }
-
-    db.close();
-    return vSN;
-}
-
-//Returns a vector containing the places in the 'scientists' vector
-//of people of the given gender.
-vector<int> DataLayer::searchScientistByGender(const char gender)
-{
-    vector<int> vSG;
-    vector<int> sIDs = getScientistIDs();
-    db.open();
-
-    QSqlQuery query(db);
-
-    query.exec("SELECT ID FROM Scientists WHERE Gender = '" + QString(QVariant(gender).toChar()) + "' ORDER BY Name");
-
-    while (query.next())
-    {
-        int id = query.value("ID").toUInt();
-        for (unsigned int i = 0; i < sIDs.size(); i++)
-        {
-            if (id == sIDs[i])
-            {
-                vSG.push_back(i);
-                break;
-            }
-        }
-    }
-
-    db.close();
-    return vSG;
-}
-
-//Returns a vector containing the places in the 'scientists' vector
-//of people born in the given year.
-vector<int> DataLayer::searchScientistByBirthYear(const int year)
-{
-    vector<int> vSBY;
-    vector<int> sIDs = getScientistIDs();
-    db.open();
-
-    QSqlQuery query(db);
-
-    query.exec("SELECT ID FROM Scientists WHERE birthYear = " + QVariant(year).toString() + " ORDER BY Name");
-
-    while (query.next())
-    {
-        int id = query.value("ID").toUInt();
-        for (unsigned int i = 0; i < sIDs.size(); i++)
-        {
-            if (id == sIDs[i])
-            {
-                vSBY.push_back(i);
-                break;
-            }
-        }
-    }
-
-    db.close();
-    return vSBY;
-}
-
-//Returns a vector containing the places in the 'scientists' vector
-//of people born in the given year range.
-vector<int> DataLayer::searchScientistByYearRange(const int f, const int l)
-{
-    vector<int> vSBR;
-    vector<int> sIDs = getScientistIDs();
-    db.open();
-
-    QSqlQuery query(db);
-
-    query.exec("SELECT ID FROM Scientists WHERE birthYear >= " + QVariant(f).toString() + " AND birthYear <= " + QVariant(l).toString() + " ORDER BY Name");
-
-    while (query.next())
-    {
-        int id = query.value("ID").toUInt();
-        for (unsigned int i = 0; i < sIDs.size(); i++)
-        {
-            if (id == sIDs[i])
-            {
-                vSBR.push_back(i);
-                break;
-            }
-        }
-    }
-
-    db.close();
-    return vSBR;
-}
-
-//Returns a vector containing the places in the 'computers' vector
-//of computers with names that contain 'name' as a substring.
-vector<int> DataLayer::searchComputerByName(const string name)
-{
-    vector<int> vCBN;
-    vector<int> cIDs = getComputerIDs();
-    db.open();
-
-    QSqlQuery query(db);
-
-    query.exec("SELECT ComputerID FROM Computers WHERE ComputerName LIKE '%" + QString::fromStdString(name) + "%' ORDER BY ComputerName");
-
-    while (query.next())
-    {
-        int id = query.value("ComputerID").toUInt();
-        for (unsigned int i = 0; i < cIDs.size(); i++)
-        {
-            if (id == cIDs[i])
-            {
-                vCBN.push_back(i);
-                break;
-            }
-        }
-    }
-
-    db.close();
-    return vCBN;
-}
-
-//Returns a vector of places in the 'computers' vector
-//of computers made in the given year.
-vector<int> DataLayer::searchComputerByYearMade(const int year)
-{
-    vector<int> vCYM;
-    vector<int> cIDs = getComputerIDs();
-    db.open();
-
-    QSqlQuery query(db);
-
-    query.exec("SELECT ComputerID FROM Computers WHERE YearMade = " + QVariant(year).toString() + " ORDER BY ComputerName");
-
-    while (query.next())
-    {
-        int id = query.value("ComputerID").toUInt();
-        for (unsigned int i = 0; i < cIDs.size(); i++)
-        {
-            if (id == cIDs[i])
-            {
-                vCYM.push_back(i);
-                break;
-            }
-        }
-    }
-
-    db.close();
-    return vCYM;
-}
-
-//Returns a vector of places in the 'computers' vector
-//of computers made in the given year range.
-vector<int> DataLayer::searchComputerByYearRange(const int f, const int l)
-{
-    vector<int> vCYR;
-    vector<int> cIDs = getComputerIDs();
-    db.open();
-
-    QSqlQuery query(db);
-
-    query.exec("SELECT ComputerID FROM Computers WHERE YearMade >= " + QVariant(f).toString() + " AND YearMade <= " + QVariant(l).toString() + " ORDER BY ComputerName");
-
-    while (query.next())
-    {
-        int id = query.value("ComputerID").toUInt();
-        for (unsigned int i = 0; i < cIDs.size(); i++)
-        {
-            if (id == cIDs[i])
-            {
-                vCYR.push_back(i);
-                break;
-            }
-        }
-    }
-
-    db.close();
-    return vCYR;
-}
-
-//Returns a vector of places in the 'computers' vector
-//of computers of types that have 'type' as a substring.
-vector<int> DataLayer::searchComputerByType(const string type)
-{
-    vector<int> vCBT;
-    vector<int> cIDs = getComputerIDs();
-    db.open();
-
-    QSqlQuery query(db);
-
-    query.exec("SELECT ComputerID FROM Computers WHERE Type LIKE '%" + QString::fromStdString(type) + "%' ORDER BY ComputerName");
-
-    while (query.next())
-    {
-        int id = query.value("ComputerID").toUInt();
-        for (unsigned int i = 0; i < cIDs.size(); i++)
-        {
-            if (id == cIDs[i])
-            {
-                vCBT.push_back(i);
-                break;
-            }
-        }
-    }
-
-    db.close();
-    return vCBT;
-}
 
 //Returns a vector of places in the 'associations' vector
 //of associations with scientists whose names contain 'sN' as a substring.
@@ -988,34 +1183,6 @@ vector<int> DataLayer::searchAssocByCompType(const string type)
     return vACT;
 }
 
-//Deletes scientists whose names contain 'n' as a substring.
-void DataLayer::deleteScientist(string n)
-{
-    db.open();
-
-    QSqlQuery query(db);
-
-    query.exec("DELETE FROM Scientists WHERE Name LIKE '%" + QString::fromStdString(n) + "%'");
-
-    db.close();
-
-    readScientists(1,1);
-}
-
-//Deletes computers with names that contain 'n' as a substring.
-void DataLayer::deleteComputer(string n)
-{
-    db.open();
-
-    QSqlQuery query(db);
-
-    query.exec("DELETE FROM Computers WHERE ComputerName LIKE '%" + QString::fromStdString(n) + "%'");
-
-    db.close();
-
-    readComputers(1,1);
-}
-
 //Deletes the association of the scientist 'sN' and the computer 'cN'.
 void DataLayer::deleteAssociation(string sN, string cN)
 {
@@ -1046,113 +1213,6 @@ void DataLayer::deleteAssociation(string sN, string cN)
     db.close();
 
     readAssociations(1,1);
-}
-
-vector<Persons> DataLayer::getScientistVector()
-{
-    return scientists;
-}
-
-vector<Computer> DataLayer::getComputerVector()
-{
-    return computers;
-}
-
-vector<Association> DataLayer::getAssociationVector()
-{
-    return associations;
-}
-
-//Saves a list of the scientists in the database to the file 'input'.
-bool DataLayer::saveScientistsToFile(string input)
-{
-    if(scientists.size() == 0)
-    {
-        readScientists(1,1);
-    }
-
-   ofstream out;
-   out.open(input);
-
-   if(out.fail())
-   {
-               return false;
-   }
-    else
-   {
-       out.width(26);
-       out << left << "Name";
-       out << "\tGender\tBorn\tDied" << endl;
-       out << "_____________________________________________________" << endl;
-
-       for(size_t i = 0; i < scientists.size(); i++)
-       {
-           out << left << scientists[i].getName();
-           out.width(26 - scientists[i].getName().length());
-           out << ";" << "\t" << scientists[i].getGender() << "\t" << scientists[i].getBirthYear() << "\t";
-           if(scientists[i].getAlive())
-           {
-               out << "Alive" << endl;
-           }
-           else
-           {
-               out << scientists[i].getDeathYear() << endl;
-           }
-       }
-       out << "_____________________________________________________" << endl;
-
-    }
-           out.close();
-           return true;
-}
-
-//Saves a list of the computers in the database to the file 'input'.
-bool DataLayer::saveComputersToFile(string input)
-{
-    if(computers.size() == 0)
-    {
-        readComputers(1,1);
-    }
-
-   ofstream out;
-   out.open(input);
-
-   if(out.fail())
-   {
-         return false;
-   }
-    else
-   {
-       out.width(20);
-       out << left << "Name";
-       out << "\tYear\t";
-       out.width(30);
-       out << "Computer type\t" << "Built?" << endl;
-       out << "___________________________________________________________________________________" << endl;
-       out << endl;
-       for(size_t i = 0; i < computers.size(); i++)
-       {
-            out << left << computers[i].getComputerName();
-            out.width(20 - computers[i].getComputerName().length());
-            out << ";" << "\t" << computers[i].getYearMade() << "\t" ;
-            out << left << computers[i].getType();
-            out.width(25 - computers[i].getType().length());
-            out << ";" << "\t" ;
-            if(computers[i].getBuiltOrNot())
-            {
-                out << "Built;" << endl;
-            }
-            else
-            {
-                out << "Not built;" << endl;
-            }
-
-       }
-       out << "___________________________________________________________________________________" << endl;
-
-    }
-           out.close();
-           return true;
 }
 
 //Saves a list of the associations in the database to the file 'input'.
@@ -1192,67 +1252,4 @@ bool DataLayer::saveAssociationsToFile(string input)
      }
             out.close();
             return true;
-}
-
-
-//Updates the scientist whose name is 'name'
-//'variable' determines what field of information is updated
-//and 'value' is the new value for that field.
-void DataLayer::updateScientist(int variable, string value, string name)
-{
-    db.open();
-
-    QSqlQuery query(db);
-
-
-    if (variable == 1)
-    {
-        query.exec("UPDATE Scientists SET Name = '" + QString::fromStdString(value) + "' WHERE Name = '" + QString::fromStdString(name) + "'");
-    }
-    else if (variable == 2)
-    {
-        query.exec("UPDATE Scientists SET Gender = '" + QString::fromStdString(value) + "' WHERE Name = '" + QString::fromStdString(name) + "'");
-    }
-    else if (variable == 3)
-    {
-        query.exec("UPDATE Scientists SET Birthyear = '" + QString::fromStdString(value) + "' WHERE Name = '" + QString::fromStdString(name) + "'");
-    }
-    else if (variable == 4)
-    {
-        query.exec("UPDATE Scientists SET Deathyear = '" + QString::fromStdString(value) + "' WHERE Name = '" + QString::fromStdString(name) + "'");
-    }
-
-    db.close();
-
-}
-
-//Updates the computer of the name 'name'
-//'variable' determines what field of information is updated
-//and 'value' is the new value for that field.
-void DataLayer::updateComputer(int variable, string value, string name)
-{
-    db.open();
-
-    QSqlQuery query(db);
-
-    if (variable == 1)
-    {
-        query.exec("UPDATE Computers SET ComputerName = '" + QString::fromStdString(value) + "' WHERE ComputerName = '" + QString::fromStdString(name) + "'");
-    }
-    else if (variable == 2)
-    {
-        query.exec("UPDATE Computers SET YearMade = '" + QString::fromStdString(value) + "'WHERE ComputerName = '" + QString::fromStdString(name) + "'");
-    }
-    else if (variable == 3)
-    {
-        query.exec("UPDATE Computers SET Type = '" + QString::fromStdString(value) + "' WHERE ComputerName = '" + QString::fromStdString(name) + "'");
-    }
-    else if (variable == 4)
-    {
-        query.exec("UPDATE Computers SET BuiltOrNot = '" + QString::fromStdString(value) + "' WHERE ComputerName = '" + QString::fromStdString(name) + "'");
-    }
-
-
-    db.close();
-
 }
