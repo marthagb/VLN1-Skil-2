@@ -8,6 +8,7 @@ class ConsoleUI
 {
     validation valid;
     ServiceLayer serve;
+
     void scientists();
     void listScientistData();
     void ascOrDescScientists(int orderBy);
@@ -63,9 +64,6 @@ class ConsoleUI
 
     void clearScreen();
     void onlyTakeOneInput();
-    bool validName(const string& s);
-    bool genderCheck(char& gender);
-    bool birthChecks(int birthYear, int deathYear);
     bool check();
 public:
     ConsoleUI();

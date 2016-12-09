@@ -14,7 +14,6 @@ ConsoleUI::ConsoleUI()
 // The Function used in the main() function.
 // Displays the main menu, and takes you to the
 // respective function depending on the choice.
-
 void ConsoleUI::run()
 {
     bool run = true;
@@ -66,6 +65,7 @@ void ConsoleUI::run()
     }
 }
 
+//Menu for the scientists
 void ConsoleUI::scientists()
 {
     bool run = true;
@@ -77,7 +77,7 @@ void ConsoleUI::scientists()
        cout << " Press 2 to search scientists"      << endl;
        cout << " Press 3 to add a scientist"        << endl;
        cout << " Press 4 to remove a scientist"     << endl;
-       cout << " Press 5 to update a scientist"       << endl;
+       cout << " Press 5 to update a scientist"     << endl;
        cout << " Press 6 to save to a custom file"  << endl;
        cout << " Press 7 to go back to main menu"   << endl;
        cout << " Press 8 to quit"                   << endl;
@@ -141,8 +141,7 @@ void ConsoleUI::scientists()
     }
 }
 
-// lists all the data from the vector.
-//uses the printLine() function, which gives us a nice header.
+// Gives the User the choice of the sorting method of showing the Scientists.
 void ConsoleUI::listScientistData()
 {
     bool error = false;
@@ -183,6 +182,8 @@ void ConsoleUI::listScientistData()
     while (error);
 }
 
+//The User Chooses between acsending or descending ordering
+//and then prints the Scientists with a header and a counter.
 void ConsoleUI::ascOrDescScientists(int orderBy)
 {
     char input = '0';
@@ -216,6 +217,7 @@ void ConsoleUI::ascOrDescScientists(int orderBy)
         {
             cout << serve.listScientists()[i];
         }
+        cout << endl << serve.listScientists().size() << "Scientists." << endl;
         cout << "___________________________________________________________" << endl;
     }
 }
@@ -284,7 +286,7 @@ void ConsoleUI::searchScientist()
     while (error);
 }
 
-//searches the vector for the string which the user enters
+//searches the Database for the string which the user enters
 //and displays every result.
 void ConsoleUI::searchScientistByName()
 {
@@ -305,12 +307,13 @@ void ConsoleUI::searchScientistByName()
         {
             cout << serve.listScientists()[vSN[i]];
         }
+        cout << endl << serve.listScientists().size() << "Scientists found." << endl;
         cout << "___________________________________________________________" << endl;
     }
 
 }
 
-//We can search by gender. Yay.
+//We can search by gender.
 void ConsoleUI::searchScientistByGender()
 {
     string gender = " ";
@@ -340,6 +343,7 @@ void ConsoleUI::searchScientistByGender()
                 {
                     cout << serve.listScientists()[vG[i]];
                 }
+                cout << endl << serve.listScientists().size() << "Scientists found." << endl;
                 cout << "___________________________________________________________" << endl;
             }
         }
@@ -377,6 +381,7 @@ void ConsoleUI::searchScientistByBirthYear()
         {
             cout << serve.listScientists()[vY[i]];
         }
+        cout << endl << serve.listScientists().size() << "Scientists found." << endl;
         cout << "___________________________________________________________" << endl;
     }
 
@@ -419,6 +424,7 @@ void ConsoleUI::searchScientistByYearRange()
         {
             cout << serve.listScientists()[vR[i]];
         }
+        cout << endl << serve.listScientists().size() << "Scientists found." << endl;
         cout << "___________________________________________________________" << endl;
     }
 
@@ -474,9 +480,7 @@ void ConsoleUI::addScientist()
 }
 
 //We add a person through the console.
-//If user does not enter a string with names he gets an error message.
-//The first letter becomes uppercase.
-//there are error checks for birth Year and death Year.
+//there are error checks all over.
 //If no invalid information is entered, the person is added to the file.
 void ConsoleUI::addScientistManually()
 {
@@ -484,7 +488,7 @@ void ConsoleUI::addScientistManually()
     char g = ' ';
     int bY = 0, dY = 0;
     cout << "Type q and enter to cancel at any time" << endl;
-    cout << "Enter name: ";                                     //Adds the name of a person
+    cout << "Enter name: ";
     cin >> ws;    
 
     getline(cin,n);
@@ -495,7 +499,7 @@ void ConsoleUI::addScientistManually()
     }
     else
     {
-        while(!valid.maxLengthOfScientistName(n))                                  //error checks name through validation layer
+        while(!valid.maxLengthOfScientistName(n))                    //error checks name through validation layer
         {
             cout << "Wrong input for name!" << endl;
             cout << "Enter name: ";
@@ -605,7 +609,8 @@ void ConsoleUI::addScientistManually()
     }
 }
 
-//This deletes a scientist. RIP. He/she probably didn't belong on the list anyway.
+//This deletes a scientist by entering their full name.
+//Checks whether the user is sure about deleting the Scientist.
 void ConsoleUI::deleteScientist()
 {
     cout << "Enter name of scientist(s) you would like to delete: ";
@@ -656,12 +661,10 @@ void ConsoleUI::deleteScientist()
     }
 }
 
+//The User searches for a scientist by name.
+//if He gets only one result, he may choose an attribute to update.
 void ConsoleUI::updateScientist()
 {
-    /*cout << "Here you can update individual scientist" << endl;
-    searchScientistByName();
-    cout << endl;
-*/
     cout << "Enter name of scientist you would like to update: ";
     string n = " ";
     cin >> ws;
@@ -751,6 +754,8 @@ void ConsoleUI::updateScientist()
     }
 }
 
+//depending on the before chosen attribute (here the field variable)
+//the user may change it and errorchecks it.
 void ConsoleUI::updateValue(int field, string name)
 {
     string value = " ";
@@ -875,7 +880,8 @@ void ConsoleUI::updateValue(int field, string name)
 
 }
 
-// Asks user to enter path to file. This WILL overwrite the default file.
+// Asks user to enter path to file, and, if successful, will add
+//those Scientists to the Database.
 void ConsoleUI::addScientistsFromFile()
 {
     string fileName = "";
@@ -928,6 +934,8 @@ void ConsoleUI::addScientistsFromFile()
     while (fileOpen);
 }
 
+//Takes the people from the vector, and saves them to a txt file.
+//Comes with a warning of overwriting.
 void ConsoleUI::saveScientistsToFile()
 {
     bool fileOpen = false;
@@ -985,7 +993,7 @@ void ConsoleUI::printScientistLine()
 
 
 
-
+//The menu with the different actions for Computers.
 void ConsoleUI::computers()
 {
     bool run = true;
@@ -1061,20 +1069,21 @@ void ConsoleUI::computers()
     }
 }
 
+//Gives the user different ways to show the list of computers.
 void ConsoleUI::listComputerData()
 {
     bool error = false;
 
     do
     {
-        cout << "How would you like to sort the list?"   << endl;
-        cout << " =================================="    << endl;
-        cout << " Press 1 to sort by name"               << endl;
-        cout << " Press 2 to sort by year made"         << endl;
-        cout << " Press 3 to sort by type"               << endl;
+        cout << "How would you like to sort the list?"     << endl;
+        cout << " =======================================" << endl;
+        cout << " Press 1 to sort by name"                 << endl;
+        cout << " Press 2 to sort by year made"            << endl;
+        cout << " Press 3 to sort by type"                 << endl;
         cout << " Press 4 to sort by whether it was built" << endl;
-        cout << " Press 5 to Cancel"                     << endl;
-        cout << " =================================="    << endl;
+        cout << " Press 5 to Cancel"                       << endl;
+        cout << " =======================================" << endl;
 
         string input = " ";
         int choice;
@@ -1101,6 +1110,8 @@ void ConsoleUI::listComputerData()
     while (error);
 }
 
+//Lets the user choose between ascending or descending order
+//and then prints the computers and shows how many are on the list.
 void ConsoleUI::ascOrDescComputers(int orderBy)
 {
     char input = '0';
@@ -1133,10 +1144,12 @@ void ConsoleUI::ascOrDescComputers(int orderBy)
         {
             cout << serve.listComputers()[i];
         }
+        cout << endl << serve.listComputers().size() << " Computers." << endl;
         cout << "___________________________________________________________________________________" << endl;
     }
 }
 
+//Lets the user choose by what to search the computers.
 void ConsoleUI::searchComputer()
 {
     bool error = false;
@@ -1145,9 +1158,9 @@ void ConsoleUI::searchComputer()
         cout << "How would you like to search the data?"  << endl;
         cout << " ====================================="  << endl;
         cout << " Press 1 to search by name"              << endl;
-        cout << " Press 2 to search by year made"            << endl;
-        cout << " Press 3 to search by year range" << endl;
-        cout << " Press 4 to search by type"        << endl;
+        cout << " Press 2 to search by year made"         << endl;
+        cout << " Press 3 to search by year range"        << endl;
+        cout << " Press 4 to search by type"              << endl;
         cout << " Press 5 to cancel"                      << endl;
         cout << " ======================================" << endl;
 
@@ -1198,6 +1211,7 @@ void ConsoleUI::searchComputer()
     while (error);
 }
 
+//Lets the user search by name and lists how many results there are.
 void ConsoleUI::searchComputerByName()
 {
     string n = " ";
@@ -1217,9 +1231,12 @@ void ConsoleUI::searchComputerByName()
         {
             cout << serve.listComputers()[vCN[i]];
         }
+        cout << endl << serve.listComputers().size() << " Computers found." << endl;
+        cout << "___________________________________________________________________________________" << endl;
     }
 }
 
+//Lets the user search by year and lists how many results there are.
 void ConsoleUI::searchComputerByYearMade()
 {
     int y = 0;
@@ -1245,9 +1262,12 @@ void ConsoleUI::searchComputerByYearMade()
         {
             cout << serve.listComputers()[vY[i]];
         }
+        cout << endl << serve.listComputers().size() << " Computers found." << endl;
+        cout << "___________________________________________________________________________________" << endl;
     }
 }
 
+//Lets the user search by year range and lists how many results there are.
 void ConsoleUI::searchComputerByYearRange()
 {
     int f = 0, l = 0;
@@ -1283,9 +1303,13 @@ void ConsoleUI::searchComputerByYearRange()
         {
             cout << serve.listComputers()[vR[i]];
         }
+        cout << endl << serve.listComputers().size() << " Computers found." << endl;
+        cout << "___________________________________________________________________________________" << endl;
+
     }
 }
 
+//Lets the user search by type and lists how many results there are.
 void ConsoleUI::searchComputerByType()
 {
     string t = " ";
@@ -1305,8 +1329,12 @@ void ConsoleUI::searchComputerByType()
         {
             cout << serve.listComputers()[vCT[i]];
         }
+        cout << endl << serve.listComputers().size() << " Computers found." << endl;
+        cout << "___________________________________________________________________________________" << endl;
+
     }
 }
+
 // Asks you to enter whether you want to add data manually or from a file.
 void ConsoleUI::addComputers()
 {
@@ -1356,6 +1384,8 @@ void ConsoleUI::addComputers()
     while (error);
 }
 
+//Lets the user enter data manually. Comes with nice errorchecks
+//and the ability to cancel at any time.
 void ConsoleUI::addComputerManually()
 {
     string n = " ",y = " ", t = " ", built = " ";
@@ -1431,6 +1461,7 @@ void ConsoleUI::addComputerManually()
                             cout << "Enter type: ";
                             cin >> ws;
                             getline(cin , t);
+
                             if(t == "q" || t == "Q")
                             {
                                 cout << "Adding new computer cancelled" << endl;
@@ -1438,10 +1469,11 @@ void ConsoleUI::addComputerManually()
                             }
 
                         }
-                        if(!isupper(n[0]))                                          //Converts lower case letter to upper case if first is lower case
+                        if(!isupper(t[0]))                                          //Converts lower case letter to upper case if first is lower case
                          {
-                            n[0] = toupper(n[0]);
+                            t[0] = toupper(t[0]);
                          }
+
                     }
 
                     if (valid.validName(t))
@@ -1481,6 +1513,8 @@ void ConsoleUI::addComputerManually()
     }
 }
 
+//Lets the user search for computers by name, and then lets him/her
+//delete all the results.
 void ConsoleUI::deleteComputer()
 {
     cout << "Enter name of computer(s) you would like to delete: ";
@@ -1531,6 +1565,8 @@ void ConsoleUI::deleteComputer()
     }
 }
 
+//Lets the user search for a computer and lets him choose which
+//part to update, but only if he gets exactly 1 result.
 void ConsoleUI::updateComputer()
 {
     cout << "Enter name of computer you would like to update: ";
@@ -1621,6 +1657,7 @@ void ConsoleUI::updateComputer()
     }
 }
 
+//Where the user updates the computer name.
 void ConsoleUI::updateComputerName(string name)
 {
     const int variable = 1;
@@ -1659,6 +1696,7 @@ void ConsoleUI::updateComputerName(string name)
     }
 }
 
+//Where the user updates the build year.
 void ConsoleUI::updateComputerYear(string name)
 {
     const int variable = 2;
@@ -1698,6 +1736,7 @@ void ConsoleUI::updateComputerYear(string name)
     }
 }
 
+//Where the user updates the computer type.
 void ConsoleUI::updateComputerType(string name)
 {
     const int variable = 3;
@@ -1735,6 +1774,7 @@ void ConsoleUI::updateComputerType(string name)
     }
 }
 
+//Where the user updates whether the computer was built.
 void ConsoleUI::updateComputerBuilt(string name)
 {
     const int variable = 4;
@@ -1758,7 +1798,7 @@ void ConsoleUI::updateComputerBuilt(string name)
         cout << "Computer updated" << endl;
 }
 
-// Asks user to enter path to file. This WILL overwrite the default file.
+// Asks user to enter path to file and will add computers from it to the database.
 void ConsoleUI::addComputersFromFile()
 {
 
@@ -1810,7 +1850,7 @@ void ConsoleUI::addComputersFromFile()
     while (fileOpen);
 }
 
-
+//will save the list of computers to a file.
 void ConsoleUI::saveComputersToFile()
 {
     bool fileOpen = false;
@@ -1868,7 +1908,7 @@ void ConsoleUI::printComputerLine()
 
 
 
-
+//The menu for assosciations.
 void ConsoleUI::associations()
 {
     bool run = true;
@@ -1938,6 +1978,7 @@ void ConsoleUI::associations()
     }
 }
 
+//lets the user choose how to sort his associations.
 void ConsoleUI::listAssociationData()
 {
     bool error = false;
@@ -1979,6 +2020,8 @@ void ConsoleUI::listAssociationData()
     while (error);
 }
 
+//Lets the user choose between ascending or descending order
+//and prints the associations with a header and a count.
 void ConsoleUI::ascOrDescAssoc(int orderBy)
 {
     char input = '0';
@@ -2011,11 +2054,12 @@ void ConsoleUI::ascOrDescAssoc(int orderBy)
         {
             cout << serve.listAssociations()[i];
         }
-        cout << serve.listAssociations().size() << "Associations." << endl;
+        cout << endl << serve.listAssociations().size() << " Associations." << endl;
         cout << "______________________________________________________________________________________________________________________" << endl;
     }
 }
 
+//the user may choose how to search in the associations.
 void ConsoleUI::searchAssociation()
 {
     bool error = false;
@@ -2084,6 +2128,7 @@ void ConsoleUI::searchAssociation()
     while (error);
 }
 
+//search by scientist name. Shows the number of results.
 void ConsoleUI::searchAssocBySciName()
 {
     string n = " ";
@@ -2103,10 +2148,12 @@ void ConsoleUI::searchAssocBySciName()
         {
             cout << serve.listAssociations()[vASN[i]];
         }
+        cout << endl << serve.listAssociations().size() << " Associations found." << endl;
         cout << "______________________________________________________________________________________________________________________" << endl;
     }
 }
 
+//search by computer name. Shows the number of results.
 void ConsoleUI::searchAssocByCompName()
 {
     string n = " ";
@@ -2126,10 +2173,12 @@ void ConsoleUI::searchAssocByCompName()
         {
             cout << serve.listAssociations()[vACN[i]];
         }
+        cout << endl << serve.listAssociations().size() << " Associations found." << endl;
         cout << "______________________________________________________________________________________________________________________" << endl;
     }
 }
 
+//searches the year. Shows the number of results.
 void ConsoleUI::searchAssocByYear()
 {
     int y = 0;
@@ -2155,10 +2204,12 @@ void ConsoleUI::searchAssocByYear()
         {
             cout << serve.listAssociations()[vAY[i]];
         }
+        cout << endl << serve.listAssociations().size() << " Associations found." << endl;
         cout << "______________________________________________________________________________________________________________________" << endl;
     }
 }
 
+//seaches by a year range. Shows the number of results.
 void ConsoleUI::searchAssocByYearRange()
 {
     int f = 0, l = 0;
@@ -2194,10 +2245,12 @@ void ConsoleUI::searchAssocByYearRange()
         {
             cout << serve.listAssociations()[vAR[i]];
         }
+        cout << endl << serve.listAssociations().size() << " Associations found." << endl;
         cout << "______________________________________________________________________________________________________________________" << endl;
     }
 }
 
+//Searches by computer type. Shows the number of results.
 void ConsoleUI::searchAssocByCompType()
 {
     string t = " ";
@@ -2217,10 +2270,13 @@ void ConsoleUI::searchAssocByCompType()
         {
             cout << serve.listAssociations()[vACT[i]];
         }
+        cout << endl << serve.listAssociations().size() << " Associations found." << endl;
         cout << "______________________________________________________________________________________________________________________" << endl;
     }
 }
 
+//Lets the user add an association
+//by entering a valid scientist and a valid computer.s
 void ConsoleUI::addAssociation()
 {
     string sN = " ", cN = " ";
@@ -2230,60 +2286,79 @@ void ConsoleUI::addAssociation()
         cout << "Enter scientist name: ";
         cin >> ws;
         getline(cin, sN);
-        if (serve.searchScientistByName(sN).size() == 0)
+        if (sN == "Q" || sN == "q")
+        {
+            break;
+        }
+        else if (serve.searchScientistByName(sN).size() == 0)
         {
             cout << "Scientist not found!\n";
         }
         else error = false;
     }
-    error = true;
-    while (error)
+
+    if (sN != "Q" && sN != "q")
     {
-        cout << "Enter computer name: ";
-        cin >> ws;
-        getline(cin, cN);
-        if (serve.searchComputerByName(cN).size() == 0)
+        error = true;
+        while (error)
         {
-            cout << "Computer not found!\n";
-        }
-        else error = false;
-    }
-    serve.sortScientists(1,1);
-    Persons s = serve.listScientists()[serve.searchScientistByName(sN)[0]];
-    serve.sortComputers(1,1);
-    Computer c = serve.listComputers()[serve.searchComputerByName(cN)[0]];
-    error = true;
-    while (error)
-    {
-        cout << "Are you sure you want to associate " << s.getName() << " and " << c.getComputerName() << "? (Y/N)" << endl;
-        char choice = ' ';
-        cin >> choice;
-        onlyTakeOneInput();
-        if (choice == 'y' || choice == 'Y')
-        {
-            Association a(s, c);
-            if (serve.addAssociation(a))
+            cout << "Enter computer name: ";
+            cin >> ws;
+            getline(cin, cN);
+            if (cN == "Q" || cN == "q")
             {
-                cout << "Association added" << endl;
+                break;
             }
-            else
+            else if (serve.searchComputerByName(cN).size() == 0)
             {
-                cout << "Association already on list!" << endl;
+                cout << "Computer not found!\n";
             }
-            error = false;
+            else error = false;
         }
-        else if (choice == 'n' || choice == 'N')
+
+        if (cN != "Q" && cN != "q")
         {
-            cout << "Association cancelled" << endl;
-            error = false;
-        }
-        else
-        {
-            cout << "Invalid input!" << endl;
+            serve.sortScientists(1,1);
+            Persons s = serve.listScientists()[serve.searchScientistByName(sN)[0]];
+            serve.sortComputers(1,1);
+            Computer c = serve.listComputers()[serve.searchComputerByName(cN)[0]];
+            error = true;
+            while (error)
+            {
+                cout << "Are you sure you want to associate " << s.getName() << " and " << c.getComputerName() << "? (Y/N)" << endl;
+                char choice = ' ';
+                cin >> choice;
+                onlyTakeOneInput();
+                if (choice == 'y' || choice == 'Y')
+                {
+                    Association a(s, c);
+                    if (serve.addAssociation(a))
+                    {
+                        cout << "Association added" << endl;
+                    }
+                    else
+                    {
+                        cout << "Association already on list!" << endl;
+                    }
+                    error = false;
+                }
+                else if (choice == 'n' || choice == 'N')
+                {
+                    cout << "Association cancelled" << endl;
+                    error = false;
+                }
+                else
+                {
+                    cout << "Invalid input!" << endl;
+                }
+            }
         }
     }
 }
 
+//deletes an association by entering a valid
+//scientist and computer. If there is an association
+//between the two, it will be deleted.
 void ConsoleUI::deleteAssociation()
 {
     string sN = " ", cN = " ";
@@ -2358,6 +2433,8 @@ void ConsoleUI::deleteAssociation()
     }
 }
 
+//Saves the associations to a file.
+//it WILL overwrite said file. If it exists.
 void ConsoleUI::saveAssocToFile()
 {
     bool fileOpen = false;
@@ -2404,6 +2481,7 @@ void ConsoleUI::saveAssocToFile()
     while (fileOpen);
 }
 
+//The header for associations.
 void ConsoleUI::printAssocLine()
 {
     cout.width(26);
@@ -2415,18 +2493,19 @@ void ConsoleUI::printAssocLine()
     cout << "______________________________________________________________________________________________________________________" << endl;
 }
 
+//clears the screen.
 void ConsoleUI:: clearScreen()
 {
-#ifdef __cplusplus__
-  #include <cstdlib>
-#else
-  #include <stdlib.h>
-#endif
+    #ifdef __cplusplus__
+      #include <cstdlib>
+    #else
+      #include <stdlib.h>
+    #endif
 
-if (system("CLS")) system("clear");
+    if (system("CLS")) system("clear");
 }
 
-//If the user entered too many commands, the rest will just be flushed. Fun stuff.
+//If the user entered too many commands, the rest will just be flushed.
 void ConsoleUI::onlyTakeOneInput()
 {
     cin.clear();

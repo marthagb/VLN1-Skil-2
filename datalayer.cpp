@@ -1193,19 +1193,19 @@ void DataLayer::updateComputer(int variable, string value, string name)
 
     if (variable == 1)
     {
-        query.exec("UPDATE Computers SET ComputerName = '" + QString::fromStdString(value) + "' WHERE Name = '" + QString::fromStdString(name) + "'");
+        query.exec("UPDATE Computers SET ComputerName = '" + QString::fromStdString(value) + "' WHERE ComputerName = '" + QString::fromStdString(name) + "'");
     }
     else if (variable == 2)
     {
-        query.exec("UPDATE Computers SET YearMade = '" + QString::fromStdString(value) + "'WHERE Name = '" + QString::fromStdString(name) + "'");
+        query.exec("UPDATE Computers SET YearMade = '" + QString::fromStdString(value) + "'WHERE ComputerName = '" + QString::fromStdString(name) + "'");
     }
     else if (variable == 3)
     {
-        query.exec("UPDATE Computers SET Type = '" + QString::fromStdString(value) + "' WHERE Name = '" + QString::fromStdString(name) + "'");
+        query.exec("UPDATE Computers SET Type = '" + QString::fromStdString(value) + "' WHERE ComputerName = '" + QString::fromStdString(name) + "'");
     }
     else if (variable == 4)
     {
-        query.exec("UPDATE Computers SET BuiltOrNot = '" + QString::fromStdString(value) + "' WHERE Name = '" + QString::fromStdString(name) + "'");
+        query.exec("UPDATE Computers SET BuiltOrNot = '" + QString::fromStdString(value) + "' WHERE ComputerName = '" + QString::fromStdString(name) + "'");
     }
 
 

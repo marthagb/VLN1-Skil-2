@@ -6,12 +6,14 @@ using namespace std;
 
 const int MAX = 25;
 
+//Default Constructor
 validation::validation()
 {
 
 }
 
-bool validation::validName(const string& s)                                                     //komið í console
+//Checks for a valid name (no numbers allowed etc.)
+bool validation::validName(const string& s)
 {
     //Checks if 's' is empty or contains characters other than letters and spaces
     string::const_iterator it = s.begin();
@@ -25,8 +27,8 @@ bool validation::validName(const string& s)                                     
 
 
 //Errorchecks for whether certain years entered by the user are valid.
-//sadly, it can't be a 300 year old dude. No vampires.
-int validation::birthChecks(int birthYear, int deathYear)                                       //komið í console
+//Checks for a maximum age.
+int validation::birthChecks(int birthYear, int deathYear)
 {
     time_t t = time(NULL);
     tm* TimePtr = localtime(&t);
@@ -44,6 +46,7 @@ int validation::birthChecks(int birthYear, int deathYear)                       
     return 0;
 }
 
+//makes sure the Gender is either male or female.
 bool validation::genderCheck(char& gender)                                                       //komið í console
 {
     if (gender == 'm' || gender == 'M' || gender == 'f' || gender == 'F')
@@ -64,38 +67,10 @@ bool validation::genderCheck(char& gender)                                      
         return false;
     }
 }
-/*
-bool validation::errorCheckSaveToFile()
-{
 
-    cout << "Error! Failed to open file" << endl;
-    char continuel;
-    bool cont = true;
-    while (cont)
-    {
-        cout << "Do you want to try again? (Y for yes and N for no) " ;
-        cin  >> continuel;
-        if(continuel == 'Y' && continuel == 'y')
-        {
-            fileOpen = true;
-            cont = false;
-        }
-        else if (continuel == 'N' && continuel == 'n')
-        {
-            fileOpen = false;
-            cont = false;
-        }
-        else
-        {
-            cout << "Error! Invalid input" << endl;
-            cont = true;
-        }
-    }
-}*/
-
-//a function which checks whether a certain entered string is a year.
-//And whether it's a valid year (AKA not in the future).
-bool validation::validYear(const string& s, int& year)                                                  //komið í console
+//checks whether a certain entered string is a year
+//and whether it's a valid year (AKA not in the future).
+bool validation::validYear(const string& s, int& year)
 {
     string::const_iterator it = s.begin();
     //Checks if the string 's' is a number
@@ -116,17 +91,19 @@ bool validation::validYear(const string& s, int& year)                          
     return year >= 0 && year <= currentYear;
 }
 
-
+//Makes sure the computer name isn't too long.
 bool validation::validComputerName (const string& n)
 {
     return n.size() <= MAX;
 }
 
+//checks through the validName function whether the type is good, and that it's not too long.
 bool validation::validComputerType(const string& s)
 {
     return validName(s) && s.size() <= MAX;
 }
 
+//Makes sure the scientists name isn't too long.
 bool validation::maxLengthOfScientistName(const string& s)
 {
     return validName(s) && s.size() <= 50;
