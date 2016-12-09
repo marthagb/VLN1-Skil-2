@@ -66,7 +66,6 @@ void ConsoleUI::run()
     }
 }
 
-
 void ConsoleUI::scientists()
 {
     bool run = true;
@@ -496,7 +495,7 @@ void ConsoleUI::addScientistManually()
     }
     else
     {
-        while(!valid.validName(n))                                  //error checks name through validation layer
+        while(!valid.maxLengtOfScientistName(n))                                  //error checks name through validation layer
         {
             cout << "Wrong input for name!" << endl;
             cout << "Enter name: ";
