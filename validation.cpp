@@ -1,7 +1,5 @@
 #include "validation.h"
-
 #include <ctime>
-
 #include <cstdlib>
 
 using namespace std;
@@ -12,7 +10,6 @@ validation::validation()
 {
 
 }
-
 
 bool validation::validName(const string& s)                                                     //komið í console
 {
@@ -43,6 +40,7 @@ int validation::birthChecks(int birthYear, int deathYear)                       
     {
         return 2;
     }
+
     return 0;
 }
 
@@ -58,6 +56,7 @@ bool validation::genderCheck(char& gender)                                      
         {
             gender = 'F';
         }
+
         return true;
     }
     else
@@ -120,23 +119,10 @@ bool validation::validYear(const string& s, int& year)                          
 
 bool validation::validComputerName (const string& n)
 {
-    if(n.size() > MAX)
-    {
-        return false;
-    }
-    return true;
+    return n.size() <= MAX;
 }
 
 bool validation::validComputerType(const string& s)
 {
-    if(!validName(s))
-    {
-        return false;
-    }
-    else if (s.size() > MAX)
-    {
-        return false;
-    }
-
-    return true;
+    return validName(s) && s.size() <= MAX;
 }

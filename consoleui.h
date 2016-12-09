@@ -4,7 +4,6 @@
 #include "servicelayer.h"
 #include "validation.h"
 
-
 class ConsoleUI
 {
     validation valid;

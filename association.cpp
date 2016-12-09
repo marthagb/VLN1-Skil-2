@@ -59,6 +59,7 @@ ostream& operator << (ostream& out, const Association& a)
     out.width(16);
     out << left << a.getComputerName() << "\t" << a.getYearMade() << "\t";
     out.width(12);
+
     if (a.getBuiltOrNot())
     {
         out << "Built" << "\t";
@@ -68,5 +69,6 @@ ostream& operator << (ostream& out, const Association& a)
         out << "Not Built" << "\t";
     }
     out << a.getComputerType() << endl;
+
     return out;
 }

@@ -1,5 +1,6 @@
 #ifndef ASSOCIATION_H
 #define ASSOCIATION_H
+
 #include <string>
 #include "persons.h"
 #include "computer.h"
@@ -17,9 +18,11 @@ public:
     int getYearMade() const;
     bool getBuiltOrNot() const;
     string getComputerType() const;
+
     void operator = (const Association a);
     bool operator == (const Association a);
     bool operator != (const Association a);
+
     friend ostream& operator << (ostream& out, const Association& a);
 };
 
