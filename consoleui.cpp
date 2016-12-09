@@ -685,7 +685,7 @@ void ConsoleUI::updateScientist()
     }
     else
     {
-
+        printScientistLine();
         cout << serve.listScientists()[v[0]];
         cout << endl;
 
@@ -752,8 +752,6 @@ void ConsoleUI::updateScientistName(string name)
     int variable = 1;
     string value = " ";
 
-    cout << "Enter full name of the scientist you want to update: ";
-    cin >> name;
     cout << endl;
     cout << "Enter the new name for this scientist: ";
     cin >> value;
