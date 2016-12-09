@@ -946,3 +946,91 @@ vector<Association> DataLayer::getAssociationVector()
 {
     return associations;
 }
+
+bool DataLayer::saveScientistsToFile(string input)
+{
+   ofstream out;
+   out.open(input);
+
+   if(out.fail())
+   {
+               return false;
+   }
+    else
+   {
+       out.width(26);
+       out << left << "Name";
+       out << "\tGender\tBorn\tDied" << endl;
+       out << "_____________________________________________________" << endl;
+
+       out.seekp(100);
+       for(size_t i = 0; i < getScientistVector().size(); i++)
+       {
+
+       out << getScientistVector()[i];
+
+       }
+
+    }
+           out.close();
+           return true;
+}
+
+bool DataLayer::saveComputersToFile(string input)
+{
+   ofstream out;
+   out.open(input);
+
+   if(out.fail())
+   {
+         return false;
+   }
+    else
+   {
+       out.width(20);
+       out << left << "Name";
+       out << "\tYear\tComputer type\t\tBuilt?" << endl;
+       out << "______________________________________________________________________" << endl;
+
+       out.seekp(100);
+       out << endl;
+       for(size_t i = 0; i < getComputerVector().size(); i++)
+       {
+            out << getComputerVector()[i];
+       }
+
+    }
+           out.close();
+           return true;
+}
+
+
+bool DataLayer::saveAssociationsToFile(string input)
+{
+    ofstream out;
+    out.open(input);
+
+    if(out.fail())
+    {
+          return false;
+    }
+     else
+    {
+        out.width(26);
+        out << left << "Scientist\t";
+        out.width(20);
+        out << left << "Computer\tYear Made\tBuilt?\tComputer Type" << endl;
+        out << "______________________________________________________________________" << endl;
+
+        out.seekp(100);
+        out << endl;
+        for(size_t i = 0; i < getAssociationVector().size(); i++)
+        {
+             out << getAssociationVector()[i];
+        }
+
+     }
+            out.close();
+            return true;
+}
+

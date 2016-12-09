@@ -27,6 +27,7 @@ public:
    void readScientists(int orderBy, int ascOrDesc);
    void readComputers(int orderBy, int ascOrDesc);
    void readAssociations(int orderBy, int ascOrDesc);
+
    vector<int> searchScientistByName(const string n);
    vector<int> searchScientistByGender(const char g);
    vector<int> searchScientistByBirthYear(const int year);
@@ -40,17 +41,23 @@ public:
    vector<int> searchAssocByYear(const int year);
    vector<int> searchAssocByYearRange(const int f, const int l);
    vector<int> searchAssocByCompType(const string type);
+
    void addScientist(const Persons& p);
    void addComputer(const Computer& c);
    void addAssociation(const Association& a);
    bool addScientistsFromFile(string input);
    bool addComputersFromFile(string input);
+
    void deleteScientist(string n);
    void deleteComputer(string n);
    void deleteAssociation(string sN, string cN);
+
    vector<Persons> getScientistVector();
    vector<Computer> getComputerVector();
    vector<Association> getAssociationVector();
+   bool saveScientistsToFile(string input);
+   bool saveComputersToFile(string input);
+   bool saveAssociationsToFile(string input);
 };
 
 #endif // DATALAYER_H
