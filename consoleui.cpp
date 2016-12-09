@@ -474,7 +474,7 @@ void ConsoleUI::addScientistManually()
     string n = " ", year = " ";
     char g = ' ';
     int bY = 0, dY = 0;
-    cout << "Type q and enter to cancel at anytime\n" << endl;
+    cout << "Type q and enter to cancel at any time" << endl;
     cout << "Enter name: ";                                     //Adds the name of a person
     cin >> ws;    
 
@@ -562,7 +562,7 @@ void ConsoleUI::addScientistManually()
                     }
                     if (valid.validYear(year, dY))
                     {
-                        if(valid.birthChecks(bY, dY) == 1)                                          //error checks in validatioin for correct year input
+                        if(valid.birthChecks(bY, dY) == 1)                                          //error checks in validation for correct year input
                         {
 
                             cout << "The scientist cannot die before they are born!" << endl;
@@ -573,14 +573,9 @@ void ConsoleUI::addScientistManually()
                             cout << "That is too old, the oldest woman was 122 years old!" << endl;
                             check();
                         }
-                        else if (valid.birthChecks(bY,dY) == 3)
-                        {
-                            cout << "That is too old, the oldest woman was 122 years old!" << endl;
-                            check();
-                        }
                         else
                         {
-                            Persons p(n, g, bY, dY);                                                //adds new scientist to datab
+                            Persons p(n, g, bY, dY);                                                //adds new scientist to database, if it is not already there
                             int a = 0;
                             for (unsigned int i = 0; i < serve.listScientists().size(); i++)
                             {

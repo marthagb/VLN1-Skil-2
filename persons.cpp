@@ -132,7 +132,7 @@ istream& operator >> (istream& in, Persons& p)
             {
                 if (p.valid.validYear(b, bY)) //checks for a valid birth year.
                 {
-                    if ((d == "Alive" || d == "alive") && p.valid.birthChecks(bY, dY)) //checks whether the person is alive, and whether his age is consistent with human age.
+                    if ((d == "Alive" || d == "alive") && p.valid.birthChecks(bY, dY) == 0) //checks whether the person is alive, and whether his age is consistent with human age.
                     {
                         p.name = n;
                         p.gender = g;
@@ -140,7 +140,7 @@ istream& operator >> (istream& in, Persons& p)
                         p.alive = true;
                         p.deathYear = 0;
                     }
-                    else if(p.valid.validYear(d, dY) && p.valid.birthChecks(bY, dY)) //Checks whether the death year is valid, and whether it's consistent with the birth year.
+                    else if(p.valid.validYear(d, dY) && p.valid.birthChecks(bY, dY) == 0) //Checks whether the death year is valid, and whether it's consistent with the birth year.
                     {
                         p.name = n;
                         p.gender = g;
