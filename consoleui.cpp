@@ -23,15 +23,17 @@ void ConsoleUI::run()
         cout << " ================================" << endl;
         cout << " Press 1 for scientists"           << endl;
         cout << " Press 2 for computers"            << endl;
-        cout << " Press 3 for associations"                 << endl;
+        cout << " Press 3 for associations"         << endl;
         cout << " Press 4 for exit"                 << endl;
         cout << " ================================" << endl;
 
         string input = " ";
         int choice;
         cin >> input;
+        clearScreen();
         stringstream convert(input);
         convert >> choice;
+
         onlyTakeOneInput();
 
             switch (choice)
@@ -86,6 +88,7 @@ void ConsoleUI::scientists()
        string input = " ";
        int choice;
        cin >> input;
+       clearScreen();
        stringstream convert(input);
        convert >> choice;
        onlyTakeOneInput();
@@ -162,6 +165,7 @@ void ConsoleUI::listScientistData()
         cin >> input;
         stringstream convert(input);
         convert >> choice;
+        clearScreen();
         onlyTakeOneInput();
 
         if (choice >= 1 && choice <= 4)
@@ -198,6 +202,7 @@ void ConsoleUI::ascOrDescScientists(int orderBy)
         cout << " ================================" << endl;
 
         cin >> input;
+        clearScreen();
         onlyTakeOneInput();
         if (input != '1' && input != '2' && input != '3')
         {
@@ -240,6 +245,7 @@ void ConsoleUI::searchScientist()
         string input = " ";
         int choice;
         cin >> input;
+        clearScreen();
         stringstream convert(input);
         convert >> choice;
         onlyTakeOneInput();
@@ -445,6 +451,7 @@ void ConsoleUI::addScientist()
         string input = " ";
         int choice;
         cin >> input;
+        clearScreen();
         stringstream convert(input);
         convert >> choice;
         onlyTakeOneInput();
@@ -719,6 +726,7 @@ void ConsoleUI::updateScientist()
                 string input = " ";
                 int choice;
                 cin >> input;
+               clearScreen();
                 stringstream convert(input);
                 convert >> choice;
                 onlyTakeOneInput();
@@ -1065,6 +1073,7 @@ void ConsoleUI::computers()
         string input = " ";
         int choice;
         cin >> input;
+        clearScreen();
         stringstream convert(input);
         convert >> choice;
         onlyTakeOneInput();
@@ -1139,6 +1148,7 @@ void ConsoleUI::listComputerData()
         string input = " ";
         int choice;
         cin >> input;
+        clearScreen();
         stringstream convert(input);
         convert >> choice;
         onlyTakeOneInput();
@@ -1177,6 +1187,7 @@ void ConsoleUI::ascOrDescComputers(int orderBy)
         cout << " ================================" << endl;
 
         cin >> input;
+        clearScreen();
         onlyTakeOneInput();
         if (input != '1' && input != '2' && input != '3')
         {
@@ -1218,6 +1229,7 @@ void ConsoleUI::searchComputer()
         string input = " ";
         int choice;
         cin >> input;
+        clearScreen();
         stringstream convert(input);
         convert >> choice;
         onlyTakeOneInput();
@@ -1399,6 +1411,7 @@ void ConsoleUI::addComputers()
         string input = " ";
         int choice;
         cin >> input;
+        clearScreen();
         stringstream convert(input);
         convert >> choice;
         onlyTakeOneInput();
@@ -1669,6 +1682,7 @@ void ConsoleUI::updateComputer()
             string input = " ";
             int choice;
             cin >> input;
+            clearScreen();
             stringstream convert(input);
             convert >> choice;
             onlyTakeOneInput();
@@ -2018,6 +2032,7 @@ void ConsoleUI::associations()
         string input = " ";
         int choice;
         cin >> input;
+        clearScreen();
         stringstream convert(input);
         convert >> choice;
         onlyTakeOneInput();
@@ -2088,6 +2103,7 @@ void ConsoleUI::listAssociationData()
         string input = " ";
         int choice;
         cin >> input;
+        clearScreen();
         stringstream convert(input);
         convert >> choice;
         onlyTakeOneInput();
@@ -2126,6 +2142,7 @@ void ConsoleUI::ascOrDescAssoc(int orderBy)
         cout << " ================================" << endl;
 
         cin >> input;
+        clearScreen();
         onlyTakeOneInput();
         if (input != '1' && input != '2' && input != '3')
         {
@@ -2168,6 +2185,7 @@ void ConsoleUI::searchAssociation()
         string input = " ";
         int choice;
         cin >> input;
+        clearScreen();
         stringstream convert(input);
         convert >> choice;
         onlyTakeOneInput();
