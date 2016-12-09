@@ -37,13 +37,9 @@ int validation::birthChecks(int birthYear, int deathYear)                       
     {
         return 1;
     }
-    if((deathYear - birthYear) > 122)
+    if((deathYear - birthYear) > 122 || ((currentYear - birthYear) > 122 && deathYear == 0))
     {
         return 2;
-    }
-    if ((currentYear - birthYear) > 122 && deathYear == 0)
-    {
-        return 3;
     }
     return 0;
 }
