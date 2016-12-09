@@ -125,3 +125,18 @@ bool validation::validComputerName (const string& n)
     }
     return true;
 }
+
+bool validation::validComputerType(const string& s)
+{
+    int max = 25;
+    if(!validName(s))
+    {
+        return false;
+    }
+    else if (s.size() > max)
+    {
+        return false;
+    }
+
+    return true;
+}

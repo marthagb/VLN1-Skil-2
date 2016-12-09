@@ -16,7 +16,7 @@ public:
     bool errorCheckSaveToFile();
     bool validYear(const string& s, int& year);
     bool validComputerName (const string& n);
-
+    bool validComputerType(const string& s);
 };
 
 

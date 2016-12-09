@@ -1192,6 +1192,22 @@ void ConsoleUI::addComputerManually()
                     }
                     else
                     {
+                        while (!valid.validComputerType(t))
+                        {
+                            cout << "Invalid input!" << endl;
+                            cout << "Enter type: ";
+                            cin >> ws;
+                            getline(cin , t);
+                            if(t == "q" || t == "Q")
+                            {
+                                cout << "Adding new computer cancelled" << endl;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (valid.validName(t))
+                    {
                         cout << "Enter B if the computer was built and any other character (except for Q) if it wasn't: ";
                         cin >> built;
                         if(built == "q" || built == "Q")
