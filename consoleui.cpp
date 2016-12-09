@@ -751,42 +751,123 @@ void ConsoleUI::updateScientist()
 void ConsoleUI::updateValue(int field, string name)
 {
     string value = " ";
+    bool run = true;
 
     if(field == 1)
     {
-        cout << endl;
-        cout << "Enter the new name for this scientist: ";
-        cin >> value;
-        cout << "Scientist updated" << endl;
+        while (run)
+        {
+            cout << endl;
+            cout << "Enter the new name for this scientist: ";
+            cin >> ws;
+            getline(cin, value);
 
-        serve.updateScientist(field, value, name);
+            if (valid.validName(value))
+            {
+                serve.updateScientist(field, value, name);
+                cout << "Scientist updated" << endl;
+                run = false;
+            }
+            else
+            {
+                cout << "Invalid input!" << endl;
+                cout << "Try again? (Y/N)";
+                char input;
+                cin >> input;
+                onlyTakeOneInput();
+                if (input != 'Y' && input != 'y')
+                {
+                    run = false;
+                }
+            }
+        }
     }
     else if(field == 2)
     {
-        cout << endl;
-        cout << "Enter the new gender for this scientist: ";
-        cin >> value;
-        cout << "Scientist updated" << endl;
+        while (run)
+        {
+            char input = ' ';
+            cout << endl;
+            cout << "Enter the new gender for this scientist: ";
+            cin >> input;
+            onlyTakeOneInput();
 
-        serve.updateScientist(field, value, name);
+            if (valid.genderCheck(input))
+            {
+                value = input;
+                serve.updateScientist(field, value, name);
+                cout << "Scientist updated" << endl;
+            }
+            else
+            {
+                cout << "Invalid input!" << endl;
+                cout << "Try again? (Y/N)";
+                cin >> input;
+                onlyTakeOneInput();
+                if (input != 'Y' && input != 'y')
+                {
+                    run = false;
+                }
+            }
+        }
     }
     else if (field == 3)
     {
-        cout << endl;
-        cout << "Enter the new birth year for this scientist: ";
-        cin >> value;
-        cout << "Scientist updated" << endl;
+        while (run)
+        {
+            int year = 0;
+            cout << endl;
+            cout << "Enter the new birth year for this scientist: ";
+            cin >> value;
+            onlyTakeOneInput();
 
-        serve.updateScientist(field, value, name);
+            if (valid.validYear(value, year))
+            {
+                serve.updateScientist(field, value, name);
+                cout << "Scientist updated" << endl;
+            }
+            else
+            {
+                cout << "Invalid input!" << endl;
+                cout << "Try again? (Y/N)";
+                char input;
+                cin >> input;
+                onlyTakeOneInput();
+                if (input != 'Y' && input != 'y')
+                {
+                    run = false;
+                }
+            }
+        }
     }
     else if (field == 4)
     {
-        cout << endl;
-        cout << "Enter the new death year for this scientist: ";
-        cin >> value;
-        cout << "Scientist updated" << endl;
+        while (run)
+        {
+            int year = 0;
+            cout << endl;
+            cout << "Enter the new death year for this scientist: ";
+            cin >> value;
+            onlyTakeOneInput();
 
-        serve.updateScientist(field, value, name);
+            if (valid.validYear(value, year))
+            {
+                serve.updateScientist(field, value, name);
+                cout << "Scientist updated" << endl;
+            }
+            else
+            {
+                cout << "Invalid input!" << endl;
+                cout << "Try again? (Y/N)";
+                char input;
+                cin >> input;
+                onlyTakeOneInput();
+                if (input != 'Y' && input != 'y')
+                {
+                    run = false;
+                }
+            }
+        }
     }
 
 }
@@ -1484,9 +1565,9 @@ void ConsoleUI::updateComputer()
         cout << " What field would you like to update?" << endl;
         cout << " ====================================" << endl;
         cout << " Press 1 to update name"               << endl;
-        cout << " Press 2 to update year made"             << endl;
-        cout << " Press 3 to update type"         << endl;
-        cout << " Press 4 to update built status"         << endl;
+        cout << " Press 2 to update year made"          << endl;
+        cout << " Press 3 to update type"               << endl;
+        cout << " Press 4 to update built status"       << endl;
         cout << " Press 5 to cancel"                    << endl;
         cout << " ====================================" << endl;
 
