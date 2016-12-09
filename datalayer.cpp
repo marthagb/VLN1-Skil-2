@@ -310,7 +310,10 @@ void DataLayer::readAssociations(int orderBy, int ascOrDesc)
 
 bool DataLayer::addScientist(const Persons& p)
 {
-    //if (scientists.size() == 0)
+    if (scientists.size() == 0)
+    {
+        readScientists(1,1);
+    }
     for (unsigned int i = 0; i < scientists.size(); i++)
     {
         if (scientists[i] == p)
@@ -348,6 +351,10 @@ bool DataLayer::addScientist(const Persons& p)
 
 bool DataLayer::addComputer(const Computer& c)
 {
+    if (computers.size() == 0)
+    {
+        readComputers(1,1);
+    }
     for (unsigned int i = 0; i < computers.size(); i++)
     {
         if (computers[i] == c)
@@ -383,6 +390,10 @@ bool DataLayer::addComputer(const Computer& c)
 
 bool DataLayer::addAssociation(const Association& a)
 {
+    if (associations.size() == 0)
+    {
+        readAssociations(1,1);
+    }
     for (unsigned int i = 0; i < associations.size(); i++)
     {
         if (associations[i] == a)
@@ -1020,6 +1031,7 @@ bool DataLayer::saveComputersToFile(string input)
     {
         readComputers(1,1);
     }
+
    ofstream out;
    out.open(input);
 
@@ -1063,6 +1075,7 @@ bool DataLayer::saveAssociationsToFile(string input)
     {
         readAssociations(1,1);
     }
+
     ofstream out;
     out.open(input);
 
