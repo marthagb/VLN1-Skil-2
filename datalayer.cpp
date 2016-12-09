@@ -760,7 +760,7 @@ bool DataLayer::saveComputersToFile(string input)
        out << left << "Name";
        out << "\tYear\t";
        out.width(30);
-       out << "Computer type\t" << "Built?" << endl;
+       out << "Computer Type\t" << "Built?" << endl;
        out << "___________________________________________________________________________________" << endl;
        out << endl;
        for(size_t i = 0; i < computers.size(); i++)

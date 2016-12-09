@@ -2010,9 +2010,11 @@ void ConsoleUI::saveComputersToFile()
 //The header used when we list computers.
 void ConsoleUI::printComputerLine()
 {
-    cout.width(23);
+    cout.width(26);
     cout << left << "Name";
-    cout << "Year Made\tComputer Type\t\t\tBuilt?" << endl;
+    cout << "\tYear\t\t";
+    cout.width(30);
+    cout << "Computer Type\t" << "Built?" << endl;
     cout << "___________________________________________________________________________________" << endl;
 }
 
