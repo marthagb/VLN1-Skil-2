@@ -766,27 +766,37 @@ void ConsoleUI::updateValue(int field, string name)
         while (run)
         {
             cout << endl;
+            cout << "Type q or Q and press enter to cancel update!" << endl;
             cout << "Enter the new name for this scientist: ";
             cin >> ws;
             getline(cin, value);
 
-            if (valid.validName(value))
+            if(value == "q" || value == "Q")
             {
-                serve.updateScientist(field, value, name);
-                cout << "Scientist updated" << endl;
+                cout << "Update cancelled!" << endl << endl;
                 run = false;
             }
             else
             {
-                cout << "Invalid input!" << endl;
-                cout << "Try again? (Y/N)";
-                char input;
-                cin >> input;
-                onlyTakeOneInput();
-                if (input != 'Y' && input != 'y')
+                if (valid.validName(value))
                 {
+                    serve.updateScientist(field, value, name);
+                    cout << "Scientist updated!" << endl;
                     run = false;
                 }
+                else
+                {
+                    cout << "Invalid input!" << endl;
+                    cout << "Try again? (Y/N)";
+                    char input;
+                    cin >> input;
+                    onlyTakeOneInput();
+                    if (input != 'Y' && input != 'y')
+                    {
+                        run = false;
+                    }
+                }
+
             }
         }
     }
@@ -796,28 +806,38 @@ void ConsoleUI::updateValue(int field, string name)
         {
             char input = ' ';
             cout << endl;
+            cout << "Type q or Q and press enter to cancel update!" << endl;
             cout << "Enter the new gender for this scientist: ";
             cin >> input;
             onlyTakeOneInput();
 
-            if (valid.genderCheck(input))
+            if(input == 'q' || input == 'Q')
             {
-                value = input;
-                serve.updateScientist(field, value, name);
-                cout << "Scientist updated" << endl;
+                cout << "Update cancelled!" << endl << endl;
                 run = false;
             }
             else
             {
-                cout << "Invalid input!" << endl;
-                cout << "Try again? (Y/N)";
-                cin >> input;
-                onlyTakeOneInput();
-                if (input != 'Y' && input != 'y')
+                if (valid.genderCheck(input))
                 {
+                    value = input;
+                    serve.updateScientist(field, value, name);
+                    cout << "Scientist updated" << endl;
                     run = false;
                 }
+                else
+                {
+                    cout << "Invalid input!" << endl;
+                    cout << "Try again? (Y/N)";
+                    cin >> input;
+                    onlyTakeOneInput();
+                    if (input != 'Y' && input != 'y')
+                    {
+                        run = false;
+                    }
+                }
             }
+
         }
     }
     else if (field == 3)
@@ -826,28 +846,38 @@ void ConsoleUI::updateValue(int field, string name)
         {
             int year = 0;
             cout << endl;
+            cout << "Type q or Q and press enter to cancel update!" << endl;
             cout << "Enter the new birth year for this scientist: ";
             cin >> value;
             onlyTakeOneInput();
 
-            if (valid.validYear(value, year))
+            if(value == "q" || value == "Q")
             {
-                serve.updateScientist(field, value, name);
-                cout << "Scientist updated" << endl;
+                cout << "Update cancelled!" << endl << endl;
                 run = false;
             }
             else
             {
-                cout << "Invalid input!" << endl;
-                cout << "Try again? (Y/N)";
-                char input;
-                cin >> input;
-                onlyTakeOneInput();
-                if (input != 'Y' && input != 'y')
+                if (valid.validYear(value, year))
                 {
+                    serve.updateScientist(field, value, name);
+                    cout << "Scientist updated" << endl;
                     run = false;
                 }
+                else
+                {
+                    cout << "Invalid input!" << endl;
+                    cout << "Try again? (Y/N)";
+                    char input;
+                    cin >> input;
+                    onlyTakeOneInput();
+                    if (input != 'Y' && input != 'y')
+                    {
+                        run = false;
+                    }
+                }
             }
+
         }
     }
     else if (field == 4)
@@ -856,28 +886,38 @@ void ConsoleUI::updateValue(int field, string name)
         {
             int year = 0;
             cout << endl;
+            cout << "Type q or Q and press enter to cancel update!" << endl;
             cout << "Enter the new death year for this scientist: ";
             cin >> value;
             onlyTakeOneInput();
 
-            if (valid.validYear(value, year))
+            if(value == "q" || value == "Q")
             {
-                serve.updateScientist(field, value, name);
-                cout << "Scientist updated" << endl;
+                cout << "Update cancelled!" << endl << endl;
                 run = false;
             }
             else
             {
-                cout << "Invalid input!" << endl;
-                cout << "Try again? (Y/N)";
-                char input;
-                cin >> input;
-                onlyTakeOneInput();
-                if (input != 'Y' && input != 'y')
+                if (valid.validYear(value, year))
                 {
+                    serve.updateScientist(field, value, name);
+                    cout << "Scientist updated" << endl;
                     run = false;
                 }
+                else
+                {
+                    cout << "Invalid input!" << endl;
+                    cout << "Try again? (Y/N)";
+                    char input;
+                    cin >> input;
+                    onlyTakeOneInput();
+                    if (input != 'Y' && input != 'y')
+                    {
+                        run = false;
+                    }
+                }
             }
+
         }
     }
 
