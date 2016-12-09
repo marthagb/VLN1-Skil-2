@@ -1146,7 +1146,7 @@ void ConsoleUI::addComputerManually()
     }
     else
     {
-        while(!valid.validName(n))                           //error checks name through validation layer
+        while(!valid.validComputerName(n))                           //error checks name through validation layer
         {
             cout << "Wrong input for name!" << endl;
             cout << "Enter name: ";
@@ -1158,7 +1158,7 @@ void ConsoleUI::addComputerManually()
                 break;
             }
         }
-        if (valid.validName(n))
+        if (valid.validComputerName(n))
         {
             cout << "Enter build year: ";
             cin >> y;

@@ -116,3 +116,12 @@ bool validation::validYear(const string& s, int& year)                          
 }
 
 
+bool validation::validComputerName (const string& n)
+{
+    int max = 25;
+    if(n.size() > max)
+    {
+        return false;
+    }
+    return true;
+}
