@@ -1438,10 +1438,6 @@ void ConsoleUI::deleteComputer()
 
 void ConsoleUI::updateComputer()
 {
-    /*cout << "Here you can update individual scientist" << endl;
-    searchScientistByName();
-    cout << endl;
-*/
     cout << "Enter name of computer you would like to update: ";
     string n = " ";
     cin >> ws;
@@ -1458,7 +1454,7 @@ void ConsoleUI::updateComputer()
             cout << serve.listComputers()[v[i]];
         }
         cout << endl;
-        cout << "To many results, please narrow your search!" << endl;
+        cout << "Too many results, please narrow your search!" << endl;
         updateComputer();
     }
     else if (s < 1)
