@@ -22,6 +22,9 @@ class ConsoleUI
     void deleteScientist();
     void updateScientist();
     void updateScientistName(string name);
+    void updateScientistGender(string name);
+    void updateScientistBirthYear(string name);
+    void updateScientistDeathYear(string name);
     void saveScientistsToFile();
     void printScientistLine();
     bool quitAddingPerson(string n);

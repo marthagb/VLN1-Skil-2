@@ -718,17 +718,17 @@ void ConsoleUI::updateScientist()
                 }
                 case 2:
                 {
-                    //updateScientistGender();
+                    updateScientistGender(serve.listScientists()[v[0]].getName());
                     break;
                 }
                 case 3:
                 {
-                    //updateScientistBirthYear();
+                    updateScientistBirthYear(serve.listScientists()[v[0]].getName());
                     break;
                 }
                 case 4:
                 {
-                    //updateScientistDeathYear();
+                    updateScientistDeathYear(serve.listScientists()[v[0]].getName());
                     break;
                 }
                 case 5:
@@ -749,7 +749,6 @@ void ConsoleUI::updateScientist()
 
 void ConsoleUI::updateScientistName(string name)
 {
-    int variable = 1;
     string value = " ";
 
     cout << endl;
@@ -757,7 +756,45 @@ void ConsoleUI::updateScientistName(string name)
     cin >> value;
     cout << "Scientist updated" << endl;
 
-    serve.updateScientist(variable, value, name);
+    serve.updateScientist(1, value, name);
+}
+
+void ConsoleUI::updateScientistGender(string name)
+{
+    string value = " ";
+
+    cout << endl;
+    cout << "Enter the new gender for this scientist: ";
+    cin >> value;
+    cout << "Scientist updated" << endl;
+
+    serve.updateScientist(2, value, name);
+}
+
+void ConsoleUI::updateScientistBirthYear(string name)
+{
+    string value = " ";
+
+    cout << endl;
+    cout << "Enter the new birth year for this scientist: ";
+    cin >> value;
+    cout << "Scientist updated" << endl;
+
+    serve.updateScientist(3, value, name);
+
+}
+
+void ConsoleUI::updateScientistDeathYear(string name)
+{
+    string value = " ";
+
+    cout << endl;
+    cout << "Enter the new death year for this scientist: ";
+    cin >> value;
+    cout << "Scientist updated" << endl;
+
+    serve.updateScientist(4, value, name);
+
 }
 
 
