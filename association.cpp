@@ -42,6 +42,9 @@ void Association::operator = (const Association a)
     computer = a.computer;
 }
 
+//Overloads the == and != operators.
+//Two associations are equal if and only if their scientists are equal
+//and their computers are equal.
 bool Association::operator == (const Association a)
 {
     return scientist == a.scientist && computer == a.computer;
@@ -52,6 +55,9 @@ bool Association::operator != (const Association a)
     return scientist != a.scientist || computer != a.computer;
 }
 
+//Overloads the << (output) operator
+//Writes the scientist's name, the name of the computer,
+//the year the computer was made and whether it was built or not
 ostream& operator << (ostream& out, const Association& a)
 {
     out.width(26);
