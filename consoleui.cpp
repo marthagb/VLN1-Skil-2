@@ -36,33 +36,33 @@ void ConsoleUI::run()
 
         onlyTakeOneInput();
 
-            switch (choice)
-            {
-                case 1:
-                {
-                    scientists();
-                    break;
-                }
-                case 2:
-                {
-                    computers();
-                    break;
-                }
-                case 3:
-                {
-                    associations();
-                    break;
-                }
-                case 4:
-                {
-                    run = false;
-                    break;
-                }
-                default:
-                {
-                    cout << "Error! Invalid input" << endl;
-                }
-            }
+        switch (choice)
+        {
+        case 1:
+        {
+            scientists();
+            break;
+        }
+        case 2:
+        {
+            computers();
+            break;
+        }
+        case 3:
+        {
+            associations();
+            break;
+        }
+        case 4:
+        {
+            run = false;
+            break;
+        }
+        default:
+        {
+            cout << "Error! Invalid input" << endl;
+        }
+        }
     }
 }
 
@@ -73,72 +73,72 @@ void ConsoleUI::scientists()
 
     while (run)
     {
-       cout << " ================================"  << endl;
-       cout << " Press 1 to list the scientists"    << endl;
-       cout << " Press 2 to search scientists"      << endl;
-       cout << " Press 3 to add a scientist"        << endl;
-       cout << " Press 4 to remove a scientist"     << endl;
-       cout << " Press 5 to update a scientist"     << endl;
-       cout << " Press 6 to save to a custom file"  << endl;
-       cout << " Press 7 to go back to main menu"   << endl;
-       cout << " Press 8 to quit"                   << endl;
-       cout << " ================================"  << endl;
+        cout << " ================================"  << endl;
+        cout << " Press 1 to list the scientists"    << endl;
+        cout << " Press 2 to search scientists"      << endl;
+        cout << " Press 3 to add a scientist"        << endl;
+        cout << " Press 4 to remove a scientist"     << endl;
+        cout << " Press 5 to update a scientist"     << endl;
+        cout << " Press 6 to save to a custom file"  << endl;
+        cout << " Press 7 to go back to main menu"   << endl;
+        cout << " Press 8 to quit"                   << endl;
+        cout << " ================================"  << endl;
 
-       string input = " ";
-       int choice;
-       cin >> input;
-       clearScreen();
-       stringstream convert(input);
-       convert >> choice;
-       onlyTakeOneInput();
+        string input = " ";
+        int choice;
+        cin >> input;
+        clearScreen();
+        stringstream convert(input);
+        convert >> choice;
+        onlyTakeOneInput();
 
-            switch (choice)
-            {
-                case 1:
-                {
-                    listScientistData();
-                    break;
-                }
-                case 2:
-                {
-                    searchScientist();
-                    break;
-                }
-                case 3:
-                {
-                    addScientist();
-                    break;
-                }
-                case 4:
-                {
-                    deleteScientist();
-                    break;
-                }
-                case 5:
-                {
-                    updateScientist();
-                    break;
-                }
-                case 6:
-                {
-                    saveScientistsToFile();
-                    break;
-                }
-                case 7:
-                {
-                    run = false;
-                    break;
-                }
-                case 8:
-                {
-                    exit(0);
-                    break;
-                }
-                default:
-                {
-                    cout << "Error! Invalid input" << endl;
-                }
-            }
+        switch (choice)
+        {
+        case 1:
+        {
+            listScientistData();
+            break;
+        }
+        case 2:
+        {
+            searchScientist();
+            break;
+        }
+        case 3:
+        {
+            addScientist();
+            break;
+        }
+        case 4:
+        {
+            deleteScientist();
+            break;
+        }
+        case 5:
+        {
+            updateScientist();
+            break;
+        }
+        case 6:
+        {
+            saveScientistsToFile();
+            break;
+        }
+        case 7:
+        {
+            run = false;
+            break;
+        }
+        case 8:
+        {
+            exit(0);
+            break;
+        }
+        default:
+        {
+            cout << "Error! Invalid input" << endl;
+        }
+        }
     }
 }
 
@@ -250,41 +250,41 @@ void ConsoleUI::searchScientist()
 
         switch(choice)
         {
-            case 1:
-            {
-                searchScientistByName();
-                error = false;
-                break;
-            }
-            case 2:
-            {
-                searchScientistByGender();
-                error = false;
-                break;
-            }
-            case 3:
-            {
-                searchScientistByBirthYear();
-                error = false;
-                break;
-            }
-            case 4:
-            {
-                searchScientistByYearRange();
-                error = false;
-                break;
-            }
+        case 1:
+        {
+            searchScientistByName();
+            error = false;
+            break;
+        }
+        case 2:
+        {
+            searchScientistByGender();
+            error = false;
+            break;
+        }
+        case 3:
+        {
+            searchScientistByBirthYear();
+            error = false;
+            break;
+        }
+        case 4:
+        {
+            searchScientistByYearRange();
+            error = false;
+            break;
+        }
 
-            case 5:
-            {
-                error = false;
-                break;
-            }
-            default:
-            {
-                cout << "Error! Invalid input" << endl;
-                error = true;
-            }
+        case 5:
+        {
+            error = false;
+            break;
+        }
+        default:
+        {
+            cout << "Error! Invalid input" << endl;
+            error = true;
+        }
         }
     }
     while (error);
@@ -463,29 +463,29 @@ void ConsoleUI::addScientist()
 
         switch (choice)
         {
-            case 1:
-            {
-                addScientistManually();
-                error = false;
-                break;
-            }
-            case 2:
-            {
-                addScientistsFromFile();
-                error = false;
-                break;
-            }
-            case 3:
-            {
-                error = false;
-                break;
-            }
-            default:
-            {
-                cout << "Error! Invalid input" << endl;
-                error = true;
-                break;
-            }
+        case 1:
+        {
+            addScientistManually();
+            error = false;
+            break;
+        }
+        case 2:
+        {
+            addScientistsFromFile();
+            error = false;
+            break;
+        }
+        case 3:
+        {
+            error = false;
+            break;
+        }
+        default:
+        {
+            cout << "Error! Invalid input" << endl;
+            error = true;
+            break;
+        }
         }
     }
     while (error);
@@ -501,7 +501,7 @@ void ConsoleUI::addScientistManually()
     int bY = 0, dY = 0;
     cout << "Type q and enter to cancel at any time" << endl;
     cout << "Enter name: ";
-    cin >> ws;    
+    cin >> ws;
 
     getline(cin,n);
 
@@ -534,8 +534,8 @@ void ConsoleUI::addScientistManually()
 
         if(g == 'q' || g == 'Q')
         {
-                cout << "Adding new scientist cancelled" << endl;
-                scientists();
+            cout << "Adding new scientist cancelled" << endl;
+            scientists();
         }
         else
         {
@@ -547,8 +547,8 @@ void ConsoleUI::addScientistManually()
                 onlyTakeOneInput();
                 if(g == 'q' || g == 'Q')
                 {
-                        cout << "Adding new scientist cancelled" << endl;
-                        scientists();
+                    cout << "Adding new scientist cancelled" << endl;
+                    scientists();
                 }
             }
             if (valid.genderCheck(g))
@@ -732,43 +732,43 @@ void ConsoleUI::updateScientist()
                 string input = " ";
                 int choice;
                 cin >> input;
-               clearScreen();
+                clearScreen();
                 stringstream convert(input);
                 convert >> choice;
                 onlyTakeOneInput();
 
                 switch(choice)
                 {
-                    case 1:
-                    {
-                        updateScientistValue(1, serve.listScientists()[v[0]].getName());
-                        break;
-                    }
-                    case 2:
-                    {
-                        updateScientistValue(2, serve.listScientists()[v[0]].getName());
-                        break;
-                    }
-                    case 3:
-                    {
-                        updateScientistValue(3, serve.listScientists()[v[0]].getName());
-                        break;
-                    }
-                    case 4:
-                    {
-                        updateScientistValue(4, serve.listScientists()[v[0]].getName());
-                        break;
-                    }
-                    case 5:
-                    {
-                        error = false;
-                        break;
-                    }
-                    default:
-                    {
-                        cout << "Error! Invalid input" << endl;
-                        error = true;
-                    }
+                case 1:
+                {
+                    updateScientistValue(1, serve.listScientists()[v[0]].getName());
+                    break;
+                }
+                case 2:
+                {
+                    updateScientistValue(2, serve.listScientists()[v[0]].getName());
+                    break;
+                }
+                case 3:
+                {
+                    updateScientistValue(3, serve.listScientists()[v[0]].getName());
+                    break;
+                }
+                case 4:
+                {
+                    updateScientistValue(4, serve.listScientists()[v[0]].getName());
+                    break;
+                }
+                case 5:
+                {
+                    error = false;
+                    break;
+                }
+                default:
+                {
+                    cout << "Error! Invalid input" << endl;
+                    error = true;
+                }
                 }
             }
             while (error);
@@ -1087,51 +1087,51 @@ void ConsoleUI::computers()
 
         switch (choice)
         {
-            case 1:
-            {
-                listComputerData();
-                break;
-            }
-            case 2:
-            {
-                searchComputer();
-                break;
-            }
-            case 3:
-            {
-                addComputers();
-                break;
-            }
-            case 4:
-            {
-                deleteComputer();
-                break;
-            }
-            case 5:
-            {
-                updateComputer();
-                break;
-            }
-            case 6:
-            {
-                saveComputersToFile();
-                break;
-            }
-            case 7:
-            {
-                run = false;
-                break;
-            }
-            case 8:
-            {
-                exit (0);
-                break;
-            }
+        case 1:
+        {
+            listComputerData();
+            break;
+        }
+        case 2:
+        {
+            searchComputer();
+            break;
+        }
+        case 3:
+        {
+            addComputers();
+            break;
+        }
+        case 4:
+        {
+            deleteComputer();
+            break;
+        }
+        case 5:
+        {
+            updateComputer();
+            break;
+        }
+        case 6:
+        {
+            saveComputersToFile();
+            break;
+        }
+        case 7:
+        {
+            run = false;
+            break;
+        }
+        case 8:
+        {
+            exit (0);
+            break;
+        }
 
-            default:
-            {
-               cout << "Error! Invalid input" << endl;
-            }
+        default:
+        {
+            cout << "Error! Invalid input" << endl;
+        }
         }
     }
 }
@@ -1243,39 +1243,39 @@ void ConsoleUI::searchComputer()
 
         switch(choice)
         {
-            case 1:
-            {
-                searchComputerByName();
-                error = false;
-                break;
-            }
-            case 2:
-            {
-                searchComputerByYearMade();
-                error = false;
-                break;
-            }
-            case 3:
-            {
-                searchComputerByYearRange();
-                error = false;
-                break;
-            }
-            case 4:
-            {
-                searchComputerByType();
-                break;
-            }
-            case 5:
-            {
-                error = false;
-                break;
-            }
-            default:
-            {
-                cout << "Error! Invalid input" << endl;
-                error = true;
-            }
+        case 1:
+        {
+            searchComputerByName();
+            error = false;
+            break;
+        }
+        case 2:
+        {
+            searchComputerByYearMade();
+            error = false;
+            break;
+        }
+        case 3:
+        {
+            searchComputerByYearRange();
+            error = false;
+            break;
+        }
+        case 4:
+        {
+            searchComputerByType();
+            break;
+        }
+        case 5:
+        {
+            error = false;
+            break;
+        }
+        default:
+        {
+            cout << "Error! Invalid input" << endl;
+            error = true;
+        }
         }
     }
     while (error);
@@ -1485,9 +1485,9 @@ void ConsoleUI::addComputerManually()
 
         }
         if(!isupper(n[0]))                                          //Converts lower case letter to upper case if first is lower case
-         {
+        {
             n[0] = toupper(n[0]);
-         }
+        }
         if (valid.validComputerName(n))
         {
             cout << "Enter build year: ";
@@ -1539,9 +1539,9 @@ void ConsoleUI::addComputerManually()
 
                         }
                         if(!isupper(t[0]))                                          //Converts lower case letter to upper case if first is lower case
-                         {
+                        {
                             t[0] = toupper(t[0]);
-                         }
+                        }
 
                     }
 
@@ -1698,36 +1698,36 @@ void ConsoleUI::updateComputer()
             {
                 switch(choice)
                 {
-                    case 1:
-                    {
-                        updateComputerValue(1, serve.listComputers()[v[0]].getComputerName());
-                        break;
-                    }
-                    case 2:
-                    {
-                        updateComputerValue(2, serve.listComputers()[v[0]].getComputerName());
-                        break;
-                    }
-                    case 3:
-                    {
-                        updateComputerValue(3, serve.listComputers()[v[0]].getComputerName());
-                        break;
-                    }
-                    case 4:
-                    {
-                        updateComputerValue(4, serve.listComputers()[v[0]].getComputerName());
-                        break;
-                    }
-                    case 5:
-                    {
-                        error = false;
-                        break;
-                    }
-                    default:
-                    {
-                        cout << "Error! Invalid input" << endl;
-                        error = true;
-                    }
+                case 1:
+                {
+                    updateComputerValue(1, serve.listComputers()[v[0]].getComputerName());
+                    break;
+                }
+                case 2:
+                {
+                    updateComputerValue(2, serve.listComputers()[v[0]].getComputerName());
+                    break;
+                }
+                case 3:
+                {
+                    updateComputerValue(3, serve.listComputers()[v[0]].getComputerName());
+                    break;
+                }
+                case 4:
+                {
+                    updateComputerValue(4, serve.listComputers()[v[0]].getComputerName());
+                    break;
+                }
+                case 5:
+                {
+                    error = false;
+                    break;
+                }
+                default:
+                {
+                    cout << "Error! Invalid input" << endl;
+                    error = true;
+                }
                 }
             }
             while (error);
@@ -2046,48 +2046,48 @@ void ConsoleUI::associations()
         onlyTakeOneInput();
 
         switch (choice)
-           {
-           case 1:
-           {
-               listAssociationData();
-               break;
-           }
-           case 2:
-           {
-               searchAssociation();
-               break;
-           }
-           case 3:
-           {
-               addAssociation();
-               break;
-           }
-           case 4:
-           {
-               deleteAssociation();
-               break;
-           }
-           case 5:
-           {
-               saveAssocToFile();
-               break;
-           }
-           case 6:
-           {
-                run = false;
-                break;
-           }
-           case 7:
-           {
-                exit (0);
-                break;
-           }
+        {
+        case 1:
+        {
+            listAssociationData();
+            break;
+        }
+        case 2:
+        {
+            searchAssociation();
+            break;
+        }
+        case 3:
+        {
+            addAssociation();
+            break;
+        }
+        case 4:
+        {
+            deleteAssociation();
+            break;
+        }
+        case 5:
+        {
+            saveAssocToFile();
+            break;
+        }
+        case 6:
+        {
+            run = false;
+            break;
+        }
+        case 7:
+        {
+            exit (0);
+            break;
+        }
 
-           default:
-           {
-               cout << "Error! Invalid input" << endl;
-           }
-           }
+        default:
+        {
+            cout << "Error! Invalid input" << endl;
+        }
+        }
     }
 }
 
@@ -2200,45 +2200,45 @@ void ConsoleUI::searchAssociation()
 
         switch(choice)
         {
-            case 1:
-            {
-                searchAssocBySciName();
-                error = false;
-                break;
-            }
-            case 2:
-            {
-                searchAssocByCompName();
-                error = false;
-                break;
-            }
-            case 3:
-            {
-                searchAssocByYear();
-                error = false;
-                break;
-            }
-            case 4:
-            {
-                searchAssocByYearRange();
-                error = false;
-                break;
-            }
-            case 5:
-            {
-                searchAssocByCompType();
-                break;
-            }
-            case 6:
-            {
-                error = false;
-                break;
-            }
-            default:
-            {
-                cout << "Error! Invalid input" << endl;
-                error = true;
-            }
+        case 1:
+        {
+            searchAssocBySciName();
+            error = false;
+            break;
+        }
+        case 2:
+        {
+            searchAssocByCompName();
+            error = false;
+            break;
+        }
+        case 3:
+        {
+            searchAssocByYear();
+            error = false;
+            break;
+        }
+        case 4:
+        {
+            searchAssocByYearRange();
+            error = false;
+            break;
+        }
+        case 5:
+        {
+            searchAssocByCompType();
+            break;
+        }
+        case 6:
+        {
+            error = false;
+            break;
+        }
+        default:
+        {
+            cout << "Error! Invalid input" << endl;
+            error = true;
+        }
         }
     }
     while (error);
@@ -2612,11 +2612,11 @@ void ConsoleUI::printAssocLine()
 //clears the screen.
 void ConsoleUI:: clearScreen()
 {
-    #ifdef __cplusplus__
-      #include <cstdlib>
-    #else
-      #include <stdlib.h>
-    #endif
+#ifdef __cplusplus__
+#include <cstdlib>
+#else
+#include <stdlib.h>
+#endif
 
     if (system("CLS")) system("clear");
 }
@@ -2642,6 +2642,6 @@ bool ConsoleUI::check()
     }
     else
     {
-       return false;
+        return false;
     }
 }
