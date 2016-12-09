@@ -589,8 +589,11 @@ void ConsoleUI::addScientistManually()
                         }
                         else
                         {
+                            int x = serve.listScientists().size();
                             Persons p(n, g, bY, dY);                                                //adds new scientist to database, if it is not already there
-                            if (serve.addScientist(p))
+                            serve.addScientist(p);
+                            int y = serve.listScientists().size();
+                            if (x != y)
                             {
                                 cout << "Scientist added" << endl;
                             }
@@ -1585,7 +1588,7 @@ void ConsoleUI::updateComputer()
             cout << serve.listComputers()[v[i]];
         }
         cout << endl;
-        cout << "To many results, please narrow your search!" << endl;
+        cout << "Too many results, please narrow your search!" << endl;
         updateComputer();
     }
     else if (s < 1)
